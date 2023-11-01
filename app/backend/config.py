@@ -8,6 +8,7 @@ class Config:
     DEBUG = False
     DEVELOPMENT = False
     SQLALCHEMY_DATABASE_URI = os.environ["DATABASE_URI"]
+    MIGRATIONS_DIR = os.environ["MIGRATIONS_DIR"]
 
 
 class ProductionConfig(Config):

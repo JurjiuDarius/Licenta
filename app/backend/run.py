@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
-from flask_sqlalchemy import SQLAlchemy
 from app.blueprints.home.home import home_api
+from flask_migrate import Migrate
+from database import db
 import os
 
 
@@ -9,13 +10,20 @@ def create_app():
 
     env_config = os.getenv("APP_SETTINGS", "config.DevelopmentConfig")
     app.config.from_object(env_config)
-
+    db.init_app(app)
     app.register_blueprint(home_api, url_prefix="/api-home")
-    db = SQLAlchemy(app)
-    return app, db
+
+    return app
 
 
-app, db = create_app()
+import app.models
+
+app = create_app()
+migrate = Migrate(
+    app,
+    db,
+    directory=app.config.get("MIGRATIONS_DIR", "./migrations"),
+)
 
 if __name__ == "__main__":
     from argparse import ArgumentParser
