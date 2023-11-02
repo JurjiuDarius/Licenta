@@ -40,6 +40,10 @@ class Patient(db.Model):
 
     images = db.relationship("ImageUpload", back_populates="patient")
 
+    appointments = db.relationship("Appointment", back_populates="patient")
+
+    diagnostics = db.relationship("Diagnostic", back_populates="patient")
+
     email = db.Column(db.String(128))
 
     password = db.Column(db.String(258), default=0)
@@ -67,6 +71,10 @@ class Doctor(db.Model):
     first_name = db.Column(db.String(128))
 
     last_name = db.Column(db.String(128))
+
+    appointments = db.relationship("Appointment", back_populates="doctor")
+
+    diagnostics = db.relationship("Diagnostic", back_populates="doctor")
 
     city = db.Column(db.String(128))
 
