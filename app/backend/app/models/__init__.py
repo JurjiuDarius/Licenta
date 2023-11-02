@@ -1,1 +1,2 @@
-from .User import User
+from .user import *
+from .diagnostic import *

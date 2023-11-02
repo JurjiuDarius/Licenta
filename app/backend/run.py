@@ -24,6 +24,7 @@ migrate = Migrate(
     db,
     directory=app.config.get("MIGRATIONS_DIR", "./migrations"),
 )
+migrate.init_app(app, db)
 
 if __name__ == "__main__":
     from argparse import ArgumentParser
