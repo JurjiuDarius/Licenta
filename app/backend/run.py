@@ -16,7 +16,7 @@ def create_app():
     return app
 
 
-import app.models
+import app.model
 
 app = create_app()
 migrate = Migrate(
