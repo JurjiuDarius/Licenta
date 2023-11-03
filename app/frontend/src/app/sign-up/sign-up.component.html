@@ -1,0 +1,71 @@
+<div class="signup-container">
+  <mat-card class="mat-card-class">
+    <mat-card-title>Sign Up</mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" formControlName="email" required />
+          <mat-error *ngIf="signupForm.controls['email'].hasError('required')">
+            Email is required
+          </mat-error>
+          <mat-error *ngIf="signupForm.controls['email'].hasError('email')">
+            Please enter a valid email
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            type="password"
+            formControlName="password"
+            required
+            minlength="8"
+          />
+          <mat-error
+            *ngIf="signupForm.controls['password'].hasError('required')"
+          >
+            Password is required
+          </mat-error>
+          <mat-error
+            *ngIf="signupForm.controls['password'].hasError('minlength')"
+          >
+            Password must be at least 8 characters long
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Confirm Password</mat-label>
+          <input
+            matInput
+            type="password"
+            formControlName="confirmPassword"
+            required
+            minlength="8"
+          />
+          <mat-error
+            *ngIf="signupForm.controls['confirmPassword'].hasError('required')"
+          >
+            Confirm password is required
+          </mat-error>
+          <mat-error
+            *ngIf="signupForm.controls['confirmPassword'].hasError('minlength')"
+          >
+            Password must be at least 8 characters long
+          </mat-error>
+          <mat-error *ngIf="signupForm.hasError('mismatch')">
+            Passwords do not match
+          </mat-error>
+        </mat-form-field>
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="signupForm.invalid"
+        >
+          Sign Up
+        </button>
+      </form>
+      
+    </mat-card-content>
+  </mat-card>
+</div>
