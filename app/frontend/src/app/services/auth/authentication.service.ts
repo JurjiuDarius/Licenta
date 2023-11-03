@@ -3,23 +3,25 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-
+import { User } from 'src/app/models/user';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthenticationService {
   private apiUrl = environment.apiURL;
-  private currentUser: any;
+  private currentUser: User | null = null;
 
   constructor(private http: HttpClient) {}
 
-  public logIn(username: string, password: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, { username, password }).pipe(
-      tap((response: any) => {
-        this.currentUser = response.user;
-        this.setToken(response.token);
-      })
-    );
+  public logIn(email: string, password: string, role: string): Observable<any> {
+    return this.http
+      .post(`${this.apiUrl}/login`, { email, password, role })
+      .pipe(
+        tap((response: any) => {
+          this.currentUser = response.user;
+          this.setToken(response.token);
+        })
+      );
   }
 
   public logOut(): void {
@@ -27,17 +29,8 @@ export class AuthenticationService {
     this.removeToken();
   }
 
-  public signIn(username: string, password: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/signup`, { username, password }).pipe(
-      tap((response: any) => {
-        this.currentUser = response.user;
-        this.setToken(response.token);
-      })
-    );
-  }
-
-  public signUp(username: string, password: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/signup`, { username, password }).pipe(
+  public signUp(user: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/signup`, { user }).pipe(
       tap((response: any) => {
         this.currentUser = response.user;
         this.setToken(response.token);

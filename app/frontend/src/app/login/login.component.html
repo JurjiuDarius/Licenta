@@ -33,6 +33,11 @@
             Password must be at least 8 characters long
           </mat-error>
         </mat-form-field>
+        <mat-radio-group formControlName="role">
+          How will you be using the app?
+          <mat-radio-button value="patient">Patient</mat-radio-button>
+          <mat-radio-button value="doctor">Doctor</mat-radio-button>
+        </mat-radio-group>
         <button
           mat-raised-button
           color="primary"

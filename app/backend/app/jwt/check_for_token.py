@@ -14,7 +14,7 @@ SECRET_KEY = os.env["SECRET_JWT_KEY"]
 def check_authorization(f, role):
     @wraps(f)
     def decorated(*args, **kwargs):
-        token = request.headers.get("Authorization")
+        token = request.cookies.get("Authorization")
         if not token:
             return jsonify({"message": "Token is missing!"}), 401
         try:

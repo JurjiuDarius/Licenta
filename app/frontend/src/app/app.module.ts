@@ -13,7 +13,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { MatButtonModule } from '@angular/material/button';
 import { SignUpComponent } from './sign-up/sign-up.component';
-
+import { HttpClientModule } from '@angular/common/http';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
 @NgModule({
   declarations: [AppComponent, LoginComponent, SignUpComponent],
   imports: [
@@ -23,12 +27,17 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     MatCardModule,
     FormsModule,
     MatFormFieldModule,
+    MatCheckboxModule,
     ReactiveFormsModule,
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
+    MatRadioModule,
+    HttpClientModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
-  providers: [],
+  providers: [MatDatepickerModule],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
