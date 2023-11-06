@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv()
-SECRET_KEY = os.env["SECRET_JWT_KEY"]
+SECRET_KEY = os.environ.get("SECRET_JWT_KEY", "secret")
 
 
 def check_authorization(f, role):

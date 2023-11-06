@@ -1,7 +1,8 @@
 from flask import Flask, request, jsonify
-from app.blueprints.home.home import home_api
+from app.controller.login import login_bp
 from flask_migrate import Migrate
 from database import db
+from flask_cors import CORS
 import os
 
 
@@ -11,7 +12,8 @@ def create_app():
     env_config = os.getenv("APP_SETTINGS", "config.DevelopmentConfig")
     app.config.from_object(env_config)
     db.init_app(app)
-    app.register_blueprint(home_api, url_prefix="/api-home")
+    app.register_blueprint(login_bp)
+    CORS(app)
 
     return app
 

@@ -18,19 +18,20 @@ def login(email, password, role):
     hashed_password = hashlib.sha256(password.encode()).hexdigest()
     if not hashed_password == user.password:
         return {"message": "Incorrect password!"}, 401
-    token = create_token(user.id, user.role)
-    return token, 200
+    token = create_token(user.id, role)
+    return {"token": token, "user": user.serialize()}, 200
 
 
-def sign_in(email, password, name, phone_number, city, birth_date):
+def sign_up(email, first_name, last_name, password, phone_number, city, birth_date):
     hashed_password = hashlib.sha256(password.encode()).hexdigest()
     user = Patient.query.filter_by(email=email).first()
     if user:
         return {"message": "User already exists!"}, 409
     new_user = Patient(
+        first_name=first_name,
+        last_name=last_name,
         email=email,
         password=hashed_password,
-        name=name,
         phone_number=phone_number,
         city=city,
         birth_date=birth_date,

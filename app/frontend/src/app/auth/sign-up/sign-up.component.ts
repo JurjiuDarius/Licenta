@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../services/auth/authentication.service';
-import { User } from '../models/user';
+import { AuthenticationService } from '../service/authentication.service';
+import { User } from '../../models/user';
 @Component({
   selector: 'app-signup',
   templateUrl: './sign-up.component.html',

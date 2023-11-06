@@ -1,10 +1,7 @@
 import { Component } from '@angular/core';
-
 @Component({
   selector: 'app-appointments',
   templateUrl: './appointments.component.html',
-  styleUrls: ['./appointments.component.sass']
+  styleUrls: ['./appointments.component.sass'],
 })
-export class AppointmentsComponent {
-
-}
+export class AppointmentsComponent {}
