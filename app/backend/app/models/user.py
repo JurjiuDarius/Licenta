@@ -1,16 +1,18 @@
 from database import db
 from sqlalchemy import DateTime
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.orm import relationship, Mapped, mapped_column
 import datetime
 
 
 # class User(db.Model):
-#     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+#     id = Column(Integer, primary_key=True, autoincrement=True)
 
-#     email = db.Column(db.String(128))
+#     email = Column(String(128))
 
-#     password = db.Column(db.String(258), default=0)
+#     password = Column(String(258), default=0)
 
-#     date_created = db.Column(DateTime, default=datetime.datetime.utcnow)
+#     date_created = Column(DateTime, default=datetime.datetime.utcnow)
 
 #     type: Mapped[str]
 
@@ -26,27 +28,29 @@ import datetime
 
 
 class Patient(db.Model):
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    __tablename__ = "patient"
 
-    first_name = db.Column(db.String(128))
+    id = Column(Integer, primary_key=True, autoincrement=True)
 
-    last_name = db.Column(db.String(128))
+    first_name = Column(String(128))
 
-    city = db.Column(db.String(128))
+    last_name = Column(String(128))
 
-    birth_date = db.Column(DateTime, default=datetime.datetime.utcnow)
+    city = Column(String(128))
 
-    images = db.relationship("ImageUpload", back_populates="patient")
+    birth_date = Column(DateTime, default=datetime.datetime.utcnow)
 
-    appointments = db.relationship("Appointment", back_populates="patient")
+    images = relationship("ImageUpload", back_populates="patient")
 
-    diagnostics = db.relationship("Diagnostic", back_populates="patient")
+    appointments = relationship("Appointment", back_populates="patient")
 
-    email = db.Column(db.String(128))
+    diagnostics = relationship("Diagnostic", back_populates="patient")
 
-    password = db.Column(db.String(258), default=0)
+    email = Column(String(128))
 
-    date_created = db.Column(DateTime, default=datetime.datetime.utcnow)
+    password = Column(String(258), default=0)
+
+    date_created = Column(DateTime, default=datetime.datetime.utcnow)
 
     def __init__(
         self,
@@ -82,27 +86,33 @@ class Patient(db.Model):
 
 
 class Doctor(db.Model):
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    __tablename__ = "doctor"
 
-    first_name = db.Column(db.String(128))
+    id = Column(Integer, primary_key=True, autoincrement=True)
 
-    last_name = db.Column(db.String(128))
+    first_name = Column(String(128))
 
-    appointments = db.relationship("Appointment", back_populates="doctor")
+    last_name = Column(String(128))
 
-    diagnostics = db.relationship("Diagnostic", back_populates="doctor")
+    appointments = relationship("Appointment", back_populates="doctor")
 
-    city = db.Column(db.String(128))
+    diagnostics = relationship("Diagnostic", back_populates="doctor")
 
-    birth_date = db.Column(DateTime, default=datetime.datetime.utcnow)
+    city = Column(String(128))
 
-    education = db.Column(db.String(128))
+    birth_date = Column(DateTime, default=datetime.datetime.utcnow)
 
-    email = db.Column(db.String(128))
+    education = Column(String(128))
 
-    password = db.Column(db.String(258), default=0)
+    clinics = relationship(
+        "Clinic", secondary="clinic_doctor", back_populates="doctors"
+    )
 
-    date_created = db.Column(DateTime, default=datetime.datetime.utcnow)
+    email = Column(String(128))
+
+    password = Column(String(258), default=0)
+
+    date_created = Column(DateTime, default=datetime.datetime.utcnow)
 
     def __init__(
         self,
@@ -139,15 +149,15 @@ class Doctor(db.Model):
 
 
 class Admin(db.Model):
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
 
-    username = db.Column(db.String(128))
+    username = Column(String(128))
 
-    email = db.Column(db.String(128))
+    email = Column(String(128))
 
-    password = db.Column(db.String(258), default=0)
+    password = Column(String(258), default=0)
 
-    date_created = db.Column(DateTime, default=datetime.datetime.utcnow)
+    date_created = Column(DateTime, default=datetime.datetime.utcnow)
 
     def __init__(self, username=None):
         self.username = username

@@ -27,6 +27,8 @@ class ImageUpload(db.Model):
 class Appointment(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 
+    requirements = db.Column(db.String(1000))
+
     patient_id = db.Column(db.Integer, db.ForeignKey("patient.id"))
 
     patient = db.relationship("Patient", back_populates="appointments")
@@ -40,6 +42,8 @@ class Appointment(db.Model):
     start_time = db.Column(DateTime)
 
     end_time = db.Column(DateTime)
+
+    requires_upload = db.Column(db.Boolean, default=False)
 
     def __init__(
         self,

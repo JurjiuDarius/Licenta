@@ -1,6 +1,6 @@
 import hashlib
-from app.model.user import Patient, Doctor, Admin
-from app.jwt.check_for_token import create_token
+from app.models.user import Patient, Doctor, Admin
+from app.utils.jwt import create_token
 from database import db
 
 

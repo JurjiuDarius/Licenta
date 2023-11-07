@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from app.controller.login import login_bp
+from app.controller import blueprints
 from flask_migrate import Migrate
 from database import db
 from flask_cors import CORS
@@ -12,13 +12,14 @@ def create_app():
     env_config = os.getenv("APP_SETTINGS", "config.DevelopmentConfig")
     app.config.from_object(env_config)
     db.init_app(app)
-    app.register_blueprint(login_bp)
+    for bp in blueprints:
+        app.register_blueprint(bp)
     CORS(app)
 
     return app
 
 
-import app.model
+import app.models
 
 app = create_app()
 migrate = Migrate(
