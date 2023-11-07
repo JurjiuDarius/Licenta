@@ -9,6 +9,13 @@ def get_all_appointments():
     return Appointment.query.all()
 
 
+def get_appointment_by_id(appointment_id):
+    """
+    Returns the appointment with the given id.
+    """
+    return Appointment.query.get(appointment_id)
+
+
 def add_appointment(appointment):
     """
     Adds a new appointment to the database.

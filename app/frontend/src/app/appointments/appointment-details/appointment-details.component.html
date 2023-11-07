@@ -1,0 +1,72 @@
+<div class="signup-container">
+  <mat-card class="mat-card-class">
+    <mat-card-title>Sign Up</mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="outline">
+          <mat-label>Title</mat-label>
+          <input matInput type="text" formControlName="title" required />
+          <mat-error *ngIf="form.controls['title'].hasError('required')">
+            Tile is required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Requirements</mat-label>
+          <input matInput type="text" formControlName="requirements" required />
+          <mat-error *ngIf="form.controls['requirements'].hasError('required')">
+            Requirements are required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Address</mat-label>
+          <input matInput type="text" formControlName="address" required />
+          <mat-error *ngIf="form.controls['address'].hasError('required')">
+            Address is required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Start Time</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            formControlName="startTime"
+            required
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="form.controls['startTime'].hasError('required')">
+            Start time is required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>End Time</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker2"
+            formControlName="endTime"
+            required
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker2"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+          <mat-error *ngIf="form.controls['endTime'].hasError('required')">
+            End time is required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-checkbox formControlName="requiresUpload"
+          >Requires Upload</mat-checkbox
+        >
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

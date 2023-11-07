@@ -1,9 +1,8 @@
-import { Time } from '@angular/common';
-
-interface Appointment {
+export interface Appointment {
   id: number;
   title: string;
   requirements: string;
+  address: string;
   startTime: Date;
   endTime: Date;
   dateCreated: Date;

@@ -1,1 +1,29 @@
-<p>appointments works!</p>
+<table>
+  <thead>
+    <tr>
+      <th>Address</th>
+      <th>Start Time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let appointment of appointments">
+      <tr>
+        <td>
+          <mat-card
+            (click)="goToDetails(appointment.id)"
+            class="appointment-card"
+          >
+            <mat-card-content>
+              <div class="appointment-info">
+                <div class="appointment-address">{{ appointment.address }}</div>
+                <div class="appointment-start-time">
+                  {{ appointment.startTime }}
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>
