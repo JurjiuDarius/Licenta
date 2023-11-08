@@ -1,36 +1,36 @@
 from database import db
 from sqlalchemy import DateTime
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship, Mapped, mapped_column
 import datetime
 
 
-# class User(db.Model):
-#     id = Column(Integer, primary_key=True, autoincrement=True)
+class User(db.Model):
+    id = mapped_column(Integer, primary_key=True, autoincrement=True)
 
-#     email = Column(String(128))
+    email = Column(String(128))
 
-#     password = Column(String(258), default=0)
+    password = Column(String(258), default=0)
 
-#     date_created = Column(DateTime, default=datetime.datetime.utcnow)
+    date_created = Column(DateTime, default=datetime.datetime.utcnow)
 
-#     type: Mapped[str]
+    type: Mapped[str]
 
-#     __mapper_args__ = {
-#         "polymorphic_identity": "user",
-#         "polymorphic_on": "type",
-#     }
+    __mapper_args__ = {
+        "polymorphic_identity": "user",
+        "polymorphic_on": "type",
+    }
 
-#     def __init__(self, email=None, name=None, date_created=None):
-#         self.email = email
-#         self.name = name
-#         self.date_created = date_created
+    def __init__(self, email=None, password=None, date_created=None):
+        self.date_created = date_created
+        self.email = email
+        self.password = password
 
 
-class Patient(db.Model):
+class Patient(User):
     __tablename__ = "patient"
 
-    id = Column(Integer, primary_key=True, autoincrement=True)
+    id = mapped_column(ForeignKey("user.id"), primary_key=True)
 
     first_name = Column(String(128))
 
@@ -46,11 +46,9 @@ class Patient(db.Model):
 
     diagnostics = relationship("Diagnostic", back_populates="patient")
 
-    email = Column(String(128))
-
-    password = Column(String(258), default=0)
-
-    date_created = Column(DateTime, default=datetime.datetime.utcnow)
+    __mapper_args__ = {
+        "polymorphic_identity": "patient",
+    }
 
     def __init__(
         self,
@@ -63,14 +61,12 @@ class Patient(db.Model):
         password=None,
         date_created=None,
     ):
+        super().__init__(email, password, date_created)
         self.first_name = first_name
         self.last_name = last_name
         self.phone_number = phone_number
         self.city = city
         self.birth_date = birth_date
-        self.email = email
-        self.password = password
-        self.date_created = date_created
 
     def serialize(self):
         return {
@@ -85,10 +81,10 @@ class Patient(db.Model):
         }
 
 
-class Doctor(db.Model):
+class Doctor(User):
     __tablename__ = "doctor"
 
-    id = Column(Integer, primary_key=True, autoincrement=True)
+    id = mapped_column(ForeignKey("user.id"), primary_key=True)
 
     first_name = Column(String(128))
 
@@ -108,11 +104,9 @@ class Doctor(db.Model):
         "Clinic", secondary="clinic_doctor", back_populates="doctors"
     )
 
-    email = Column(String(128))
-
-    password = Column(String(258), default=0)
-
-    date_created = Column(DateTime, default=datetime.datetime.utcnow)
+    __mapper_args__ = {
+        "polymorphic_identity": "doctor",
+    }
 
     def __init__(
         self,
@@ -125,14 +119,12 @@ class Doctor(db.Model):
         password=None,
         date_created=None,
     ):
+        super().__init__(email, password, date_created)
         self.first_name = first_name
         self.last_name = last_name
         self.city = city
         self.birth_date = birth_date
         self.education = education
-        self.email = email
-        self.password = password
-        self.date_created = date_created
 
     def serialize(self):
         return {
