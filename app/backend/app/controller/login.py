@@ -16,6 +16,7 @@ def login_endpoint():
 @login_bp.route("/signup", methods=["POST"])
 def sign_up_endpoint():
     user = request.json.get("user")
+    role = request.json.get("role")
     password = user.get("password")
     first_name = user.get("firstName")
     last_name = user.get("lastName")
@@ -23,7 +24,16 @@ def sign_up_endpoint():
     phone_number = user.get("phoneNumber")
     city = user.get("city")
     birth_date = user.get("birthDate")
+    education = user.get("education")
     response, status_code = sign_up(
-        email, first_name, last_name, password, phone_number, city, birth_date
+        email,
+        first_name,
+        last_name,
+        password,
+        phone_number,
+        city,
+        birth_date,
+        education,
+        role,
     )
     return jsonify(response), status_code

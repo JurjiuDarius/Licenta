@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../service/authentication.service';
+import { catchError } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -32,11 +33,15 @@ export class LoginComponent {
           this.loginForm.get('password')?.value,
           this.loginForm.get('role')?.value
         )
-        .subscribe(() => {
-          this.router.navigate(['/appointments']);
-        });
-    } else {
-      console.log('Invalid form');
+        .subscribe(
+          () => {
+            this.router.navigate(['/appointments']);
+          },
+          (error) => {
+            this.errorCode = error.status;
+            this.errorMessage = error.error.message;
+          }
+        );
     }
   }
 }

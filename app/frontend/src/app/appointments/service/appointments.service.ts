@@ -1,25 +1,26 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AppointmentsService {
-  private readonly API_URL = 'http://localhost:3000/appointments';
+  private apiUrl = environment.apiURL;
 
   constructor(private http: HttpClient) {}
 
   getAllAppointments(): Observable<any> {
-    return this.http.get(this.API_URL + '/appointments');
+    return this.http.get(this.apiUrl + '/appointments');
   }
 
   getAppointmentById(id: number): Observable<any> {
-    return this.http.get(`${this.API_URL + '/appointments'}/${id}`);
+    return this.http.get(`${this.apiUrl + '/appointments'}/${id}`);
   }
 
   createAppointment(appointment: any): Observable<any> {
-    return this.http.post(this.API_URL + '/appointments', appointment);
+    return this.http.post(this.apiUrl + '/appointments', appointment);
   }
 
   updateAppointment(id: number | undefined, appointment: any): Observable<any> {
@@ -27,13 +28,10 @@ export class AppointmentsService {
       console.log('Id not defined!');
       return of('Id not defined!');
     }
-    return this.http.put(
-      `${this.API_URL + '/appointments'}/${id}`,
-      appointment
-    );
+    return this.http.put(`${this.apiUrl + '/appointments'}/${id}`, appointment);
   }
 
   deleteAppointment(id: number): Observable<any> {
-    return this.http.delete(`${this.API_URL + '/appointments'}/${id}`);
+    return this.http.delete(`${this.apiUrl + '/appointments'}/${id}`);
   }
 }

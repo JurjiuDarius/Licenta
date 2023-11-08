@@ -17,13 +17,11 @@ export class AppComponent {
       { label: 'Appointments', path: '/appointments' },
       { label: 'My Profile', path: '/profile' },
       { label: 'My Doctors', path: '/doctors' },
-      { label: 'Log Out', path: '/login' },
     ],
     doctor: [
       { label: 'Appointments', path: '/appointments' },
       { label: 'My Profile', path: '/profile' },
       { label: 'My Patients', path: '/doctors' },
-      { label: 'Log Out', path: '/login' },
     ],
     admin: [],
   };
@@ -33,16 +31,9 @@ export class AppComponent {
     private authService: AuthenticationService,
     private router: Router
   ) {
+    this.setToken();
     this.authService.getAuthChanges().subscribe((isAuthenticated) => {
-      const token = document.cookie
-        .split('; ')
-        .find((row) => row.startsWith('token='));
-      if (token) {
-        const tokenValue = token.split('=')[1];
-        const decodedToken = this.authService.decodeJWT(tokenValue);
-        this.currentRole = decodedToken.role;
-      }
-
+      this.setToken();
       if (this.currentRole != null) {
         this.navItems = this.navDictionary[this.currentRole];
       }
@@ -51,5 +42,20 @@ export class AppComponent {
   public logOut(): void {
     this.authService.logOut();
     this.router.navigate(['/login']);
+  }
+
+  private setToken() {
+    const token = document.cookie
+      .split('; ')
+      .find((row) => row.startsWith('token='));
+    console.log(token);
+    if (token) {
+      const tokenValue = token.split('=')[1];
+      const decodedToken = this.authService.decodeJWT(tokenValue);
+      console.log(decodedToken);
+      this.currentRole = decodedToken.role;
+    } else {
+      this.currentRole = null;
+    }
   }
 }

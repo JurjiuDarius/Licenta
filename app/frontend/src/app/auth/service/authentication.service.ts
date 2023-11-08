@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-import { User } from 'src/app/models/user';
 import * as jwt_decode from 'jwt-decode';
 @Injectable({
   providedIn: 'root',
@@ -24,17 +23,18 @@ export class AuthenticationService {
           this.authChanges.next(true);
           this.setToken(response.token);
           document.cookie = `role=${role}`;
+          this.authChanges.next(true);
         })
       );
   }
 
   public logOut(): void {
-    this.authChanges.next(false);
     this.removeToken();
+    this.authChanges.next(false);
   }
 
-  public signUp(user: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/auth/signup`, { user });
+  public signUp(user: any, role: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/auth/signup`, { user, role });
   }
 
   private setToken(token: string): void {

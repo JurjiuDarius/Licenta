@@ -1,14 +1,9 @@
-<!-- FILEPATH: /c:/Users/dariu/OneDrive/Desktop/Facultate/Licenta/Project/app/frontend/src/app/app.component.html -->
-<!-- BEGIN: 7f3a1c4c7b3c -->
 <mat-toolbar *ngIf="currentRole" color="primary">
   <span>My App</span>
   <span class="spacer"></span>
   <button mat-button *ngFor="let item of navItems" [routerLink]="[item.path]">
     {{ item.label }}
   </button>
+  <button mat-button *ngIf="currentRole" (click)="logOut()">Log out</button>
 </mat-toolbar>
 <router-outlet></router-outlet>
-<!-- END: 7f3a1c4c7b3c -->
-<button mat-button *ngIf="!currentUser" [routerLink]="['/login']">
-  Log in
-</button>

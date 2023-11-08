@@ -2,12 +2,16 @@
   <mat-card class="mat-card-class">
     <mat-card-title>Sign Up</mat-card-title>
     <mat-card-content>
-      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+      <form [formGroup]="currentForm" (ngSubmit)="onSubmit()">
+        <mat-radio-group (change)="updateRole($event.value)">
+          <mat-radio-button value="patient">Patient</mat-radio-button>
+          <mat-radio-button value="doctor">Doctor</mat-radio-button>
+        </mat-radio-group>
         <mat-form-field appearance="outline">
           <mat-label>First Name</mat-label>
           <input matInput type="text" formControlName="firstName" required />
           <mat-error
-            *ngIf="signupForm.controls['firstName'].hasError('required')"
+            *ngIf="currentForm.controls['firstName'].hasError('required')"
           >
             First name is required
           </mat-error>
@@ -16,7 +20,7 @@
           <mat-label>Last Name</mat-label>
           <input matInput type="text" formControlName="lastName" required />
           <mat-error
-            *ngIf="signupForm.controls['lastName'].hasError('required')"
+            *ngIf="currentForm.controls['lastName'].hasError('required')"
           >
             Last name is required
           </mat-error>
@@ -24,24 +28,33 @@
         <mat-form-field appearance="outline">
           <mat-label>Phone Number</mat-label>
           <input matInput type="tel" formControlName="phone" required />
-          <mat-error *ngIf="signupForm.controls['phone'].hasError('required')">
+          <mat-error *ngIf="currentForm.controls['phone'].hasError('required')">
             Phone number is required
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field *ngIf="role == 'doctor'" appearance="outline">
+          <mat-label>Education</mat-label>
+          <input matInput type="text" formControlName="education" required />
+          <mat-error
+            *ngIf="currentForm.controls['education'].hasError('required')"
+          >
+            Education is required
           </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>City</mat-label>
           <input matInput type="text" formControlName="city" required />
-          <mat-error *ngIf="signupForm.controls['city'].hasError('required')">
+          <mat-error *ngIf="currentForm.controls['city'].hasError('required')">
             City is required
           </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Email</mat-label>
           <input matInput type="email" formControlName="email" required />
-          <mat-error *ngIf="signupForm.controls['email'].hasError('required')">
+          <mat-error *ngIf="currentForm.controls['email'].hasError('required')">
             Email is required
           </mat-error>
-          <mat-error *ngIf="signupForm.controls['email'].hasError('email')">
+          <mat-error *ngIf="currentForm.controls['email'].hasError('email')">
             Please enter a valid email
           </mat-error>
         </mat-form-field>
@@ -65,12 +78,12 @@
             minlength="8"
           />
           <mat-error
-            *ngIf="signupForm.controls['password'].hasError('required')"
+            *ngIf="currentForm.controls['password'].hasError('required')"
           >
             Password is required
           </mat-error>
           <mat-error
-            *ngIf="signupForm.controls['password'].hasError('minlength')"
+            *ngIf="currentForm.controls['password'].hasError('minlength')"
           >
             Password must be at least 8 characters long
           </mat-error>
@@ -85,16 +98,18 @@
             minlength="8"
           />
           <mat-error
-            *ngIf="signupForm.controls['confirmPassword'].hasError('required')"
+            *ngIf="currentForm.controls['confirmPassword'].hasError('required')"
           >
             Confirm password is required
           </mat-error>
           <mat-error
-            *ngIf="signupForm.controls['confirmPassword'].hasError('minlength')"
+            *ngIf="
+              currentForm.controls['confirmPassword'].hasError('minlength')
+            "
           >
             Password must be at least 8 characters long
           </mat-error>
-          <mat-error *ngIf="signupForm.hasError('mismatch')">
+          <mat-error *ngIf="currentForm.hasError('mismatch')">
             Passwords do not match
           </mat-error>
         </mat-form-field>
@@ -102,7 +117,7 @@
           mat-raised-button
           color="primary"
           type="submit"
-          [disabled]="signupForm.invalid"
+          [disabled]="currentForm.invalid"
         >
           Sign Up
         </button>

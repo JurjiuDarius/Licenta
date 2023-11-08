@@ -1,10 +1,11 @@
 from flask import Flask, request, jsonify
-from app.controller import blueprints
+from app.controller import blueprints, login_manager
 from flask_migrate import Migrate
 from database import db
 from flask_cors import CORS
 from flask_admin import Admin
-from flask_admin.contrib.sqla import ModelView
+from flask_admin.menu import MenuLink
+from app.utils.secure_admin_view import SecureModelView, SecureIndexView
 import app.models as models
 import os
 
@@ -18,16 +19,27 @@ def create_app():
     for bp in blueprints:
         app.register_blueprint(bp)
     CORS(app)
-    admin = Admin(app, name="management", template_mode="bootstrap3", url="/dashboard")
+    login_manager.init_app(app)
+    admin = Admin(
+        app,
+        name="management",
+        template_mode="bootstrap3",
+        url="/dashboard",
+        index_view=SecureIndexView(name="Home", url="/dashboard"),
+    )
+    admin.add_link(MenuLink(name="Logout", category="", url="/administrator/logout"))
+
     for endpoint_name, table in models.admin_fields.items():
         admin.add_view(
-            ModelView(table, db.session, name=endpoint_name, url=endpoint_name)
+            SecureModelView(table, db.session, name=endpoint_name, url=endpoint_name)
         )
 
     return app
 
 
 app = create_app()
+
+
 migrate = Migrate(
     app,
     db,

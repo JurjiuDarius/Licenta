@@ -7,8 +7,13 @@ load_dotenv()
 class Config:
     DEBUG = False
     DEVELOPMENT = False
+    SECRET_KEY = os.environ["SECRET_KEY"]
     SQLALCHEMY_DATABASE_URI = os.environ["DATABASE_URI"]
     MIGRATIONS_DIR = os.environ["MIGRATIONS_DIR"]
+    BASIC_AUTH_USERNAME = os.environ["BASIC_AUTH_USERNAME"]
+    BASIC_AUTH_PASSWORD = os.environ["BASIC_AUTH_PASSWORD"]
+    BASIC_AUTH_REALM = ""
+    BASIC_AUTH_FORCE = True
 
 
 class ProductionConfig(Config):

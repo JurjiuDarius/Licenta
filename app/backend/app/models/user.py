@@ -3,6 +3,7 @@ from sqlalchemy import DateTime
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship, Mapped, mapped_column
 import datetime
+from flask_login import UserMixin
 
 
 class User(db.Model):
@@ -14,6 +15,8 @@ class User(db.Model):
 
     date_created = Column(DateTime, default=datetime.datetime.utcnow)
 
+    is_active = Column(db.Boolean, default=True)
+
     type: Mapped[str]
 
     __mapper_args__ = {
@@ -21,10 +24,14 @@ class User(db.Model):
         "polymorphic_on": "type",
     }
 
-    def __init__(self, email=None, password=None, date_created=None):
+    def __init__(self, email=None, password=None, date_created=None, is_active=None):
         self.date_created = date_created
         self.email = email
         self.password = password
+        self.is_active = is_active
+
+    def is_password_valid(self, password):
+        return self.password == password
 
 
 class Patient(User):
@@ -37,6 +44,8 @@ class Patient(User):
     last_name = Column(String(128))
 
     city = Column(String(128))
+
+    phone_number = Column(String(10))
 
     birth_date = Column(DateTime, default=datetime.datetime.utcnow)
 
@@ -59,9 +68,10 @@ class Patient(User):
         birth_date=None,
         email=None,
         password=None,
+        is_active=None,
         date_created=None,
     ):
-        super().__init__(email, password, date_created)
+        super().__init__(email, password, date_created, is_active)
         self.first_name = first_name
         self.last_name = last_name
         self.phone_number = phone_number
@@ -90,6 +100,8 @@ class Doctor(User):
 
     last_name = Column(String(128))
 
+    phone_number = Column(String(10))
+
     appointments = relationship("Appointment", back_populates="doctor")
 
     diagnostics = relationship("Diagnostic", back_populates="doctor")
@@ -112,14 +124,17 @@ class Doctor(User):
         self,
         first_name=None,
         last_name=None,
+        phone_number=None,
         city=None,
         birth_date=None,
         education=None,
         email=None,
         password=None,
+        is_active=None,
         date_created=None,
     ):
-        super().__init__(email, password, date_created)
+        super().__init__(email, password, date_created, is_active)
+        self.phone_number = phone_number
         self.first_name = first_name
         self.last_name = last_name
         self.city = city
@@ -140,16 +155,14 @@ class Doctor(User):
         }
 
 
-class Admin(db.Model):
-    id = Column(Integer, primary_key=True, autoincrement=True)
+class Admin(User, UserMixin):
+    id = mapped_column(ForeignKey("user.id"), primary_key=True)
 
     username = Column(String(128))
 
-    email = Column(String(128))
-
-    password = Column(String(258), default=0)
-
-    date_created = Column(DateTime, default=datetime.datetime.utcnow)
+    __mapper_args__ = {
+        "polymorphic_identity": "admin",
+    }
 
     def __init__(self, username=None):
         self.username = username
