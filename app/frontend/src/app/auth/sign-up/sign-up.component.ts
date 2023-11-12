@@ -5,7 +5,7 @@ import { AuthenticationService } from '../service/authentication.service';
 @Component({
   selector: 'app-signup',
   templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.css'],
+  styleUrls: ['./sign-up.component.sass'],
 })
 export class SignUpComponent {
   patientForm: FormGroup;

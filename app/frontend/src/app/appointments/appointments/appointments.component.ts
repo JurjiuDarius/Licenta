@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AppointmentsService } from '../service/appointments.service';
 import { AuthenticationService } from 'src/app/auth/service/authentication.service';
 import { Router } from '@angular/router';
-import {Appointment} from 'src/app/models/appointment';
+import { Appointment } from 'src/app/models/appointment';
 @Component({
   selector: 'app-appointments',
   templateUrl: './appointments.component.html',
@@ -44,5 +44,9 @@ export class AppointmentsComponent {
 
   public goToDetails(id: number): void {
     this.router.navigate(['/appointments', id]);
+  }
+
+  public addAppointment() {
+    this.router.navigate(['/appointments/new']);
   }
 }

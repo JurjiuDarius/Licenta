@@ -8,7 +8,9 @@ import { AppointmentDetailsComponent } from './appointment-details/appointment-d
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-
+import { MatInputModule } from '@angular/material/input';
+import { IgxTimePickerModule } from 'igniteui-angular';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 @NgModule({
   declarations: [AppointmentsComponent, AppointmentDetailsComponent],
   imports: [
@@ -17,7 +19,10 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatToolbarModule,
     MatCardModule,
     MatFormFieldModule,
+    MatInputModule,
     MatDatepickerModule,
+    MatCheckboxModule,
+    IgxTimePickerModule,
     ReactiveFormsModule,
   ],
 })

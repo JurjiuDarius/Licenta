@@ -1,11 +1,16 @@
-<div class="signup-container">
+<div class="form-container">
   <mat-card class="mat-card-class">
-    <mat-card-title>Sign Up</mat-card-title>
     <mat-card-content>
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <mat-form-field appearance="outline">
           <mat-label>Title</mat-label>
-          <input matInput type="text" formControlName="title" required />
+          <input
+            matInput
+            [readonly]="!isEditable"
+            type="text"
+            formControlName="title"
+            required
+          />
           <mat-error *ngIf="form.controls['title'].hasError('required')">
             Tile is required
           </mat-error>
@@ -13,7 +18,13 @@
 
         <mat-form-field appearance="outline">
           <mat-label>Requirements</mat-label>
-          <input matInput type="text" formControlName="requirements" required />
+          <input
+            matInput
+            [readonly]="!isEditable"
+            type="text"
+            formControlName="requirements"
+            required
+          />
           <mat-error *ngIf="form.controls['requirements'].hasError('required')">
             Requirements are required
           </mat-error>
@@ -21,18 +32,25 @@
 
         <mat-form-field appearance="outline">
           <mat-label>Address</mat-label>
-          <input matInput type="text" formControlName="address" required />
+          <input
+            matInput
+            [readonly]="!isEditable"
+            type="text"
+            formControlName="address"
+            required
+          />
           <mat-error *ngIf="form.controls['address'].hasError('required')">
             Address is required
           </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
-          <mat-label>Start Time</mat-label>
+          <mat-label>Date</mat-label>
           <input
             matInput
+            [readonly]="!isEditable"
             [matDatepicker]="picker"
-            formControlName="startTime"
+            formControlName="date"
             required
           />
           <mat-datepicker-toggle
@@ -40,32 +58,47 @@
             [for]="picker"
           ></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
-          <mat-error *ngIf="form.controls['startTime'].hasError('required')">
+          <mat-error *ngIf="form.controls['date'].hasError('required')">
+            Date is required
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Start Time</mat-label>
+          <input
+            matInput
+            [readonly]="!isEditable"
+            formControlName="startTime"
+            type="time"
+            required
+          />
+          <mat-error *ngIf="form.controls['endTime'].hasError('required')">
             Start time is required
           </mat-error>
         </mat-form-field>
-
-        <mat-form-field appearance="outline">
+        <mat-form-field>
           <mat-label>End Time</mat-label>
           <input
             matInput
-            [matDatepicker]="picker2"
+            [readonly]="!isEditable"
             formControlName="endTime"
+            type="time"
             required
           />
-          <mat-datepicker-toggle
-            matSuffix
-            [for]="picker2"
-          ></mat-datepicker-toggle>
-          <mat-datepicker #picker2></mat-datepicker>
           <mat-error *ngIf="form.controls['endTime'].hasError('required')">
             End time is required
           </mat-error>
         </mat-form-field>
 
-        <mat-checkbox formControlName="requiresUpload"
-          >Requires Upload</mat-checkbox
+        <mat-label>Requires Upload</mat-label>
+        <mat-checkbox formControlName="requiresUpload"> </mat-checkbox>
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="form.invalid"
         >
+          Create appointment
+        </button>
       </form>
     </mat-card-content>
   </mat-card>

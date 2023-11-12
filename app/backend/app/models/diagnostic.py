@@ -1,6 +1,6 @@
 from database import db
 import datetime
-from sqlalchemy import DateTime
+from sqlalchemy import DateTime, Date, Time
 
 
 class ImageUpload(db.Model):
@@ -39,9 +39,11 @@ class Appointment(db.Model):
 
     date_created = db.Column(DateTime, default=datetime.datetime.utcnow)
 
-    start_time = db.Column(DateTime)
+    date = db.Column(Date)
 
-    end_time = db.Column(DateTime)
+    start_time = db.Column(Time)
+
+    end_time = db.Column(Time)
 
     requires_upload = db.Column(db.Boolean, default=False)
 

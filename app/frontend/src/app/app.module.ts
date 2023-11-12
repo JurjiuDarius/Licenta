@@ -37,9 +37,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatToolbarModule,
     HttpClientModule,
     MatDatepickerModule,
-    MatNativeDateModule,
+    MatNativeDateModule
   ],
   providers: [MatDatepickerModule],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+}
