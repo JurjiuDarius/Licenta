@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, make_response
 from app.utils.jwt import check_authorization
 from ..models import Appointment
 from database import db
@@ -17,14 +17,16 @@ appointment_bp = Blueprint("appointment", __name__, url_prefix="/appointments")
 
 @appointment_bp.route("/", methods=["GET"])
 def get_appointments():
-    appointments = get_all_appointments()
-    return jsonify([appointment.to_dict() for appointment in appointments])
+    appointments, status_code = get_all_appointments()
+    return make_response(
+        jsonify([appointment for appointment in appointments]), status_code
+    )
 
 
 @appointment_bp.route("/<int:id>", methods=["GET"])
 def get_appointment(id):
     response, status_code = get_appointment_by_id(id)
-    return jsonify(response), status_code
+    return make_response(jsonify(response), status_code)
 
 
 @appointment_bp.route("/", methods=["POST"])
@@ -32,7 +34,7 @@ def get_appointment(id):
 def create_appointment():
     data = request.json
     response, status_code = create_appointment(data)
-    return jsonify(response), status_code
+    return make_response(jsonify(response), status_code)
 
 
 @appointment_bp.route("/", methods=["PUT"])
@@ -40,11 +42,11 @@ def create_appointment():
 def update_appointment():
     appointment = get_appointment_by_id(id)
     response, status_code = update_appointment(appointment)
-    return jsonify(response), status_code
+    return make_response(jsonify(response), status_code)
 
 
 @appointment_bp.route("/<int:id>", methods=["DELETE"])
 @check_authorization(role="doctor")
 def delete_appointment(id):
     delete_appointment(id)
-    return jsonify("Delete successful"), 401
+    return make_response(jsonify("Delete successful"), 202)

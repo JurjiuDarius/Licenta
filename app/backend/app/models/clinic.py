@@ -6,9 +6,8 @@ from database import db
 class ProjectUser(db.Model):
     __tablename__ = "clinic_doctor"
 
-    id = Column(Integer, primary_key=True)
-    doctor_id = Column(Integer, ForeignKey("doctor.id"))
-    clinic_id = Column(Integer, ForeignKey("clinic.id"))
+    doctor_id = Column(Integer, ForeignKey("doctor.id"), primary_key=True)
+    clinic_id = Column(Integer, ForeignKey("clinic.id"), primary_key=True)
 
 
 class Clinic(db.Model):

@@ -55,6 +55,10 @@ class Patient(User):
 
     diagnostics = relationship("Diagnostic", back_populates="patient")
 
+    doctors = relationship(
+        "Doctor", secondary="patient_doctor", back_populates="patients"
+    )
+
     __mapper_args__ = {
         "polymorphic_identity": "patient",
     }
@@ -112,6 +116,10 @@ class Doctor(User):
 
     education = Column(String(128))
 
+    patients = relationship(
+        "Patient", secondary="patient_doctor", back_populates="doctors"
+    )
+
     clinics = relationship(
         "Clinic", secondary="clinic_doctor", back_populates="doctors"
     )
@@ -166,3 +174,10 @@ class Admin(User, UserMixin):
 
     def __init__(self, username=None):
         self.username = username
+
+
+class PatientDoctor(db.Model):
+    __tablename__ = "patient_doctor"
+
+    doctor_id = Column(Integer, ForeignKey("doctor.id"), primary_key=True)
+    patient_id = Column(Integer, ForeignKey("patient.id"), primary_key=True)

@@ -1,32 +1,19 @@
 <button mat-raised-button color="primary" (click)="addAppointment()">
   Add Appointment
 </button>
-<table>
-  <thead>
-    <tr>
-      <th>Address</th>
-      <th>Start Time</th>
-    </tr>
-  </thead>
-  <tbody>
-    <ng-container *ngFor="let appointment of appointments">
-      <tr>
-        <td>
-          <mat-card
-            (click)="goToDetails(appointment.id)"
-            class="appointment-card"
-          >
-            <mat-card-content>
-              <div class="appointment-info">
-                <div class="appointment-address">{{ appointment.address }}</div>
-                <div class="appointment-start-time">
-                  {{ appointment.startTime }}
-                </div>
-              </div>
-            </mat-card-content>
-          </mat-card>
-        </td>
-      </tr>
-    </ng-container>
-  </tbody>
-</table>
+<div *ngIf="appointments.length === 0">
+  <mat-card class="no-appointments-card">No appointments found</mat-card>
+</div>
+
+<ng-container *ngFor="let appointment of appointments">
+  <mat-card (click)="goToDetails(appointment.id)" class="appointment-card">
+    <mat-card-content>
+      <div class="appointment-info">
+        <div class="appointment-address">{{ appointment.address }}</div>
+        <div class="appointment-start-time">
+          {{ appointment.startTime }}
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</ng-container>
