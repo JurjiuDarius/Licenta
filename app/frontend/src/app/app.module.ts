@@ -13,12 +13,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './auth/login/login.component';
 import { MatButtonModule } from '@angular/material/button';
 import { SignUpComponent } from './auth/sign-up/sign-up.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { TokenInterceptor } from './appointments/utils/token.interceptor';
 @NgModule({
   declarations: [AppComponent, LoginComponent, SignUpComponent],
   imports: [
@@ -37,10 +38,12 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatToolbarModule,
     HttpClientModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
   ],
-  providers: [MatDatepickerModule],
+  providers: [
+    MatDatepickerModule,
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
-export class AppModule {
-}
+export class AppModule {}

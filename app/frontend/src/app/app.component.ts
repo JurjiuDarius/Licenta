@@ -45,15 +45,16 @@ export class AppComponent {
   }
 
   private setToken() {
-    const token = document.cookie
-      .split('; ')
-      .find((row) => row.startsWith('token='));
-    console.log(token);
+    const token = localStorage.getItem('token');
     if (token) {
-      const tokenValue = token.split('=')[1];
-      const decodedToken = this.authService.decodeJWT(tokenValue);
-      console.log(decodedToken);
-      this.currentRole = decodedToken.role;
+      const tokenValue = token
+        .split('; ')
+        .find((row) => row.startsWith('token='))
+        ?.split('=')[1];
+      if (tokenValue) {
+        const decodedToken = this.authService.decodeJWT(tokenValue);
+        this.currentRole = decodedToken.role;
+      }
     } else {
       this.currentRole = null;
     }

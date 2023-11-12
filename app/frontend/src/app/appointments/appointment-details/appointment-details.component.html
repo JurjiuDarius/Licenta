@@ -89,6 +89,13 @@
           </mat-error>
         </mat-form-field>
 
+        <select multiple formControlName="patient">
+          <option *ngFor="let patient of patients" [ngValue]="0">
+            {{ patient.firstName }}
+            {{ patient.lastName }}; {{ patient.email }}
+          </option>
+        </select>
+
         <mat-label>Requires Upload</mat-label>
         <mat-checkbox formControlName="requiresUpload"> </mat-checkbox>
         <button

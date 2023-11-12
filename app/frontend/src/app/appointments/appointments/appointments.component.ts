@@ -20,11 +20,16 @@ export class AppointmentsComponent {
     this.getAllAppointments();
     this.authService.getAuthChanges().subscribe((isAuthenticated) => {
       if (isAuthenticated) {
-        const roleCookie = document.cookie
-          .split('; ')
-          .find((row) => row.startsWith('role'));
-        if (roleCookie) {
-          this.currentRole = roleCookie.split('=')[1];
+        const token = localStorage.getItem('token');
+        if (token) {
+          const tokenValue = token
+            .split('; ')
+            .find((row) => row.startsWith('token='))
+            ?.split('=')[1];
+          if (tokenValue) {
+            const decodedToken = this.authService.decodeJWT(tokenValue);
+            this.currentRole = decodedToken.role;
+          }
         } else {
           this.currentRole = null;
         }

@@ -5,7 +5,9 @@ import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Time } from '@angular/common';
+import { AuthenticationService } from 'src/app/auth/service/authentication.service';
+import { UserService } from 'src/app/auth/service/user.service';
+import { User } from 'src/app/models/user';
 @Component({
   selector: 'app-appointment-details',
   templateUrl: './appointment-details.component.html',
@@ -15,25 +17,55 @@ export class AppointmentDetailsComponent {
   public appointment: Appointment | null = null;
   public form: FormGroup;
   public isEditable: boolean = false;
+  public currentUserId: number | null = null;
+  public currentRole: string | null = null;
+  public patients: User[] = [];
 
   constructor(
     private appointmentsService: AppointmentsService,
+    private authService: AuthenticationService,
+    private userService: UserService,
     private route: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder
   ) {
     this.getAppointmentById();
+    this.getRole();
+    if (this.currentRole == 'doctor' && this.currentUserId != null) {
+      this.isEditable = true;
+      this.userService
+        .getPatientsForDoctor(this.currentUserId)
+        .subscribe((response: User[]) => {
+          this.patients = response;
+        });
+    }
     this.form = this.fb.group({
       title: ['', Validators.required],
       requirements: ['', Validators.required],
       address: ['', Validators.required],
       date: [null, Validators.required],
+      patient: [null, Validators.required],
       startTime: [null, Validators.required],
       endTime: [null, Validators.required],
       requiresUpload: [false],
     });
   }
 
+  private getRole() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const tokenValue = token
+        .split('; ')
+        .find((row) => row.startsWith('token='))
+        ?.split('=')[1];
+      if (tokenValue) {
+        const decodedToken = this.authService.decodeJWT(tokenValue);
+        this.currentRole = decodedToken.role;
+      }
+    } else {
+      this.currentRole = null;
+    }
+  }
   private getAppointmentById(): void {
     let id_ = this.route.snapshot.paramMap.get('id');
     if (id_ == 'new') {
@@ -47,7 +79,6 @@ export class AppointmentDetailsComponent {
         requiresUpload: false,
         doctorId: 0,
       };
-      this.isEditable = true;
     } else {
       let id = Number(id_);
 
@@ -73,18 +104,25 @@ export class AppointmentDetailsComponent {
         date: new Date('YYYY-MM-DD'),
         startTime: this.form?.get('startTime')?.value,
         endTime: this.form?.get('endTime')?.value,
+        patientId: this.form?.get('patient')?.value.id,
         requiresUpload: this.form?.get('requiresUpload')?.value,
       };
       if (this.appointment?.id == -1) {
-        this.appointmentsService.createAppointment(payload).subscribe(() => {
-          this.router.navigate(['/appointments']);
-        });
+        this.appointmentsService.createAppointment(payload).subscribe(
+          () => {
+            this.router.navigate(['/appointments']);
+          },
+          (error) => console.log(error)
+        );
       } else {
         this.appointmentsService
           .updateAppointment(this.appointment?.id, payload)
-          .subscribe(() => {
-            this.getAppointmentById();
-          });
+          .subscribe(
+            () => {
+              this.router.navigate(['/appointments']);
+            },
+            (error) => console.log(error)
+          );
       }
     } else {
       console.log('Invalid form');

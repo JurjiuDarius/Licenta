@@ -20,9 +20,7 @@ export class AuthenticationService {
       .post(`${this.apiUrl}/auth/login`, { email, password, role })
       .pipe(
         tap((response: any) => {
-          this.authChanges.next(true);
           this.setToken(response.token);
-          document.cookie = `role=${role}`;
           this.authChanges.next(true);
         })
       );
@@ -38,11 +36,11 @@ export class AuthenticationService {
   }
 
   private setToken(token: string): void {
-    document.cookie = `token=${token}`;
+    localStorage.setItem('jwtToken', token);
   }
 
   private removeToken(): void {
-    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    localStorage.removeItem('jwtToken');
   }
   public decodeJWT(token: string): any {
     try {

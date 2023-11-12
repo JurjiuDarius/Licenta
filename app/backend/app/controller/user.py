@@ -1,38 +1,13 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, make_response
 from app.models import User, Doctor, db
+from app.service.user_service import get_patients_for_doctor
+from app.utils.jwt import check_authorization
 
-user_bp = Blueprint("user", __name__)
-
-
-@user_bp.route("/add-doctor", methods=["POST"])
-def add_doctor():
-    data = request.get_json()
-    name = data.get("name")
-    email = data.get("email")
-    password = data.get("password")
-    specialty = data.get("specialty")
-
-    if not name or not email or not password or not specialty:
-        return jsonify({"error": "Missing data"}), 400
-
-    user = User.query.filter_by(email=email).first()
-    if user:
-        return jsonify({"error": "Email already exists"}), 400
-
-    doctor = Doctor(name=name, email=email, password=password, specialty=specialty)
-    db.session.add(doctor)
-    db.session.commit()
-
-    return jsonify({"message": "Doctor added successfully"}), 201
+user_bp = Blueprint("user", __name__, url_prefix="/users")
 
 
-@user_bp.route("/delete-account/<int:user_id>", methods=["DELETE"])
-def delete_account(user_id):
-    user = User.query.get(user_id)
-    if not user:
-        return jsonify({"error": "User not found"}), 404
-
-    db.session.delete(user)
-    db.session.commit()
-
-    return jsonify({"message": "User deleted successfully"}), 200
+@user_bp.route("/doctor-patients/<int:doctor_id>", methods=["GET"])
+@check_authorization(role="doctor")
+def get_patients(doctor_id):
+    patients, status_code = get_patients_for_doctor(doctor_id)
+    return make_response(jsonify(patients), status_code)
