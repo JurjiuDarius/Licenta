@@ -31,7 +31,7 @@ def get_appointment(id):
     return make_response(jsonify(response), status_code)
 
 
-@appointment_bp.route("/", methods=["POST"])
+@appointment_bp.route("", methods=["POST"])
 @check_authorization(role="doctor")
 def create_appointment():
     data = request.json
@@ -39,7 +39,7 @@ def create_appointment():
     return make_response(jsonify(response), status_code)
 
 
-@appointment_bp.route("/", methods=["PUT"])
+@appointment_bp.route("", methods=["PUT"])
 @check_authorization(role="doctor")
 def update_appointment():
     appointment = get_appointment_by_id(id)

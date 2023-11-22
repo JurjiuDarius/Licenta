@@ -18,7 +18,7 @@ def create_app():
     db.init_app(app)
     for bp in blueprints:
         app.register_blueprint(bp)
-    CORS(app)
+    CORS(app, allow_headers="*", expose_headers="*")
     login_manager.init_app(app)
     admin = Admin(
         app,
@@ -38,7 +38,6 @@ def create_app():
 
 
 app = create_app()
-
 
 migrate = Migrate(
     app,

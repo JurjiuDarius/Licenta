@@ -1,9 +1,11 @@
 from flask import Blueprint, jsonify, request
 from app.service.authentication_service import login, sign_up
+from flask_cors import cross_origin
 
 login_bp = Blueprint("login", __name__, url_prefix="/auth")
 
 
+@cross_origin
 @login_bp.route("/login", methods=["POST"])
 def login_endpoint():
     email = request.json.get("email")

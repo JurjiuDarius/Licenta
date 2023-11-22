@@ -13,8 +13,6 @@ class SecureModelView(ModelView):
 
 
 class SecureIndexView(AdminIndexView):
-    pass
-
     def is_accessible(self):
         return current_user.is_authenticated
 

@@ -19,7 +19,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { TokenInterceptor } from './appointments/utils/token.interceptor';
+import { TokenInterceptor } from './utils/token.interceptor';
 @NgModule({
   declarations: [AppComponent, LoginComponent, SignUpComponent],
   imports: [
@@ -40,10 +40,8 @@ import { TokenInterceptor } from './appointments/utils/token.interceptor';
     MatDatepickerModule,
     MatNativeDateModule,
   ],
-  providers: [
-    MatDatepickerModule,
-    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
-  ],
+  providers: [MatDatepickerModule],
+
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { HttpService } from 'src/app/utils/http.service';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,7 @@ import { environment } from '../../environments/environment';
 export class AppointmentsService {
   private apiUrl = environment.apiURL;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpService) {}
 
   getAllAppointments(): Observable<any> {
     return this.http.get(this.apiUrl + '/appointments');
