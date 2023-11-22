@@ -1,4 +1,5 @@
-from flask import Flask, request, jsonify
+from flask import Flask
+from flask_login import current_user
 from app.controller import blueprints, login_manager
 from flask_migrate import Migrate
 from database import db
@@ -22,7 +23,7 @@ def create_app():
     login_manager.init_app(app)
     admin = Admin(
         app,
-        name="management",
+        name="Daashboard",
         template_mode="bootstrap3",
         url="/dashboard",
         index_view=SecureIndexView(name="Home", url="/dashboard"),

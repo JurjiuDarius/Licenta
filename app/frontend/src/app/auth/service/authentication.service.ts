@@ -38,6 +38,7 @@ export class AuthenticationService {
 
   private setToken(token: string): void {
     localStorage.setItem('jwtToken', token);
+    localStorage.setItem('currentRole', this.decodeJWT(token).role);
   }
 
   private removeToken(): void {

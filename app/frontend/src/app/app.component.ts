@@ -31,12 +31,9 @@ export class AppComponent {
     private authService: AuthenticationService,
     private router: Router
   ) {
-    this.setToken();
+    this.setRole();
     this.authService.getAuthChanges().subscribe((isAuthenticated) => {
-      this.setToken();
-      if (this.currentRole != null) {
-        this.navItems = this.navDictionary[this.currentRole];
-      }
+      this.setRole();
     });
   }
   public logOut(): void {
@@ -44,19 +41,15 @@ export class AppComponent {
     this.router.navigate(['/login']);
   }
 
-  private setToken() {
-    const token = localStorage.getItem('token');
-    if (token) {
-      const tokenValue = token
-        .split('; ')
-        .find((row) => row.startsWith('token='))
-        ?.split('=')[1];
-      if (tokenValue) {
-        const decodedToken = this.authService.decodeJWT(tokenValue);
-        this.currentRole = decodedToken.role;
-      }
+  private setRole() {
+    const role = localStorage.getItem('currentRole');
+    if (role) {
+      this.currentRole = role;
     } else {
       this.currentRole = null;
+    }
+    if (this.currentRole != null) {
+      this.navItems = this.navDictionary[this.currentRole];
     }
   }
 }

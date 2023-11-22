@@ -18,23 +18,10 @@ export class AppointmentsComponent {
     private router: Router
   ) {
     this.getAllAppointments();
+    this.setRole();
     this.authService.getAuthChanges().subscribe((isAuthenticated) => {
       if (isAuthenticated) {
-        const token = localStorage.getItem('token');
-        if (token) {
-          const tokenValue = token
-            .split('; ')
-            .find((row) => row.startsWith('token='))
-            ?.split('=')[1];
-          if (tokenValue) {
-            const decodedToken = this.authService.decodeJWT(tokenValue);
-            this.currentRole = decodedToken.role;
-          }
-        } else {
-          this.currentRole = null;
-        }
-      } else {
-        this.currentRole = null;
+        this.setRole();
       }
     });
   }
@@ -53,5 +40,14 @@ export class AppointmentsComponent {
 
   public addAppointment() {
     this.router.navigate(['/appointments/new']);
+  }
+
+  private setRole() {
+    const role = localStorage.getItem('currentRole');
+    if (role) {
+      this.currentRole = role;
+    } else {
+      this.currentRole = null;
+    }
   }
 }

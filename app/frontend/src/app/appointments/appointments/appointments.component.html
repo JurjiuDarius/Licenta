@@ -1,6 +1,12 @@
-<button mat-raised-button color="primary" (click)="addAppointment()">
+<button
+  *ngIf="currentRole == 'doctor'"
+  mat-raised-button
+  color="primary"
+  (click)="addAppointment()"
+>
   Add Appointment
 </button>
+
 <div *ngIf="appointments.length === 0">
   <mat-card class="no-appointments-card">No appointments found</mat-card>
 </div>
