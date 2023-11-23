@@ -12,6 +12,11 @@ const routes: Routes = [
         (m) => m.AppointmentsModule
       ),
   },
+  {
+    path: 'patients',
+    loadChildren: () =>
+      import('./patients/patients.module').then((m) => m.PatientsModule),
+  },
 ];
 
 @NgModule({
