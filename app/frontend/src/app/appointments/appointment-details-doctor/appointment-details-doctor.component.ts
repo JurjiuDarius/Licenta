@@ -10,10 +10,10 @@ import { UserService } from 'src/app/auth/service/user.service';
 import { User } from 'src/app/models/user';
 @Component({
   selector: 'app-appointment-details',
-  templateUrl: './appointment-details.component.html',
-  styleUrls: ['./appointment-details.component.sass'],
+  templateUrl: './appointment-details-doctor.component.html',
+  styleUrls: ['./appointment-details-doctor.component.sass'],
 })
-export class AppointmentDetailsComponent {
+export class AppointmentDetailsDoctorComponent {
   public appointment: Appointment | null = null;
   public form: FormGroup;
   public isEditable: boolean = false;

@@ -21,14 +21,14 @@ export class AuthenticationService {
       .post(`${this.apiUrl}/auth/login`, { email, password, role })
       .pipe(
         tap((response: any) => {
-          this.setToken(response.token);
+          this.setLocalStorage(response.token);
           this.authChanges.next(true);
         })
       );
   }
 
   public logOut(): void {
-    this.removeToken();
+    this.clearLocalStorage();
     this.authChanges.next(false);
   }
 
@@ -36,13 +36,16 @@ export class AuthenticationService {
     return this.http.post(`${this.apiUrl}/auth/signup`, { user, role });
   }
 
-  private setToken(token: string): void {
+  private setLocalStorage(token: string): void {
     localStorage.setItem('jwtToken', token);
     localStorage.setItem('currentRole', this.decodeJWT(token).role);
+    localStorage.setItem('currentUserId', this.decodeJWT(token).id);
   }
 
-  private removeToken(): void {
+  private clearLocalStorage(): void {
     localStorage.removeItem('jwtToken');
+    localStorage.removeItem('currentRole');
+    localStorage.removeItem('currentUserId');
   }
   public decodeJWT(token: string): any {
     try {

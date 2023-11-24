@@ -10,6 +10,7 @@ import { Appointment } from 'src/app/models/appointment';
 })
 export class AppointmentsComponent {
   public currentRole: string | null = null;
+  public currentUserId: number | null = null;
   public appointments: Appointment[] = [];
 
   constructor(
@@ -17,11 +18,11 @@ export class AppointmentsComponent {
     private authService: AuthenticationService,
     private router: Router
   ) {
+    this.getLocalStorage();
     this.getAllAppointments();
-    this.setRole();
     this.authService.getAuthChanges().subscribe((isAuthenticated) => {
       if (isAuthenticated) {
-        this.setRole();
+        this.getLocalStorage();
       }
     });
   }
@@ -29,9 +30,21 @@ export class AppointmentsComponent {
   ngOnInit(): void {}
 
   public getAllAppointments(): void {
-    this.appointmentsService.getAllAppointments().subscribe((response) => {
-      this.appointments = response;
-    });
+    if (this.currentUserId != null) {
+      if (this.currentRole == 'patient') {
+        this.appointmentsService
+          .getAllAppointmentsForPatient(this.currentUserId)
+          .subscribe((response) => {
+            this.appointments = response;
+          });
+      } else {
+        this.appointmentsService
+          .getAllAppointmentsForDoctor(this.currentUserId)
+          .subscribe((response) => {
+            this.appointments = response;
+          });
+      }
+    }
   }
 
   public goToDetails(id: number): void {
@@ -42,12 +55,15 @@ export class AppointmentsComponent {
     this.router.navigate(['/appointments/new']);
   }
 
-  private setRole() {
+  private getLocalStorage() {
     const role = localStorage.getItem('currentRole');
-    if (role) {
+    const currentUserId = localStorage.getItem('currentUserId');
+    if (role && currentUserId) {
       this.currentRole = role;
+      this.currentUserId = Number(currentUserId);
     } else {
       this.currentRole = null;
+      this.currentUserId = null;
     }
   }
 }

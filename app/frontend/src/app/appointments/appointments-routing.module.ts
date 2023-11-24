@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AppointmentsComponent } from './appointments/appointments.component';
-import { AppointmentDetailsComponent } from './appointment-details/appointment-details.component';
+import { AppointmentDetailsDoctorComponent } from './appointment-details-doctor/appointment-details-doctor.component';
+import { AppointDetailsPatientComponent } from './appoint-details-patient/appoint-details-patient.component';
 
 const routes: Routes = [
   {
@@ -9,8 +10,12 @@ const routes: Routes = [
     component: AppointmentsComponent,
   },
   {
-    path: ':id',
-    component: AppointmentDetailsComponent,
+    path: 'doctor-appointment/:id',
+    component: AppointmentDetailsDoctorComponent,
+  },
+  {
+    path: 'patient-appointment/:id',
+    component: AppointDetailsPatientComponent,
   },
 ];
 

@@ -12,8 +12,13 @@ export class AppointmentsService {
 
   constructor(private http: HttpService) {}
 
-  getAllAppointments(): Observable<any> {
-    return this.http.get(this.apiUrl + '/appointments');
+  getAllAppointmentsForPatient(currentUserId: number): Observable<any> {
+    return this.http.get(
+      this.apiUrl + `/appointments/patient/${currentUserId}`
+    );
+  }
+  getAllAppointmentsForDoctor(currentUserId: number): Observable<any> {
+    return this.http.get(this.apiUrl + `/appointments/doctor/${currentUserId}`);
   }
 
   getAppointmentById(id: number): Observable<any> {

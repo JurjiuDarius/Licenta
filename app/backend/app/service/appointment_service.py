@@ -2,8 +2,12 @@ from ..models.diagnostic import Appointment
 from database import db
 
 
-def get_all_appointments():
-    return Appointment.query.all(), 200
+def get_all_appointments_for_patient(patient_id):
+    return Appointment.query.where(Appointment.patient_id == patient_id).all(), 200
+
+
+def get_all_appointments_for_doctor(doctor_id):
+    return Appointment.query.where(Appointment.doctor_id == doctor_id).all(), 200
 
 
 def get_appointment_by_id(appointment_id):

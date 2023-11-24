@@ -5,7 +5,8 @@ from database import db
 from flask import Blueprint, jsonify, request
 from app.utils.jwt import check_authorization
 from app.service.appointment_service import (
-    get_all_appointments,
+    get_all_appointments_for_patient,
+    get_all_appointments_for_doctor,
     get_appointment_by_id,
     create_appointment,
     update_appointment,
@@ -15,10 +16,19 @@ from app.service.appointment_service import (
 appointment_bp = Blueprint("appointment", __name__, url_prefix="/appointments")
 
 
-@appointment_bp.route("/", methods=["GET"])
+@appointment_bp.route("/patient/<int:id>", methods=["GET"])
 @check_authorization(role=None)
-def get_appointments():
-    appointments, status_code = get_all_appointments()
+def get_appointments_patient():
+    appointments, status_code = get_all_appointments_for_patient()
+    return make_response(
+        jsonify([appointment for appointment in appointments]), status_code
+    )
+
+
+@appointment_bp.route("/doctor/<int:id>", methods=["GET"])
+@check_authorization(role=None)
+def get_appointments_patient():
+    appointments, status_code = get_all_appointments_for_doctor()
     return make_response(
         jsonify([appointment for appointment in appointments]), status_code
     )
