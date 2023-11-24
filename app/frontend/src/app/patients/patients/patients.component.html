@@ -1,0 +1,22 @@
+<button mat-raised-button color="primary" (click)="addPatient()">
+  Add Patient
+</button>
+
+<div *ngIf="patients.length === 0">
+  <mat-card class="no-patients-card">No patients found</mat-card>
+</div>
+
+<ng-container *ngFor="let patient of patients">
+  <mat-card (click)="goToDetails(patient.id)" class="patient-card">
+    <mat-card-content>
+      <div class="patient-info">
+        <div class="patient-name">
+          {{ patient.firstName }} {{ patient.lastName }}
+        </div>
+        <div class="patient-email">
+          {{ patient.email }}
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</ng-container>
