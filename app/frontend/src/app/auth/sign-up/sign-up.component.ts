@@ -18,6 +18,7 @@ export class SignUpComponent {
     private authService: AuthenticationService,
     private router: Router
   ) {
+    this.authService.logOut();
     this.doctorForm = this.formBuilder.group(
       {
         firstName: ['', [Validators.required]],

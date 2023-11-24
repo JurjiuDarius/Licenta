@@ -16,19 +16,19 @@ from app.service.appointment_service import (
 appointment_bp = Blueprint("appointment", __name__, url_prefix="/appointments")
 
 
-@appointment_bp.route("/patient/<int:id>", methods=["GET"])
+@appointment_bp.route("/patient/<int:userId>", methods=["GET"])
 @check_authorization(role="patient")
-def get_appointments_patient():
-    appointments, status_code = get_all_appointments_for_patient()
+def get_appointments_patient(userId):
+    appointments, status_code = get_all_appointments_for_patient(userId)
     return make_response(
         jsonify([appointment for appointment in appointments]), status_code
     )
 
 
-@appointment_bp.route("/doctor/<int:id>", methods=["GET"])
+@appointment_bp.route("/doctor/<int:userId>", methods=["GET"])
 @check_authorization(role="doctor")
-def get_appointments_patient():
-    appointments, status_code = get_all_appointments_for_doctor()
+def get_appointments_doctor(userId):
+    appointments, status_code = get_all_appointments_for_doctor(userId)
     return make_response(
         jsonify([appointment for appointment in appointments]), status_code
     )

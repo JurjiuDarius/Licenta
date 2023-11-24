@@ -20,8 +20,14 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { TokenInterceptor } from './utils/token.interceptor';
+import { AddPatientDialogComponent } from './patients/add-patient-dialog/add-patient-dialog.component';
 @NgModule({
-  declarations: [AppComponent, LoginComponent, SignUpComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    SignUpComponent,
+    AddPatientDialogComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

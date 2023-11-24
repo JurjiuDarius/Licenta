@@ -8,7 +8,7 @@ const routes: Routes = [
     component: PatientsComponent,
   },
   {
-    path: '/:id',
+    path: ':id',
     component: PatientsComponent,
   },
 ];
@@ -16,4 +16,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class AppointmentsRoutingModule {}
+export class PatientsRoutingModule {}

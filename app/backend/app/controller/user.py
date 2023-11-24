@@ -1,6 +1,10 @@
 from flask import Blueprint, request, jsonify, make_response
 from app.models import User, Doctor, db
-from app.service.user_service import get_patients_for_doctor, get_name_for_user
+from app.service.user_service import (
+    get_patients_for_doctor,
+    get_name_for_user,
+    add_patient_for_doctor,
+)
 from app.utils.jwt import check_authorization
 
 user_bp = Blueprint("user", __name__, url_prefix="/users")
@@ -11,6 +15,14 @@ user_bp = Blueprint("user", __name__, url_prefix="/users")
 def get_patients(doctor_id):
     patients, status_code = get_patients_for_doctor(doctor_id)
     return make_response(jsonify(patients), status_code)
+
+
+@user_bp.route("/name/<int:doctor_id>", methods=["POST"])
+@check_authorization(role="doctor")
+def add_patient(doctor_id):
+    patient_email = request.json.get("email")
+    name, status_code = add_patient_for_doctor(doctor_id, patient_email)
+    return make_response(jsonify(name), status_code)
 
 
 @user_bp.route("/name/<int:user_id>", methods=["GET"])

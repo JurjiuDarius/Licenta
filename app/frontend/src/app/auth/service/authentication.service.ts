@@ -39,7 +39,8 @@ export class AuthenticationService {
   private setLocalStorage(token: string): void {
     localStorage.setItem('jwtToken', token);
     localStorage.setItem('currentRole', this.decodeJWT(token).role);
-    localStorage.setItem('currentUserId', this.decodeJWT(token).id);
+    console.log(this.decodeJWT(token));
+    localStorage.setItem('currentUserId', this.decodeJWT(token).userId);
   }
 
   private clearLocalStorage(): void {

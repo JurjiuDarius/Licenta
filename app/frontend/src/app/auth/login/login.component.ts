@@ -18,6 +18,7 @@ export class LoginComponent {
     private authService: AuthenticationService,
     private router: Router
   ) {
+    this.authService.logOut();
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],

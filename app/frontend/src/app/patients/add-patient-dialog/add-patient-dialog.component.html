@@ -1,0 +1,18 @@
+<div>
+  <label for="email"
+    >Enter the email address of the patient you want to add</label
+  >
+  <input
+    mat-input
+    [(ngModel)]="email"
+    type="email"
+    id="email"
+    name="email"
+    placeholder="Email address"
+  />
+</div>
+
+<div class="button-container">
+  <button mat-button type="button" (click)="cancel()">Cancel</button>
+  <button mat-button type="button" (click)="confirm()">Confirm</button>
+</div>

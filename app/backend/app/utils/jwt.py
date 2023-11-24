@@ -38,6 +38,6 @@ def check_authorization(role):
 
 
 def create_token(user_id, user_role):
-    payload = {"user_id": user_id, "role": user_role}
+    payload = {"userId": user_id, "role": user_role}
     token = jwt.encode(payload, SECRET_KEY, algorithm="HS256")
     return token

@@ -1,9 +1,17 @@
-from app.models import User, Patient
+from app.models import User, Patient, Doctor
+from database import db
 
 
 def get_patients_for_doctor(doctor_id):
-    patients = Patient.query.filter(Patient.doctors.any(doctor_id=doctor_id)).all()
+    patients = Patient.query.filter(Patient.doctors.any(id=doctor_id)).all()
     return patients, 200
+
+
+def add_patient_for_doctor(doctor_id, patient_email):
+    doctor = Doctor.query.get(doctor_id)
+    patient = Patient.query.filter_by(email=patient_email).first()
+    doctor.patients.append(patient)
+    db.session.commit()
 
 
 def get_name_for_user(user_id):
