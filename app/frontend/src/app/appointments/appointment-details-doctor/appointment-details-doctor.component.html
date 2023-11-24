@@ -6,7 +6,6 @@
           <mat-label>Title</mat-label>
           <input
             matInput
-            [readonly]="!isEditable"
             type="text"
             formControlName="title"
             required
@@ -20,7 +19,6 @@
           <mat-label>Requirements</mat-label>
           <input
             matInput
-            [readonly]="!isEditable"
             type="text"
             formControlName="requirements"
             required
@@ -34,7 +32,6 @@
           <mat-label>Address</mat-label>
           <input
             matInput
-            [readonly]="!isEditable"
             type="text"
             formControlName="address"
             required
@@ -48,7 +45,6 @@
           <mat-label>Date</mat-label>
           <input
             matInput
-            [readonly]="!isEditable"
             [matDatepicker]="picker"
             formControlName="date"
             required
@@ -66,7 +62,6 @@
           <mat-label>Start Time</mat-label>
           <input
             matInput
-            [readonly]="!isEditable"
             formControlName="startTime"
             type="time"
             required
@@ -79,7 +74,6 @@
           <mat-label>End Time</mat-label>
           <input
             matInput
-            [readonly]="!isEditable"
             formControlName="endTime"
             type="time"
             required

@@ -16,7 +16,6 @@ import { User } from 'src/app/models/user';
 export class AppointmentDetailsDoctorComponent {
   public appointment: Appointment | null = null;
   public form: FormGroup;
-  public isEditable: boolean = false;
   public currentUserId: number | null = null;
   public currentRole: string | null = null;
   public patients: User[] = [];
@@ -30,15 +29,6 @@ export class AppointmentDetailsDoctorComponent {
     private fb: FormBuilder
   ) {
     this.getAppointmentById();
-    this.getRole();
-    if (this.currentRole == 'doctor' && this.currentUserId != null) {
-      this.isEditable = true;
-      this.userService
-        .getPatientsForDoctor(this.currentUserId)
-        .subscribe((response: User[]) => {
-          this.patients = response;
-        });
-    }
     this.form = this.fb.group({
       title: ['', Validators.required],
       requirements: ['', Validators.required],
@@ -51,21 +41,6 @@ export class AppointmentDetailsDoctorComponent {
     });
   }
 
-  private getRole() {
-    const token = localStorage.getItem('token');
-    if (token) {
-      const tokenValue = token
-        .split('; ')
-        .find((row) => row.startsWith('token='))
-        ?.split('=')[1];
-      if (tokenValue) {
-        const decodedToken = this.authService.decodeJWT(tokenValue);
-        this.currentRole = decodedToken.role;
-      }
-    } else {
-      this.currentRole = null;
-    }
-  }
   private getAppointmentById(): void {
     let id_ = this.route.snapshot.paramMap.get('id');
     if (id_ == 'new') {

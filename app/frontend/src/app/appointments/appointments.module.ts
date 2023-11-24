@@ -11,9 +11,14 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { IgxTimePickerModule } from 'igniteui-angular';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { AppointDetailsPatientComponent } from './appoint-details-patient/appoint-details-patient.component';
+import { AppointmentDetailsPatientComponent } from './appointment-details-patient/appointment-details-patient.component';
 @NgModule({
-  declarations: [AppointmentsComponent, AppointmentDetailsDoctorComponent, AppointDetailsPatientComponent],
+  declarations: [
+    AppointmentsComponent,
+    AppointmentDetailsDoctorComponent,
+    AppointmentDetailsPatientComponent,
+    AppointmentDetailsPatientComponent,
+  ],
   imports: [
     CommonModule,
     AppointmentsRoutingModule,

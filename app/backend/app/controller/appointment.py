@@ -17,7 +17,7 @@ appointment_bp = Blueprint("appointment", __name__, url_prefix="/appointments")
 
 
 @appointment_bp.route("/patient/<int:id>", methods=["GET"])
-@check_authorization(role=None)
+@check_authorization(role="patient")
 def get_appointments_patient():
     appointments, status_code = get_all_appointments_for_patient()
     return make_response(
@@ -26,7 +26,7 @@ def get_appointments_patient():
 
 
 @appointment_bp.route("/doctor/<int:id>", methods=["GET"])
-@check_authorization(role=None)
+@check_authorization(role="doctor")
 def get_appointments_patient():
     appointments, status_code = get_all_appointments_for_doctor()
     return make_response(
