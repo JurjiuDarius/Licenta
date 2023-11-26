@@ -26,7 +26,9 @@ export class PatientsComponent {
     if (currentUserId) {
       this.userService
         .getPatientsForDoctor(currentUserId)
-        .subscribe((patients) => (this.patients = patients));
+        .subscribe((patients: User[]) => {
+          this.patients = patients;
+        });
     }
   }
 

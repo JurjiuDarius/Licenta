@@ -4,7 +4,7 @@ from database import db
 
 def get_patients_for_doctor(doctor_id):
     patients = Patient.query.filter(Patient.doctors.any(id=doctor_id)).all()
-    return patients, 200
+    return [patient.serialize() for patient in patients], 200
 
 
 def add_patient_for_doctor(doctor_id, patient_email):

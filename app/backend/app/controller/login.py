@@ -23,7 +23,7 @@ def sign_up_endpoint():
     first_name = user.get("firstName")
     last_name = user.get("lastName")
     email = user.get("email")
-    phone_number = user.get("phoneNumber")
+    phone_number = user.get("phone")
     city = user.get("city")
     birth_date = user.get("birthDate")
     education = user.get("education")

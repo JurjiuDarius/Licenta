@@ -85,13 +85,13 @@ class Patient(User):
     def serialize(self):
         return {
             "id": self.id,
-            "first_name": self.first_name,
-            "last_name": self.last_name,
+            "firstName": self.first_name,
+            "lastName": self.last_name,
             "city": self.city,
-            "birth_date": self.birth_date.strftime("%Y-%m-%d %H:%M:%S"),
+            "birthNate": self.birth_date.strftime("%Y-%m-%d %H:%M:%S"),
             "email": self.email,
-            "password": self.password,
-            "date_created": self.date_created.strftime("%Y-%m-%d %H:%M:%S"),
+            "phoneNumber": self.phone_number,
+            "dateCreated": self.date_created.strftime("%Y-%m-%d %H:%M:%S"),
         }
 
 
@@ -152,14 +152,14 @@ class Doctor(User):
     def serialize(self):
         return {
             "id": self.id,
-            "first_name": self.first_name,
-            "last_name": self.last_name,
+            "firstName": self.first_name,
+            "lastName": self.last_name,
             "city": self.city,
-            "birth_date": self.birth_date.strftime("%Y-%m-%d %H:%M:%S"),
+            "birthDate": self.birth_date.strftime("%Y-%m-%d %H:%M:%S"),
             "education": self.education,
             "email": self.email,
             "password": self.password,
-            "date_created": self.date_created.strftime("%Y-%m-%d %H:%M:%S"),
+            "dateCreated": self.date_created.strftime("%Y-%m-%d %H:%M:%S"),
         }
 
 
