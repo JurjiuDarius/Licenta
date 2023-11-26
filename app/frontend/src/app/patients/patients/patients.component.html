@@ -12,7 +12,12 @@
 </div>
 
 <ng-container *ngFor="let patient of patients">
-  <mat-card (click)="goToDetails(patient.id)" class="patient-card">
+  <mat-card
+    layout="column"
+    layout-align="center end"
+    (click)="goToDetails(patient.id)"
+    class="patient-card"
+  >
     <mat-card-content>
       <div class="patient-info">
         <div class="patient-name">
