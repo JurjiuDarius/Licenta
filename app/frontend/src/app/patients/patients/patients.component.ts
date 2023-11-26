@@ -41,19 +41,19 @@ export class PatientsComponent {
       console.log(result);
       const currentUserId = localStorage.getItem('currentUserId');
       if (currentUserId) {
-        this.userService.addPatientForDoctor(result, currentUserId).subscribe(
-          (patient) => {
+        this.userService.addPatientForDoctor(result, currentUserId).subscribe({
+          next: (patient) => {
             this.getPatients();
             this.snackbar.open('Patient added successfully!', 'Close', {
               duration: 3000,
             });
           },
-          (error) => {
+          error: (error) => {
             this.snackbar.open('No such patient was found!', 'Close', {
               duration: 3000,
             });
-          }
-        );
+          },
+        });
       }
     });
   }

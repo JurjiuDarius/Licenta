@@ -9,6 +9,7 @@ import { AuthenticationService } from 'src/app/auth/service/authentication.servi
 import { UserService } from 'src/app/auth/service/user.service';
 import { User } from 'src/app/models/user';
 import { timeSlotValidator } from 'src/app/utils/validators/time-slot-validator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-appointment-details',
   templateUrl: './appointment-details-doctor.component.html',
@@ -23,7 +24,7 @@ export class AppointmentDetailsDoctorComponent {
 
   constructor(
     private appointmentsService: AppointmentsService,
-    private authService: AuthenticationService,
+    private snackbar: MatSnackBar,
     private userService: UserService,
     private route: ActivatedRoute,
     private router: Router,
@@ -91,21 +92,26 @@ export class AppointmentDetailsDoctorComponent {
         requiresUpload: this.form?.get('requiresUpload')?.value,
       };
       if (this.appointment?.id == -1) {
-        this.appointmentsService.createAppointment(payload).subscribe(
-          () => {
+        this.appointmentsService.createAppointment(payload).subscribe({
+          next: () => {
             this.router.navigate(['/appointments']);
           },
-          (error) => console.log(error)
-        );
+          error: (error) => console.log(error),
+        });
       } else {
         this.appointmentsService
           .updateAppointment(this.appointment?.id, payload)
-          .subscribe(
-            () => {
+          .subscribe({
+            next: () => {
+              this.snackbar.open('Appointment added successfully!', 'Close', {
+                duration: 3000,
+              });
               this.router.navigate(['/appointments']);
             },
-            (error) => console.log(error)
-          );
+            error: () => {
+              this.snackbar.open('There has been an error.', 'Close');
+            },
+          });
       }
     } else {
       console.log('Invalid form');
