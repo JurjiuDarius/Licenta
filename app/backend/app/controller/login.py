@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from app.service.authentication_service import login, sign_up
+from app.service import authentication_service
 from flask_cors import cross_origin
 
 login_bp = Blueprint("login", __name__, url_prefix="/auth")
@@ -11,7 +11,7 @@ def login_endpoint():
     email = request.json.get("email")
     password = request.json.get("password")
     role = request.json.get("role")
-    response, status_code = login(email, password, role)
+    response, status_code = authentication_service.login(email, password, role)
     return response, status_code
 
 
@@ -27,7 +27,7 @@ def sign_up_endpoint():
     city = user.get("city")
     birth_date = user.get("birthDate")
     education = user.get("education")
-    response, status_code = sign_up(
+    response, status_code = authentication_service.sign_up(
         email,
         first_name,
         last_name,

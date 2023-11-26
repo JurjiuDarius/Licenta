@@ -3,26 +3,8 @@
     <mat-card-content>
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <mat-form-field appearance="outline">
-          <mat-label>Title</mat-label>
-          <input
-            matInput
-            type="text"
-            formControlName="title"
-            required
-          />
-          <mat-error *ngIf="form.controls['title'].hasError('required')">
-            Tile is required
-          </mat-error>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
           <mat-label>Requirements</mat-label>
-          <input
-            matInput
-            type="text"
-            formControlName="requirements"
-            required
-          />
+          <input matInput type="text" formControlName="requirements" required />
           <mat-error *ngIf="form.controls['requirements'].hasError('required')">
             Requirements are required
           </mat-error>
@@ -30,12 +12,7 @@
 
         <mat-form-field appearance="outline">
           <mat-label>Address</mat-label>
-          <input
-            matInput
-            type="text"
-            formControlName="address"
-            required
-          />
+          <input matInput type="text" formControlName="address" required />
           <mat-error *ngIf="form.controls['address'].hasError('required')">
             Address is required
           </mat-error>
@@ -60,38 +37,33 @@
         </mat-form-field>
         <mat-form-field>
           <mat-label>Start Time</mat-label>
-          <input
-            matInput
-            formControlName="startTime"
-            type="time"
-            required
-          />
+          <input matInput formControlName="startTime" type="time" required />
           <mat-error *ngIf="form.controls['endTime'].hasError('required')">
             Start time is required
           </mat-error>
         </mat-form-field>
         <mat-form-field>
           <mat-label>End Time</mat-label>
-          <input
-            matInput
-            formControlName="endTime"
-            type="time"
-            required
-          />
+          <input matInput formControlName="endTime" type="time" required />
           <mat-error *ngIf="form.controls['endTime'].hasError('required')">
             End time is required
           </mat-error>
         </mat-form-field>
 
-        <select multiple formControlName="patient">
-          <option *ngFor="let patient of patients" [ngValue]="0">
-            {{ patient.firstName }}
-            {{ patient.lastName }}; {{ patient.email }}
-          </option>
-        </select>
+        <mat-form-field>
+          <mat-label>Patient</mat-label>
+          <mat-select formControlName="patientId">
+            <mat-option *ngFor="let patient of patients" [value]="patient.id"
+              >{{ patient.firstName }} {{ patient.lastName }},
+              {{ patient.email }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
 
-        <mat-label>Requires Upload</mat-label>
-        <mat-checkbox formControlName="requiresUpload"> </mat-checkbox>
+        <mat-checkbox formControlName="requiresUpload"
+          >Requires Upload</mat-checkbox
+        >
+
         <button
           mat-raised-button
           color="primary"

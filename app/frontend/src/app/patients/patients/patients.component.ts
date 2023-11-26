@@ -11,7 +11,7 @@ import { UserService } from 'src/app/auth/service/user.service';
   styleUrls: ['./patients.component.sass'],
 })
 export class PatientsComponent {
-  public patients: User[] = [];
+  public patients: User[] | null = null;
 
   constructor(
     private router: Router,

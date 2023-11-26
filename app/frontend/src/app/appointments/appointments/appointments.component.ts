@@ -3,6 +3,7 @@ import { AppointmentsService } from '../service/appointments.service';
 import { AuthenticationService } from 'src/app/auth/service/authentication.service';
 import { Router } from '@angular/router';
 import { Appointment } from 'src/app/models/appointment';
+import { UserService } from 'src/app/auth/service/user.service';
 @Component({
   selector: 'app-appointments',
   templateUrl: './appointments.component.html',
@@ -16,6 +17,7 @@ export class AppointmentsComponent {
   constructor(
     private appointmentsService: AppointmentsService,
     private authService: AuthenticationService,
+    private userService: UserService,
     private router: Router
   ) {
     this.getLocalStorage();
@@ -42,17 +44,24 @@ export class AppointmentsComponent {
           .getAllAppointmentsForDoctor(this.currentUserId)
           .subscribe((response) => {
             this.appointments = response;
+            console.log(this.appointments);
           });
       }
     }
   }
 
   public goToDetails(id: number): void {
-    this.router.navigate(['/appointments', id]);
+    let prefix = '';
+    if (this.currentRole == 'patient') {
+      prefix = '/patient-appointment';
+    } else {
+      prefix = '/doctor-appointment';
+    }
+    this.router.navigate(['appointments', prefix, id]);
   }
 
   public addAppointment() {
-    this.router.navigate(['/appointments/new']);
+    this.router.navigate(['appointments/doctor-appointment', 'new']);
   }
 
   private getLocalStorage() {

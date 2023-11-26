@@ -15,15 +15,23 @@ export class HttpService {
   }
 
   public post(url: string, body: any): any {
-    return this.http.post(`${url}`, body);
+    const headerDict = this.getAuthorizationHeader();
+    return this.http.post(`${url}`, body, {
+      headers: new HttpHeaders(headerDict),
+    });
   }
 
   public put(url: string, body: any): any {
-    return this.http.put(`${url}`, body);
+    const headerDict = this.getAuthorizationHeader();
+
+    return this.http.put(`${url}`, body, {
+      headers: new HttpHeaders(headerDict),
+    });
   }
 
   public delete(url: string): any {
-    return this.http.delete(`${url}`);
+    const headerDict = this.getAuthorizationHeader();
+    return this.http.delete(`${url}`, { headers: new HttpHeaders(headerDict) });
   }
 
   private getAuthorizationHeader(): any {

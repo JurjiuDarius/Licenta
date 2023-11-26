@@ -1,5 +1,6 @@
 from database import db
 import datetime
+from app.utils.json import json_serial_date
 from sqlalchemy import DateTime, Date, Time
 
 
@@ -29,6 +30,8 @@ class Appointment(db.Model):
 
     requirements = db.Column(db.String(1000))
 
+    address = db.Column(db.String(200))
+
     patient_id = db.Column(db.Integer, db.ForeignKey("patient.id"))
 
     patient = db.relationship("Patient", back_populates="appointments")
@@ -49,17 +52,33 @@ class Appointment(db.Model):
 
     def __init__(
         self,
+        address=None,
+        requirements=None,
         patient_id=None,
         doctor_id=None,
-        date_created=None,
+        date=None,
         start_time=None,
         end_time=None,
     ):
+        self.address = address
+        self.requirements = requirements
         self.patient_id = patient_id
         self.doctor_id = doctor_id
-        self.date_created = date_created
+        self.date = date
         self.start_time = start_time
         self.end_time = end_time
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "address": self.address,
+            "requirements": self.requirements,
+            "patientId": self.patient_id,
+            "doctorId": self.doctor_id,
+            "date": json_serial_date(self.date),
+            "startTime": json_serial_date(self.start_time),
+            "endTime": json_serial_date(self.end_time),
+        }
 
 
 class Diagnostic(db.Model):

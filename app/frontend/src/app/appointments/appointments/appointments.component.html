@@ -6,7 +6,9 @@
 >
   Add Appointment
 </button>
-
+<div>
+  <i class="material-icons">info</i> Click on an appointment to view details
+</div>
 <div *ngIf="appointments.length === 0">
   <mat-card class="no-appointments-card">No appointments found</mat-card>
 </div>
@@ -15,9 +17,16 @@
   <mat-card (click)="goToDetails(appointment.id)" class="appointment-card">
     <mat-card-content>
       <div class="appointment-info">
-        <div class="appointment-address">{{ appointment.address }}</div>
-        <div class="appointment-start-time">
-          {{ appointment.startTime }}
+        <div class="appointment-date">
+          <i class="material-icons">event</i>
+          {{ appointment.date | date : "mediumDate" }}
+        </div>
+        <div class="appointment-address">
+          <i class="material-icons">navigation</i>{{ appointment.address }}
+        </div>
+        <div class="appointment-time">
+          <i class="material-icons">schedule</i>
+          {{ appointment.startTime }} - {{ appointment.endTime }}
         </div>
       </div>
     </mat-card-content>

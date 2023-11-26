@@ -6,5 +6,6 @@ export interface Appointment {
   startTime: Date;
   endTime: Date;
   doctorId: number;
+  patientId: number | null;
   requiresUpload: boolean;
 }

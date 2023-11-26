@@ -28,13 +28,13 @@ export class AppointmentDetailsDoctorComponent {
     private router: Router,
     private fb: FormBuilder
   ) {
+    this.getPatients();
     this.getAppointmentById();
     this.form = this.fb.group({
-      title: ['', Validators.required],
       requirements: ['', Validators.required],
       address: ['', Validators.required],
       date: [null, Validators.required],
-      patient: [null, Validators.required],
+      patientId: [null, Validators.required],
       startTime: [null, Validators.required],
       endTime: [null, Validators.required],
       requiresUpload: [false],
@@ -49,6 +49,7 @@ export class AppointmentDetailsDoctorComponent {
         requirements: '',
         address: '',
         date: new Date(),
+        patientId: null,
         startTime: new Date(),
         endTime: new Date(),
         requiresUpload: false,
@@ -62,6 +63,7 @@ export class AppointmentDetailsDoctorComponent {
         this.form.patchValue({
           requirements: response.requirements,
           address: response.address,
+          patientId: response.patientId,
           date: response.date,
           startTime: response.startTime,
           endTime: response.endTime,
@@ -72,14 +74,16 @@ export class AppointmentDetailsDoctorComponent {
   }
 
   public onSubmit(): void {
+    console.log(this.form);
     if (this.form?.valid) {
       const payload = {
         requirements: this.form?.get('requirements')?.value,
         address: this.form?.get('address')?.value,
-        date: new Date('YYYY-MM-DD'),
+        date: this.form?.get('date')?.value,
         startTime: this.form?.get('startTime')?.value,
         endTime: this.form?.get('endTime')?.value,
-        patientId: this.form?.get('patient')?.value.id,
+        patientId: this.form?.get('patientId')?.value,
+        doctorId: Number(localStorage.getItem('currentUserId')),
         requiresUpload: this.form?.get('requiresUpload')?.value,
       };
       if (this.appointment?.id == -1) {
@@ -101,6 +105,17 @@ export class AppointmentDetailsDoctorComponent {
       }
     } else {
       console.log('Invalid form');
+    }
+  }
+
+  private getPatients(): void {
+    const currentUserId = localStorage.getItem('currentUserId');
+    if (currentUserId) {
+      this.userService
+        .getPatientsForDoctor(currentUserId)
+        .subscribe((patients: User[]) => {
+          this.patients = patients;
+        });
     }
   }
 }

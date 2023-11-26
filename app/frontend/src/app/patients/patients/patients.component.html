@@ -1,13 +1,16 @@
 <button mat-raised-button color="primary" (click)="addPatient()">
   Add Patient
 </button>
-
-<div *ngIf="patients.length === 0">
-  <mat-card class="no-patients-card">No patients found</mat-card>
-</div>
 <div>
   <i class="material-icons">info</i> Click on a patient to view their details
 </div>
+<div *ngIf="patients === null">
+  <mat-card class="no-patients-card">Patients are loading</mat-card>
+</div>
+<div *ngIf="patients?.length === 0">
+  <mat-card class="no-patients-card">No patients found</mat-card>
+</div>
+
 <ng-container *ngFor="let patient of patients">
   <mat-card (click)="goToDetails(patient.id)" class="patient-card">
     <mat-card-content>
