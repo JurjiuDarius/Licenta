@@ -25,7 +25,7 @@ export class UserService {
     doctorId: string
   ): Observable<boolean> {
     return this.http.post(`${this.apiUrl}/users/add-patient/${doctorId}`, {
-      patientEmail,
+      email: patientEmail,
     });
   }
 }

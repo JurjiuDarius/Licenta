@@ -8,6 +8,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { AuthenticationService } from 'src/app/auth/service/authentication.service';
 import { UserService } from 'src/app/auth/service/user.service';
 import { User } from 'src/app/models/user';
+import { timeSlotValidator } from 'src/app/utils/validators/time-slot-validator';
 @Component({
   selector: 'app-appointment-details',
   templateUrl: './appointment-details-doctor.component.html',
@@ -30,15 +31,18 @@ export class AppointmentDetailsDoctorComponent {
   ) {
     this.getPatients();
     this.getAppointmentById();
-    this.form = this.fb.group({
-      requirements: ['', Validators.required],
-      address: ['', Validators.required],
-      date: [null, Validators.required],
-      patientId: [null, Validators.required],
-      startTime: [null, Validators.required],
-      endTime: [null, Validators.required],
-      requiresUpload: [false],
-    });
+    this.form = this.fb.group(
+      {
+        requirements: ['', Validators.required],
+        address: ['', Validators.required],
+        date: [null, Validators.required],
+        patientId: [null, Validators.required],
+        startTime: [null, Validators.required],
+        endTime: [null, Validators.required],
+        requiresUpload: [false],
+      },
+      { validators: timeSlotValidator }
+    );
   }
 
   private getAppointmentById(): void {

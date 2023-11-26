@@ -13,7 +13,7 @@ def get_patients(doctor_id):
     return make_response(jsonify(patients), status_code)
 
 
-@user_bp.route("/name/<int:doctor_id>", methods=["POST"])
+@user_bp.route("/add-patient/<int:doctor_id>", methods=["POST"])
 @check_authorization(role="doctor")
 def add_patient(doctor_id):
     patient_email = request.json.get("email")

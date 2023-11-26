@@ -63,7 +63,15 @@
         <mat-checkbox formControlName="requiresUpload"
           >Requires Upload</mat-checkbox
         >
-
+        <div></div>
+        <mat-error
+          *ngIf="
+form.errors?.['timeError'] &&
+(form.touched || form.dirty)
+"
+        >
+          Start and end time need to be chronologically ordered.
+        </mat-error>
         <button
           mat-raised-button
           color="primary"

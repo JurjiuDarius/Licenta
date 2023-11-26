@@ -26,6 +26,9 @@ def get_appointment_by_id(appointment_id):
 
 
 def create_appointment(data):
+    if data["endTime"] > data["startTime"]:
+        return {"message": "End time must be after start time"}, 400
+
     appointment = Appointment(
         requirements=data["requirements"],
         address=data["address"],

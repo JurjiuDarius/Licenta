@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { AddPatientDialogComponent } from '../add-patient-dialog/add-patient-dialog.component';
 import { UserService } from 'src/app/auth/service/user.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-patients',
@@ -16,7 +17,8 @@ export class PatientsComponent {
   constructor(
     private router: Router,
     private dialog: MatDialog,
-    private userService: UserService
+    private userService: UserService,
+    private snackbar: MatSnackBar
   ) {
     this.getPatients();
   }
@@ -36,13 +38,22 @@ export class PatientsComponent {
     const dialogRef = this.dialog.open(AddPatientDialogComponent);
 
     dialogRef.afterClosed().subscribe((result) => {
+      console.log(result);
       const currentUserId = localStorage.getItem('currentUserId');
       if (currentUserId) {
-        this.userService
-          .addPatientForDoctor(result, currentUserId)
-          .subscribe((patient) => {
+        this.userService.addPatientForDoctor(result, currentUserId).subscribe(
+          (patient) => {
             this.getPatients();
-          });
+            this.snackbar.open('Patient added successfully!', 'Close', {
+              duration: 3000,
+            });
+          },
+          (error) => {
+            this.snackbar.open('No such patient was found!', 'Close', {
+              duration: 3000,
+            });
+          }
+        );
       }
     });
   }
