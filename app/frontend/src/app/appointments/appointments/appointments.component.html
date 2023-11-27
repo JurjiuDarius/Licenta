@@ -18,14 +18,16 @@
     <mat-card-content>
       <div class="appointment-info">
         <div class="appointment-date">
-          <i class="material-icons">event</i>
+          <span class="material-symbols-outlined">Event</span>
+
           {{ appointment.date | date : "mediumDate" }}
         </div>
         <div class="appointment-address">
-          <i class="material-icons">navigation</i>{{ appointment.address }}
+          <span class="material-symbols-outlined">pin_drop</span>
+          {{ appointment.address }}
         </div>
         <div class="appointment-time">
-          <i class="material-icons">schedule</i>
+          <span class="material-symbols-outlined">Schedule</span>
           {{ appointment.startTime }} -
           {{ appointment.endTime }}
         </div>

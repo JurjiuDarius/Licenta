@@ -12,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 export class AppointmentDetailsPatientComponent {
   public appointment: Appointment | null = null;
   public doctorName: string | null = null;
+  public fileName: string | null = null;
 
   constructor(
     private appointmentsService: AppointmentsService,
@@ -19,6 +20,22 @@ export class AppointmentDetailsPatientComponent {
     private route: ActivatedRoute
   ) {
     this.getAppointmentById();
+  }
+
+  public uploadFile(event: any) {
+    const file:File = event.target.files[0];
+
+        if (file) {
+
+            this.fileName = file.name;
+
+            const formData = new FormData();
+
+            formData.append("thumbnail", file);
+
+            const upload$ = this.http.post("/api/thumbnail-upload", formData);
+
+            upload$.subscribe();
   }
 
   private getAppointmentById(): void {

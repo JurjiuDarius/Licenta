@@ -57,6 +57,7 @@ class Appointment(db.Model):
         patient_id=None,
         doctor_id=None,
         date=None,
+        requires_upload=None,
         start_time=None,
         end_time=None,
     ):
@@ -65,6 +66,7 @@ class Appointment(db.Model):
         self.patient_id = patient_id
         self.doctor_id = doctor_id
         self.date = date
+        self.requires_upload = requires_upload
         self.start_time = start_time
         self.end_time = end_time
 
@@ -76,6 +78,7 @@ class Appointment(db.Model):
             "patientId": self.patient_id,
             "doctorId": self.doctor_id,
             "date": json_serial_date(self.date),
+            "requiresUpload": self.requires_upload,
             "startTime": json_serial_date(self.start_time),
             "endTime": json_serial_date(self.end_time),
         }

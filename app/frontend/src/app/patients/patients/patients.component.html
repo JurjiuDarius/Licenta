@@ -2,7 +2,8 @@
   Add Patient
 </button>
 <div>
-  <i class="material-icons">info</i> Click on a patient to view their details
+  <span class="material-symbols-outlined">Info</span>
+  Click on a patient to view their details
 </div>
 <div *ngIf="patients === null">
   <mat-card class="no-patients-card">Patients are loading</mat-card>
@@ -25,10 +26,12 @@
           {{ patient.lastName }}
         </div>
         <div class="patient-email">
-          <i class="material-icons">email</i> {{ patient.email }}
+          <span class="material-symbols-outlined">email</span>
+          {{ patient.email }}
         </div>
         <div class="patient-phone">
-          <i class="material-icons">phone</i> {{ patient.phoneNumber }}
+          <span class="material-symbols-outlined">phone</span>
+          {{ patient.phoneNumber }}
         </div>
       </div>
     </mat-card-content>

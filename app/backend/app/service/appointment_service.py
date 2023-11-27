@@ -40,6 +40,7 @@ def create_appointment(data):
         end_time=data["endTime"],
         patient_id=data["patientId"],
         doctor_id=data["doctorId"],
+        requires_upload=data["requiresUpload"],
     )
     db.session.add(appointment)
     db.session.commit()
@@ -61,5 +62,6 @@ def update_appointment(id, data):
     appointment.end_time = data["endTime"]
     appointment.patient_id = data["patientId"]
     appointment.doctor_id = data["doctorId"]
+    appointment.requires_upload = data["requiresUpload"]
     db.session.commit()
     return appointment.serialize(), 201
