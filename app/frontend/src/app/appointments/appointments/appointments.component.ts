@@ -17,7 +17,6 @@ export class AppointmentsComponent {
   constructor(
     private appointmentsService: AppointmentsService,
     private authService: AuthenticationService,
-    private userService: UserService,
     private router: Router
   ) {
     this.getLocalStorage();
@@ -53,9 +52,9 @@ export class AppointmentsComponent {
   public goToDetails(id: number): void {
     let prefix = '';
     if (this.currentRole == 'patient') {
-      prefix = '/patient-appointment';
+      prefix = 'patient-appointment';
     } else {
-      prefix = '/doctor-appointment';
+      prefix = 'doctor-appointment';
     }
     this.router.navigate(['appointments', prefix, id]);
   }

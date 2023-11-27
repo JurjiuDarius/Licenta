@@ -38,11 +38,11 @@ def create_appointment():
     return make_response(jsonify(response), status_code)
 
 
-@appointment_bp.route("", methods=["PUT"])
+@appointment_bp.route("/<int:id>", methods=["PUT"])
 @check_authorization(role="doctor")
-def update_appointment():
-    appointment = appointment_service.get_appointment_by_id(id)
-    response, status_code = update_appointment(appointment)
+def update_appointment(id):
+    data = request.json
+    response, status_code = appointment_service.update_appointment(id, data)
     return make_response(jsonify(response), status_code)
 
 

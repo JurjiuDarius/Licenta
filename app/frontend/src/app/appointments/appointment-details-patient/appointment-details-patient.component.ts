@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AppointmentsService } from '../service/appointments.service';
 import { Appointment } from 'src/app/models/appointment';
 import { UserService } from 'src/app/auth/service/user.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-appointment-details-patient',
@@ -14,24 +15,24 @@ export class AppointmentDetailsPatientComponent {
 
   constructor(
     private appointmentsService: AppointmentsService,
-    private userService: UserService
+    private userService: UserService,
+    private route: ActivatedRoute
   ) {
     this.getAppointmentById();
-    this.getDoctorName();
   }
 
   private getAppointmentById(): void {
-    let id_ = localStorage.getItem('currentAppointmentId');
+    let id_ = this.route.snapshot.paramMap.get('id');
     let id = Number(id_);
 
     this.appointmentsService.getAppointmentById(id).subscribe((response) => {
       this.appointment = response;
+      this.getDoctorName();
     });
   }
 
   private getDoctorName(): void {
     let doctorId = this.appointment?.doctorId;
-
     if (doctorId) {
       this.userService.getUserName(doctorId).subscribe((response) => {
         this.doctorName = response;

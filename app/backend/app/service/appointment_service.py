@@ -22,7 +22,10 @@ def get_all_appointments_for_doctor(doctor_id):
 
 
 def get_appointment_by_id(appointment_id):
-    return Appointment.query.get(appointment_id).serialize(), 200
+    appointment = Appointment.query.get(appointment_id)
+    if not appointment:
+        return {"message": "Appointment not found!"}, 404
+    return appointment.serialize(), 200
 
 
 def create_appointment(data):
@@ -49,11 +52,14 @@ def delete_appointment(appointment_id):
     db.session.commit()
 
 
-def update_appointment(new_appointment):
-    appointment = Appointment.query.get(new_appointment.id)
-    appointment.title = new_appointment.title
-    appointment.requirements = new_appointment.description
-    appointment.start_time = new_appointment.start_time
-    appointment.end_time = new_appointment.end_time
+def update_appointment(id, data):
+    appointment = Appointment.query.get(id)
+    appointment.requirements = data["requirements"]
+    appointment.address = data["address"]
+    appointment.date = data["date"]
+    appointment.start_time = data["startTime"]
+    appointment.end_time = data["endTime"]
+    appointment.patient_id = data["patientId"]
+    appointment.doctor_id = data["doctorId"]
     db.session.commit()
-    return appointment, 201
+    return appointment.serialize(), 201

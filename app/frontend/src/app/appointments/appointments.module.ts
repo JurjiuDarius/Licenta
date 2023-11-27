@@ -13,6 +13,7 @@ import { IgxTimePickerModule } from 'igniteui-angular';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AppointmentDetailsPatientComponent } from './appointment-details-patient/appointment-details-patient.component';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 @NgModule({
   declarations: [
     AppointmentsComponent,
@@ -30,7 +31,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatSelectModule,
     MatDatepickerModule,
     MatCheckboxModule,
-
+    MatSnackBarModule,
     IgxTimePickerModule,
     ReactiveFormsModule,
   ],

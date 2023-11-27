@@ -17,7 +17,7 @@ export class UserService {
   }
 
   public getUserName(id: number): Observable<string> {
-    return this.http.get(`${this.apiUrl}/users/name${id}`);
+    return this.http.get(`${this.apiUrl}/users/name/${id}`);
   }
 
   public addPatientForDoctor(

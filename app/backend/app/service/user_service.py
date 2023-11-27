@@ -19,4 +19,5 @@ def add_patient_for_doctor(doctor_id, patient_email):
 
 def get_name_for_user(user_id):
     user = User.query.get(user_id)
-    return user.name, 200
+    name = user.first_name + " " + user.last_name
+    return name, 200

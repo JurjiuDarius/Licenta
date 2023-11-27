@@ -91,6 +91,7 @@ export class AppointmentDetailsDoctorComponent {
         doctorId: Number(localStorage.getItem('currentUserId')),
         requiresUpload: this.form?.get('requiresUpload')?.value,
       };
+
       if (this.appointment?.id == -1) {
         this.appointmentsService.createAppointment(payload).subscribe({
           next: () => {

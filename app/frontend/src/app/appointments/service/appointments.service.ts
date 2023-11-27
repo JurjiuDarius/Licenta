@@ -31,7 +31,6 @@ export class AppointmentsService {
 
   updateAppointment(id: number | undefined, appointment: any): Observable<any> {
     if (!id) {
-      console.log('Id not defined!');
       return of('Id not defined!');
     }
     return this.http.put(`${this.apiUrl + '/appointments'}/${id}`, appointment);
