@@ -1,0 +1,22 @@
+This file requires an upload. Check the doctor's requirements to see what files
+are needed.
+
+<input
+  type="file"
+  class="file-input"
+  (change)="uploadFile($event)"
+  #fileUpload
+/>
+
+<div class="file-upload">
+  <div *ngIf="files.length == 0">No files uploaded yet</div>
+
+  <button
+    mat-button
+    color="primary"
+    class="upload-btn"
+    (click)="fileUpload.click()"
+  >
+    <span class="material-symbols-outlined">Folder</span>
+  </button>
+</div>

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { environment } from 'src/app/environments/environment';
 import { HttpService } from 'src/app/utils/http.service';
 
@@ -10,11 +11,15 @@ export class ImageService {
 
   constructor(private http: HttpService) {}
 
-  public uploadImage(image: File, id: number): void {
+  public uploadImage(image: File, userId: number): Observable<any> {
     const formData = new FormData();
     formData.append('image', image);
-    this.http
-      .post(`${this.apiUrl}/users/${id}/upload-image`, formData)
+    return this.http
+      .post(`${this.apiUrl}/images/user-upload/${userId}/`, formData)
       .subscribe();
+  }
+
+  public getImagesForUser(userId: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/images/user-images/${userId}`);
   }
 }

@@ -13,14 +13,16 @@ import { IgxTimePickerModule } from 'igniteui-angular';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { AppointmentDetailsPatientComponent } from './appointment-details-patient/appointment-details-patient.component';
 import { MatSelectModule } from '@angular/material/select';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
+import { ImageUploadComponent } from '../image-upload/image-upload.component';
 @NgModule({
   declarations: [
     AppointmentsComponent,
     AppointmentDetailsDoctorComponent,
     AppointmentDetailsPatientComponent,
     AppointmentDetailsPatientComponent,
+    ImageUploadComponent,
   ],
   imports: [
     CommonModule,

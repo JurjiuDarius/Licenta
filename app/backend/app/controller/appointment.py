@@ -9,14 +9,14 @@ from app.service import appointment_service
 appointment_bp = Blueprint("appointment", __name__, url_prefix="/appointments")
 
 
-@appointment_bp.route("/patient/<int:userId>", methods=["GET"])
+@appointment_bp.route("/patient/<int:user_id>", methods=["GET"])
 @check_authorization(role="patient")
 def get_appointments_patient(userId):
     response, status_code = appointment_service.get_all_appointments_for_patient(userId)
     return make_response(jsonify(response), status_code)
 
 
-@appointment_bp.route("/doctor/<int:userId>", methods=["GET"])
+@appointment_bp.route("/doctor/<int:user_id>", methods=["GET"])
 @check_authorization(role="doctor")
 def get_appointments_doctor(userId):
     response, status_code = appointment_service.get_all_appointments_for_doctor(userId)

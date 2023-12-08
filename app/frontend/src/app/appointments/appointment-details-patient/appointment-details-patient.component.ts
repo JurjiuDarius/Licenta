@@ -3,6 +3,8 @@ import { AppointmentsService } from '../service/appointments.service';
 import { Appointment } from 'src/app/models/appointment';
 import { UserService } from 'src/app/auth/service/user.service';
 import { ActivatedRoute } from '@angular/router';
+import { HttpService } from 'src/app/utils/http.service';
+import { ImageService } from 'src/app/image-upload/service/image.service';
 
 @Component({
   selector: 'app-appointment-details-patient',
@@ -12,7 +14,6 @@ import { ActivatedRoute } from '@angular/router';
 export class AppointmentDetailsPatientComponent {
   public appointment: Appointment | null = null;
   public doctorName: string | null = null;
-  public fileName: string | null = null;
 
   constructor(
     private appointmentsService: AppointmentsService,
@@ -20,22 +21,6 @@ export class AppointmentDetailsPatientComponent {
     private route: ActivatedRoute
   ) {
     this.getAppointmentById();
-  }
-
-  public uploadFile(event: any) {
-    const file:File = event.target.files[0];
-
-        if (file) {
-
-            this.fileName = file.name;
-
-            const formData = new FormData();
-
-            formData.append("thumbnail", file);
-
-            const upload$ = this.http.post("/api/thumbnail-upload", formData);
-
-            upload$.subscribe();
   }
 
   private getAppointmentById(): void {

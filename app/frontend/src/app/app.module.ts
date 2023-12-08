@@ -19,7 +19,6 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { TokenInterceptor } from './utils/token.interceptor';
 import { AddPatientDialogComponent } from './patients/add-patient-dialog/add-patient-dialog.component';
 @NgModule({
   declarations: [
