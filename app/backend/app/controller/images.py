@@ -1,13 +1,17 @@
 from flask import Blueprint, request, jsonify, make_response
-from service import image_service
+from app.service import image_service
 
 images_bp = Blueprint("images", __name__)
 
 
 @images_bp.route("/images/user-upload/<int:patient_id>", methods=["POST"])
 def upload_image(patient_id):
-    data = request.json
-    response, status_code = image_service.create_image(data, patient_id)
+    if request.files is None:
+        return {"message": "No image uploaded"}, 400
+    if "image" not in request.files:
+        return {"message": "No image uploaded"}, 400
+    file = request.files["image"]
+    response, status_code = image_service.create_image(file, patient_id)
     return make_response(jsonify(response), status_code)
 
 

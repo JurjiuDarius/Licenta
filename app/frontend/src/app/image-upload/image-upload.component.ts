@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ImageService } from './service/image.service';
-import { Image } from '../models/image-upload';
+import { Image } from '../models/image';
+import { DisplayImage } from '../models/display-image';
 
 @Component({
   selector: 'app-image-upload',
@@ -8,7 +9,7 @@ import { Image } from '../models/image-upload';
   styleUrls: ['./image-upload.component.sass'],
 })
 export class ImageUploadComponent {
-  images: Image[] = [];
+  images: DisplayImage[] = [];
   constructor(private imageService: ImageService) {}
 
   public uploadFile(event: any) {
@@ -16,9 +17,11 @@ export class ImageUploadComponent {
       const file: File = event.target.files[0];
       if (file) {
         const currentUserId = Number(localStorage.getItem('currentUserId'));
-        this.imageService.uploadImage(file, currentUserId).subscribe(() => {
-          console.log('Successful upload');
-        });
+        this.imageService
+          .uploadImage(file, currentUserId)
+          .subscribe((response) => {
+            console.log(response);
+          });
       }
     }
   }

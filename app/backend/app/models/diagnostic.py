@@ -1,7 +1,8 @@
 from database import db
-import datetime
 from app.utils.json import json_serial_date
 from sqlalchemy import DateTime, Date, Time
+import datetime
+import base64
 
 
 class ImageUpload(db.Model):
@@ -19,10 +20,25 @@ class ImageUpload(db.Model):
 
     image = db.Column(db.LargeBinary)
 
-    def __init__(self, patient_id=None, date_created=None, is_processed=None):
+    def __init__(
+        self, image=None, patient_id=None, date_created=None, is_processed=None
+    ):
+        self.image = image
         self.patient_id = patient_id
         self.date_created = date_created
         self.is_processed = is_processed
+
+    def serialize(self):
+        image_base64 = (
+            base64.b64encode(self.image).decode("utf-8") if self.image else None
+        )
+        return {
+            "id": self.id,
+            "patientId": self.patient_id,
+            "dateCreated": json_serial_date(self.date_created),
+            "isProcessed": self.is_processed,
+            "image": image_base64,
+        }
 
 
 class Appointment(db.Model):
