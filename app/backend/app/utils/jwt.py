@@ -15,16 +15,35 @@ def check_authorization(role):
     def check_role(f):
         @wraps(f)
         def decorated(*args, **kwargs):
+            if role == None:
+                return f(*args, **kwargs)
             if not request.headers.get("Authorization"):
                 return jsonify({"message": "Token is missing!"}), 401
-            token = request.headers.get("Authorization").split(" ")[1]
-            if not token:
-                return jsonify({"message": "Token is missing!"}), 401
+
             try:
-                data = jwt.decode(token, SECRET_KEY, algorithms=["HS256"])
+                token = request.headers.get("Authorization").split(" ")[1]
             except Exception as e:
                 return jsonify({"message": "Token is invalid!"}), 401
-            if (role != None) and (data["role"] != role):
+            if not token:
+                return jsonify({"message": "Token is missing!"}), 401
+
+            try:
+                data = jwt.decode(token, SECRET_KEY, algorithms=["HS256"])
+            except Exception:
+                return jsonify({"message": "Token is invalid!"}), 401
+
+            if not data:
+                return jsonify({"message": "Token is invalid!"}), 401
+            if "role" not in data:
+                return jsonify({"message": "Token is invalid!"}), 401
+
+            if type(role) == list and data["role"] not in role:
+                return (
+                    jsonify({"message": "You do not have access to this resource!"}),
+                    401,
+                )
+
+            if type(role) == str and data["role"] != role:
                 return (
                     jsonify({"message": "You do not have access to this resource!"}),
                     401,

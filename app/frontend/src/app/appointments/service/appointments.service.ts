@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { HttpService } from 'src/app/utils/http.service';
+import { HttpService } from 'src/app/deprecated/http.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +10,7 @@ import { HttpService } from 'src/app/utils/http.service';
 export class AppointmentsService {
   private apiUrl = environment.apiURL;
 
-  constructor(private http: HttpService) {}
+  constructor(private http: HttpClient) {}
 
   getAllAppointmentsForPatient(currentUserId: number): Observable<any> {
     return this.http.get(

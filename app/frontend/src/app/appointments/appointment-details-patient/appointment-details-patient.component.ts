@@ -3,7 +3,7 @@ import { AppointmentsService } from '../service/appointments.service';
 import { Appointment } from 'src/app/models/appointment';
 import { UserService } from 'src/app/auth/service/user.service';
 import { ActivatedRoute } from '@angular/router';
-import { HttpService } from 'src/app/utils/http.service';
+import { HttpService } from 'src/app/deprecated/http.service';
 import { ImageService } from 'src/app/images/service/image.service';
 
 @Component({

@@ -4,7 +4,6 @@ import { Observable, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import * as jwt_decode from 'jwt-decode';
-import { HttpService } from 'src/app/utils/http.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -12,7 +11,7 @@ export class AuthenticationService {
   private apiUrl = environment.apiURL;
   private authChanges: Subject<boolean>;
 
-  constructor(private http: HttpService) {
+  constructor(private http: HttpClient) {
     this.authChanges = new Subject<boolean>();
   }
 

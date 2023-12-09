@@ -26,7 +26,7 @@ def get_appointments_doctor(user_id):
 
 
 @appointment_bp.route("/<int:id>", methods=["GET"])
-@check_authorization(role=None)
+@check_authorization(role=["patient", "doctor"])
 def get_appointment(id):
     response, status_code = appointment_service.get_appointment_by_id(id)
     return make_response(jsonify(response), status_code)

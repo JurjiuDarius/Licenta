@@ -21,6 +21,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { AddPatientDialogComponent } from './patients/add-patient-dialog/add-patient-dialog.component';
 import { ConfirmationDialogComponent } from './utils/confirmation-dialog/confirmation-dialog.component';
+import { TokenInterceptor } from './utils/token.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,7 +48,14 @@ import { ConfirmationDialogComponent } from './utils/confirmation-dialog/confirm
     MatDatepickerModule,
     MatNativeDateModule,
   ],
-  providers: [MatDatepickerModule],
+  providers: [
+    MatDatepickerModule,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    },
+  ],
 
   bootstrap: [AppComponent],
 })
