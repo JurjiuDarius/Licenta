@@ -21,7 +21,7 @@ export class AppComponent {
     doctor: [
       { label: 'Appointments', path: '/appointments' },
       { label: 'My Profile', path: '/profile' },
-      { label: 'My Patients', path: '/patients' },
+      { label: 'Images', path: '/doctor-images' },
     ],
     admin: [],
   };

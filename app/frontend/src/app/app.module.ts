@@ -19,17 +19,9 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { AddPatientDialogComponent } from './patients/add-patient-dialog/add-patient-dialog.component';
-import { ConfirmationDialogComponent } from './utils/confirmation-dialog/confirmation-dialog.component';
 import { TokenInterceptor } from './utils/token.interceptor';
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    SignUpComponent,
-    AddPatientDialogComponent,
-    ConfirmationDialogComponent,
-  ],
+  declarations: [AppComponent, LoginComponent, SignUpComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

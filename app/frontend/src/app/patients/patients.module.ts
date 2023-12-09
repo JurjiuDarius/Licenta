@@ -6,8 +6,10 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { PatientsRoutingModule } from './patients-routing.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { AddPatientDialogComponent } from './add-patient-dialog/add-patient-dialog.component';
+import { FormsModule } from '@angular/forms';
 @NgModule({
-  declarations: [PatientsComponent],
+  declarations: [PatientsComponent, AddPatientDialogComponent],
   imports: [
     CommonModule,
     MatCardModule,
@@ -15,6 +17,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatInputModule,
     MatSnackBarModule,
     PatientsRoutingModule,
+    MatInputModule,
+    FormsModule,
   ],
 })
 export class PatientsModule {}
