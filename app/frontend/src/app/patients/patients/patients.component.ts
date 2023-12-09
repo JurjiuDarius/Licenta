@@ -38,7 +38,6 @@ export class PatientsComponent {
     const dialogRef = this.dialog.open(AddPatientDialogComponent);
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
       const currentUserId = localStorage.getItem('currentUserId');
       if (currentUserId) {
         this.userService.addPatientForDoctor(result, currentUserId).subscribe({

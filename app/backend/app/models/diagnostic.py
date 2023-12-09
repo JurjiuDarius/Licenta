@@ -16,17 +16,25 @@ class ImageUpload(db.Model):
 
     diagnostics = db.relationship("Diagnostic", back_populates="image")
 
+    file_name = db.Column(db.String(1000))
+
     is_processed = db.Column(db.Boolean, default=False)
 
     image = db.Column(db.LargeBinary)
 
     def __init__(
-        self, image=None, patient_id=None, date_created=None, is_processed=None
+        self,
+        image=None,
+        patient_id=None,
+        date_created=None,
+        is_processed=None,
+        file_name=None,
     ):
         self.image = image
         self.patient_id = patient_id
         self.date_created = date_created
         self.is_processed = is_processed
+        self.file_name = file_name
 
     def serialize(self):
         image_base64 = (
@@ -37,6 +45,7 @@ class ImageUpload(db.Model):
             "patientId": self.patient_id,
             "dateCreated": json_serial_date(self.date_created),
             "isProcessed": self.is_processed,
+            "fileName": self.file_name,
             "image": image_base64,
         }
 

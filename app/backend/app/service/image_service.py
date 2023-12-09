@@ -4,7 +4,10 @@ from PIL import Image
 
 def create_image(file, patient_id):
     new_image = ImageUpload(
-        patient_id=patient_id, is_processed=False, image=file.read()
+        patient_id=patient_id,
+        is_processed=False,
+        image=file.read(),
+        file_name=file.filename,
     )
     db.session.add(new_image)
     db.session.commit()

@@ -15,9 +15,6 @@ export class ImageService {
   public uploadImage(image: File, userId: number): Observable<any> {
     const formData = new FormData();
     formData.append('image', image);
-    formData.forEach((value, key) => {
-      console.log(key + ' ' + value);
-    });
 
     return this.http.post(
       `${this.apiUrl}/images/user-upload/${userId}`,

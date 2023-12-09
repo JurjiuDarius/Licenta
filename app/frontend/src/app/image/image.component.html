@@ -1,0 +1,13 @@
+<div class="image-container">
+  <div class="image-box" *ngFor="let image of images">
+    <div class="image-name">{{ image.fileName }}</div>
+    <img src="{{ image.image }}" alt="Image" title="{{ image.fileName }}" />
+    <button
+      mat-button
+      class="download-button"
+      (click)="downloadImage(image.image, image.fileName)"
+    >
+      <span class="material-symbols-outlined">download</span>
+    </button>
+  </div>
+</div>

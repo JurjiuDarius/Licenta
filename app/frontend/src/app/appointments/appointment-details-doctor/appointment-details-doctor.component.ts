@@ -79,7 +79,6 @@ export class AppointmentDetailsDoctorComponent {
   }
 
   public onSubmit(): void {
-    console.log(this.form);
     if (this.form?.valid) {
       const payload = {
         requirements: this.form?.get('requirements')?.value,

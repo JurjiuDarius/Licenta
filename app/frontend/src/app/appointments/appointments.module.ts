@@ -16,6 +16,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { ImageUploadComponent } from '../image-upload/image-upload.component';
+import { ImageComponent } from '../image/image.component';
 @NgModule({
   declarations: [
     AppointmentsComponent,
@@ -23,6 +24,7 @@ import { ImageUploadComponent } from '../image-upload/image-upload.component';
     AppointmentDetailsPatientComponent,
     AppointmentDetailsPatientComponent,
     ImageUploadComponent,
+    ImageComponent,
   ],
   imports: [
     CommonModule,

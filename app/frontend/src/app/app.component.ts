@@ -33,7 +33,6 @@ export class AppComponent {
   ) {
     this.setRole();
     this.authService.getAuthChanges().subscribe((isAuthenticated) => {
-      console.log('isAuthenticated', isAuthenticated);
       this.setRole();
     });
   }

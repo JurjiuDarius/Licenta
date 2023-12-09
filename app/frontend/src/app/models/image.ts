@@ -3,5 +3,5 @@ export interface Image {
   fileName: string;
   patientId: number;
   isProcessed: Boolean;
-  image: File;
+  image: string;
 }

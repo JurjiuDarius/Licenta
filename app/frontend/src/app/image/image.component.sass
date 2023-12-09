@@ -1,0 +1,39 @@
+
+.image-container 
+    display: flex
+    flex-wrap: wrap
+    justify-content: left
+.image-box 
+    position: relative
+    width: 200px
+    display: flex
+    flex-wrap: wrap
+    img 
+        width: 200px
+        height: auto
+    .image-name
+      position: absolute
+      top: 0
+      left: 0
+      display: none
+      background-color: rgba(0, 0, 0, 0.5)
+      color: white
+      padding: 5px
+    &:hover
+      .image-name
+        display: block
+    .download-button
+      background-color: transparent// Light grey background
+      color: #ffffff  // Dark grey text
+      &:hover
+        background-color: #e0e0e0  // Darker grey background on hover
+        color: #000 
+
+.download-button 
+    position: absolute
+    bottom: 0
+    right: 0
+
+
+
+

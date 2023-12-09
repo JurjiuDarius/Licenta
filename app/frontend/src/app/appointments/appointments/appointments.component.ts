@@ -43,7 +43,6 @@ export class AppointmentsComponent {
           .getAllAppointmentsForDoctor(this.currentUserId)
           .subscribe((response) => {
             this.appointments = response;
-            console.log(this.appointments);
           });
       }
     }
