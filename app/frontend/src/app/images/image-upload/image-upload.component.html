@@ -21,4 +21,7 @@ are needed.
   </button>
   Upload an image
 </div>
-<app-image [images]="images"></app-image>
+<app-image
+  [images]="images"
+  (deleteImageEmitter)="deleteImage($event)"
+></app-image>

@@ -20,12 +20,14 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { AddPatientDialogComponent } from './patients/add-patient-dialog/add-patient-dialog.component';
+import { ConfirmationDialogComponent } from './utils/confirmation-dialog/confirmation-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     SignUpComponent,
     AddPatientDialogComponent,
+    ConfirmationDialogComponent,
   ],
   imports: [
     BrowserModule,

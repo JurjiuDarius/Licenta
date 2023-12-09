@@ -28,4 +28,5 @@ def get_image(image_id):
 
 @images_bp.route("/images/<image_id>", methods=["DELETE"])
 def delete_image(image_id):
-    pass
+    response, status_code = image_service.delete_image(image_id)
+    return make_response(jsonify(response), status_code)

@@ -15,16 +15,15 @@ import { AppointmentDetailsPatientComponent } from './appointment-details-patien
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
-import { ImageUploadComponent } from '../image-upload/image-upload.component';
-import { ImageComponent } from '../image/image.component';
+import { ImageUploadComponent } from '../images/image-upload/image-upload.component';
+import { ImageComponent } from '../images/image/image.component';
+import { ImagesModule } from '../images/images.module';
 @NgModule({
   declarations: [
     AppointmentsComponent,
     AppointmentDetailsDoctorComponent,
     AppointmentDetailsPatientComponent,
     AppointmentDetailsPatientComponent,
-    ImageUploadComponent,
-    ImageComponent,
   ],
   imports: [
     CommonModule,
@@ -40,6 +39,7 @@ import { ImageComponent } from '../image/image.component';
     MatSnackBarModule,
     IgxTimePickerModule,
     ReactiveFormsModule,
+    ImagesModule,
   ],
 })
 export class AppointmentsModule {}

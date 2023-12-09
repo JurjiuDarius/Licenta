@@ -30,5 +30,5 @@ def delete_image(image_id):
     if image_upload:
         db.session.delete(image_upload)
         db.session.commit()
-        return {"message": "Image deleted successfully"}, 200
+        return {"message": "Image deleted successfully"}, 203
     return {"message": "Image not found"}, 404

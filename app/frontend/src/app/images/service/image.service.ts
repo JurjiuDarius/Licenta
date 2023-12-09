@@ -25,4 +25,7 @@ export class ImageService {
   public getImagesForUser(userId: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/images/user-images/${userId}`);
   }
+  public deleteImage(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/images/${id}`);
+  }
 }
