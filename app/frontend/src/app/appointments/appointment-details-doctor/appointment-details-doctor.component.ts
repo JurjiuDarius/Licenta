@@ -119,7 +119,7 @@ export class AppointmentDetailsDoctorComponent {
   }
 
   private getPatients(): void {
-    const currentUserId = localStorage.getItem('currentUserId');
+    const currentUserId = Number(localStorage.getItem('currentUserId'));
     if (currentUserId) {
       this.userService
         .getPatientsForDoctor(currentUserId)

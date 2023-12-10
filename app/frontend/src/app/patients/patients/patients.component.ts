@@ -24,7 +24,7 @@ export class PatientsComponent {
   }
 
   private getPatients() {
-    const currentUserId = localStorage.getItem('currentUserId');
+    const currentUserId = Number(localStorage.getItem('currentUserId'));
     if (currentUserId) {
       this.userService
         .getPatientsForDoctor(currentUserId)

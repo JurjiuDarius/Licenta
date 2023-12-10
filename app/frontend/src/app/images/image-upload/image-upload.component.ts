@@ -42,6 +42,9 @@ export class ImageUploadComponent implements OnInit {
   }
   private getImages() {
     const currentUserId = Number(localStorage.getItem('currentUserId'));
+    if (!currentUserId) {
+      return;
+    }
     this.imageService.getImagesForUser(currentUserId).subscribe((response) => {
       this.images = response;
       this.images.map((image) => {

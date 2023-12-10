@@ -12,7 +12,7 @@ export class UserService {
   private apiUrl = environment.apiURL;
   constructor(private http: HttpClient) {}
 
-  public getPatientsForDoctor(id: string): Observable<any> {
+  public getPatientsForDoctor(id: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/users/doctor-patients/${id}`);
   }
 
