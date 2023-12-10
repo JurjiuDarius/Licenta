@@ -11,9 +11,15 @@
   </mat-select>
 </mat-card>
 
+<app-image-processing
+  *ngIf="originalImage"
+  [originalImage]="originalImage"
+  [processedImage]="processedImage"
+  (startProcessingEmitter)="startProcessing($event)"
+></app-image-processing>
 <app-image
   [images]="images"
   [requiresOpenButton]="true"
   (deleteImageEmitter)="deleteImage($event)"
-  (openImageEmitter)="editImage($event)"
+  (openImageEmitter)="openImage($event)"
 ></app-image>

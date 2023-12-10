@@ -1,0 +1,36 @@
+<mat-card>
+  <mat-card-title>Image Processing</mat-card-title>
+  <mat-card class="control-panel">
+    <mat-label>Processing Type</mat-label>
+    <mat-select [(value)]="selectedProcessingType">
+      <mat-option *ngFor="let type of processingTypes" [value]="type.value">
+        {{ type.viewValue }}
+      </mat-option>
+    </mat-select>
+    <button mat-raised-button color="primary" (click)="startProcessing()">
+      Start Processing
+    </button>
+  </mat-card>
+  <div class="image-container">
+    <div class="image-box">
+      <img
+        class="original-image"
+        src="{{ originalImage?.image }}"
+        alt="Original Image"
+      />
+      <mat-card
+        class="processed-image"
+        *ngIf="!processedImage; else processedImageTemplate"
+      >
+        Processed images will be displayed here
+      </mat-card>
+      <ng-template #processedImageTemplate>
+        <img
+          class="processed-image"
+          src="{{ processedImage?.image }}"
+          alt="Processed Image"
+        />
+      </ng-template>
+    </div>
+  </div>
+</mat-card>

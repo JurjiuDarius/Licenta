@@ -22,6 +22,15 @@ export class ImageService {
     );
   }
 
+  public processImage(
+    imageId: number,
+    processingType: string
+  ): Observable<any> {
+    return this.http.get(
+      `${this.apiUrl}/images/process-image/${imageId}/${processingType}`
+    );
+  }
+
   public getImagesForUser(userId: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/images/user-images/${userId}`);
   }

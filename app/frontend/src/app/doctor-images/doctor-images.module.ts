@@ -6,9 +6,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { DoctorImagesRoutingModule } from './doctor-images-routing.module';
 import { MatCardModule } from '@angular/material/card';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ImageProcessingComponent } from './image-processing/image-processing.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
-  declarations: [ImageViewerComponent],
+  declarations: [ImageViewerComponent, ImageProcessingComponent],
   imports: [
     CommonModule,
     DoctorImagesRoutingModule,
@@ -16,6 +18,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatSelectModule,
     MatCardModule,
     MatSnackBarModule,
+    MatButtonModule,
   ],
 })
 export class DoctorImagesModule {}

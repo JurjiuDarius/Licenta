@@ -14,6 +14,8 @@ export class ImageViewerComponent {
   public images: Image[] = [];
   public patients: User[] = [];
   public selectedPatientId: string = '';
+  public originalImage: Image | null = null;
+  public processedImage: Image | null = null;
 
   constructor(
     private imageService: ImageService,
@@ -52,5 +54,30 @@ export class ImageViewerComponent {
       },
     });
   }
-  public editImage(id: number): void {}
+  public openImage(id: number): void {
+    const image = this.images.find((image) => image.id === id);
+    if (image) {
+      this.originalImage = image;
+    }
+  }
+  public startProcessing(processingType: string): void {
+    if (!this.originalImage) {
+      return;
+    }
+    this.imageService
+      .processImage(this.originalImage?.id, processingType)
+      .subscribe({
+        next: (response) => {
+          this.processedImage = response;
+          if (!this.processedImage) {
+            return;
+          }
+          this.processedImage.image =
+            'data:image/png;base64,' + this.processedImage.image;
+        },
+        error: (error) => {
+          this.snackbar.open('Error processing image!', 'Close');
+        },
+      });
+  }
 }

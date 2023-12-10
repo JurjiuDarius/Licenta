@@ -35,3 +35,10 @@ def get_image(image_id):
 def delete_image(image_id):
     response, status_code = image_service.delete_image(image_id)
     return make_response(jsonify(response), status_code)
+
+
+@images_bp.route("/images/process-image/<image_id>/<processing_type>", methods=["GET"])
+@check_authorization(role="doctor")
+def process_image(image_id, processing_type):
+    response, status_code = image_service.process_image(image_id, processing_type)
+    return make_response(jsonify(response), status_code)
