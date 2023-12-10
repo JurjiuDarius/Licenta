@@ -8,7 +8,9 @@ import { Image } from '../../models/image';
 })
 export class ImageComponent {
   @Input() images: Image[] = [];
+  @Input() requiresOpenButton: boolean = false;
   @Output() deleteImageEmitter = new EventEmitter<number>();
+  @Output() openImageEmitter = new EventEmitter<number>();
 
   downloadImage(data: string, name: string) {
     const a = document.createElement('a');
@@ -18,5 +20,8 @@ export class ImageComponent {
   }
   deleteImage(id: number) {
     this.deleteImageEmitter.emit(id);
+  }
+  public editEvent(id: number) {
+    this.openImageEmitter.emit(id);
   }
 }

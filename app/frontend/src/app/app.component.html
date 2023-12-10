@@ -1,10 +1,18 @@
 <mat-toolbar *ngIf="currentRole" color="primary">
-  <span>My App</span>
+  <span>DeepDent</span>
+  <span class="material-symbols-outlined">Dentistry</span>
   <span class="spacer"></span>
-  <button mat-button *ngFor="let item of navItems" [routerLink]="[item.path]">
+  <button
+    class="navigation"
+    mat-button
+    *ngFor="let item of navItems"
+    [routerLink]="[item.path]"
+  >
     {{ item.label }}
   </button>
-  <button mat-button *ngIf="currentRole" (click)="logOut()">Log out</button>
+  <button class="logout" mat-button *ngIf="currentRole" (click)="logOut()">
+    Log out
+  </button>
 </mat-toolbar>
 <link
   href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"

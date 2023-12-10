@@ -1,8 +1,19 @@
 <mat-card class="patient-selector">
-  <mat-select placeholder="Select a patient" [(value)]="selectedPatientId">
+  <mat-select
+    (selectionChange)="getImagesForPatient($event.value)"
+    placeholder="Select a patient"
+    [(value)]="selectedPatientId"
+  >
     <mat-option *ngFor="let patient of patients" [value]="patient.id"
       >{{ patient.firstName }} {{ patient.lastName }},
       {{ patient.email }}
     </mat-option>
   </mat-select>
 </mat-card>
+
+<app-image
+  [images]="images"
+  [requiresOpenButton]="true"
+  (deleteImageEmitter)="deleteImage($event)"
+  (openImageEmitter)="editImage($event)"
+></app-image>

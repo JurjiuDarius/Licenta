@@ -8,6 +8,6 @@ import { ImageComponent } from './image/image.component';
 @NgModule({
   declarations: [ImageUploadComponent, ImageComponent],
   imports: [CommonModule, MatDialogModule, MatButtonModule],
-  exports: [ImageUploadComponent],
+  exports: [ImageUploadComponent, ImageComponent],
 })
 export class ImagesModule {}

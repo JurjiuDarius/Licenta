@@ -12,5 +12,13 @@
     >
       <span class="material-symbols-outlined">download</span>
     </button>
+    <button
+      *ngIf="requiresOpenButton"
+      mat-button
+      class="open-button"
+      (click)="editEvent(image.id)"
+    >
+      <span class="material-symbols-outlined">open_in_new</span>
+    </button>
   </div>
 </div>
