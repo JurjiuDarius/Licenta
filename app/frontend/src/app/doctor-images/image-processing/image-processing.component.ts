@@ -10,6 +10,7 @@ export class ImageProcessingComponent {
   @Input() public originalImage: Image | null = null;
   @Input() public processedImage: Image | null = null;
   @Output() public startProcessingEmitter = new EventEmitter<string>();
+  @Output() public openDialogEmitter = new EventEmitter<boolean>();
   public selectedProcessingType: string = '';
   processingTypes = [
     { value: 'dentalSegmentation', viewValue: 'Dental Segmentation' },
@@ -18,5 +19,8 @@ export class ImageProcessingComponent {
 
   public startProcessing() {
     this.startProcessingEmitter.emit(this.selectedProcessingType);
+  }
+  public openDiagnostic() {
+    this.openDialogEmitter.emit(true);
   }
 }

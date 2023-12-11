@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserService } from 'src/app/auth/service/user.service';
 import { ImageService } from 'src/app/images/service/image.service';
 import { Image } from 'src/app/models/image';
 import { User } from 'src/app/models/user';
+import { DiagnosticDialogComponent } from '../diagnostic-dialog/diagnostic-dialog.component';
+import { DiagnosticService } from '../service/diagnostic.service';
 
 @Component({
   selector: 'app-image-viewer',
@@ -20,6 +23,8 @@ export class ImageViewerComponent {
   constructor(
     private imageService: ImageService,
     private userService: UserService,
+    private diagnosticService: DiagnosticService,
+    private dialog: MatDialog,
     private snackbar: MatSnackBar
   ) {
     this.getPatients();
@@ -99,6 +104,51 @@ export class ImageViewerComponent {
         error: (error) => {
           this.snackbar.open('Error processing image!', 'Close');
         },
+      });
+  }
+  public onDialogOpen() {
+    if (!this.originalImage) {
+      return;
+    }
+    this.diagnosticService
+      .getDiagnosticForImage(this.originalImage?.id)
+      .subscribe({
+        next: (response) => {
+          this.openDialog(response.text);
+        },
+        error: (error) => {
+          this.snackbar.open('Error getting diagnostic!', 'Close');
+        },
+      });
+  }
+
+  private openDialog(dialogText: string) {
+    this.dialog
+      .open(DiagnosticDialogComponent, {
+        width: '500px',
+        height: '500px',
+        data: {
+          text: 'Are you sure you want to delete this image?',
+          title: 'Diagnostic',
+        },
+      })
+      .afterClosed()
+      .subscribe((result) => {
+        const diagnostic = {
+          text: result,
+          imageUploadId: this.originalImage?.id,
+          doctorId: Number(localStorage.getItem('currentUserId')),
+          dateCreated: new Date(),
+        };
+        if (!this.originalImage) {
+          return;
+        }
+        this.diagnosticService.saveDiagnostic(diagnostic);
+        if (result == true) {
+          this.snackbar.open('Diagnostic saved successfully!', 'Close', {
+            duration: 3000,
+          });
+        }
       });
   }
 }

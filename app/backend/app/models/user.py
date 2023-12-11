@@ -55,8 +55,6 @@ class Patient(User):
 
     appointments = relationship("Appointment", back_populates="patient")
 
-    diagnostics = relationship("Diagnostic", back_populates="patient")
-
     doctors = relationship(
         "Doctor", secondary="patient_doctor", back_populates="patients"
     )

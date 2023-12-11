@@ -8,9 +8,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ImageProcessingComponent } from './image-processing/image-processing.component';
 import { MatButtonModule } from '@angular/material/button';
+import { DiagnosticDialogComponent } from './diagnostic-dialog/diagnostic-dialog.component';
 
 @NgModule({
-  declarations: [ImageViewerComponent, ImageProcessingComponent],
+  declarations: [ImageViewerComponent, ImageProcessingComponent, DiagnosticDialogComponent],
   imports: [
     CommonModule,
     DoctorImagesRoutingModule,

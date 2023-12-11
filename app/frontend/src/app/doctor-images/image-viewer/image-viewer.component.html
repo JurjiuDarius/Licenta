@@ -19,6 +19,7 @@
   [originalImage]="originalImage"
   [processedImage]="processedImage"
   (startProcessingEmitter)="startProcessing($event)"
+  (openDialogEmitter)="onDialogOpen()"
 ></app-image-processing>
 <app-image
   [images]="images"

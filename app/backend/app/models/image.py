@@ -16,10 +16,8 @@ class ImageUpload(db.Model):
 
     date_created = db.Column(DateTime, default=datetime.datetime.utcnow)
 
-    diagnostic_id = db.Column(db.Integer, db.ForeignKey("diagnostic.id"), unique=True)
-
     diagnostic = db.relationship(
-        "Diagnostic", backref=db.backref("image_upload", uselist=False)
+        "Diagnostic", back_populates="image_upload", uselist=False
     )
 
     file_name = db.Column(db.String(1000))

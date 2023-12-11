@@ -6,6 +6,8 @@ import base64
 
 
 class Appointment(db.Model):
+    __tablename__ = "appointment"
+
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 
     requirements = db.Column(db.String(1000))
@@ -65,11 +67,10 @@ class Appointment(db.Model):
 
 
 class Diagnostic(db.Model):
+    __tablename__ = "diagnostic"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 
-    patient_id = db.Column(db.Integer, db.ForeignKey("patient.id"))
-
-    patient = db.relationship("Patient", back_populates="diagnostics")
+    text = db.Column(db.String(1000))
 
     doctor_id = db.Column(db.Integer, db.ForeignKey("doctor.id"))
 
@@ -77,10 +78,23 @@ class Diagnostic(db.Model):
 
     date_created = db.Column(DateTime, default=datetime.datetime.utcnow)
 
-    def __init__(
-        self, patient_id=None, doctor_id=None, image_id=None, date_created=None
-    ):
-        self.patient_id = patient_id
+    image_id = db.Column(db.Integer, db.ForeignKey("image_upload.id"))
+
+    image_upload = db.relationship(
+        "ImageUpload",
+        back_populates="diagnostic",
+    )
+
+    def __init__(self, doctor_id=None, text=None, image_id=None, date_created=None):
+        self.text = text
         self.doctor_id = doctor_id
         self.date_created = date_created
         self.image_id = image_id
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "doctorId": self.doctor_id,
+            "dateCreated": json_serial_date(self.date_created),
+            "imageId": self.image_id,
+        }
