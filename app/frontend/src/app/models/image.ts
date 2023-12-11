@@ -2,6 +2,7 @@ export interface Image {
   id: number;
   fileName: string;
   patientId: number;
-  isProcessed: Boolean;
+  isProcessed: boolean;
   image: string;
+  originalImageId: number;
 }

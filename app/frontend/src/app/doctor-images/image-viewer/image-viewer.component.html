@@ -10,7 +10,10 @@
     </mat-option>
   </mat-select>
 </mat-card>
-
+<mat-card class="initial-message" *ngIf="!originalImage">
+  The image processing tool will appear as soon as you select a patient and an
+  image you want to work with.
+</mat-card>
 <app-image-processing
   *ngIf="originalImage"
   [originalImage]="originalImage"

@@ -80,13 +80,13 @@ class ProcessedImage(db.Model):
         patient_id=None,
         date_created=None,
         file_name=None,
-        original_image_id=None,
+        original_upload_id=None,
     ):
         self.image = image
         self.patient_id = patient_id
         self.date_created = date_created
         self.file_name = file_name
-        self.original_image_id = original_image_id
+        self.original_upload_id = original_upload_id
 
     def serialize(self):
         image_base64 = (
@@ -98,4 +98,5 @@ class ProcessedImage(db.Model):
             "dateCreated": json_serial_date(self.date_created),
             "fileName": self.file_name,
             "image": image_base64,
+            "originalImageId": self.original_upload_id,
         }

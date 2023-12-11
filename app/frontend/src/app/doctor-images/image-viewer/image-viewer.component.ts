@@ -34,9 +34,10 @@ export class ImageViewerComponent {
 
   public getImagesForPatient(patientId: number): void {
     this.imageService
-      .getOriginalImagesForPatient(patientId)
+      .getAllImagesForPatient(patientId)
       .subscribe((response) => {
         this.images = response;
+        console.log(response);
         this.images.map((image) => {
           image.image = 'data:image/png;base64,' + image.image;
         });
@@ -46,7 +47,7 @@ export class ImageViewerComponent {
   public deleteImage(id: number): void {
     this.imageService.deleteImage(id).subscribe({
       next: (response) => {
-        this.imageService.getAllImagesForUser(Number(this.selectedPatientId));
+        this.getImagesForPatient(Number(this.selectedPatientId));
         this.snackbar.open('Image deleted successfully!', 'Close', {
           duration: 3000,
         });
@@ -59,7 +60,24 @@ export class ImageViewerComponent {
   public openImage(id: number): void {
     const image = this.images.find((image) => image.id === id);
     if (image) {
-      this.originalImage = image;
+      if (image.originalImageId != null) {
+        console.log(image);
+        const originalImage = this.images.find(
+          (searchImage) => searchImage.id === image.originalImageId
+        );
+
+        if (originalImage) {
+          this.originalImage = originalImage;
+          this.processedImage = image;
+        } else {
+          this.snackbar.open(
+            'Error getting the original image. You can still download the processed image',
+            'Close'
+          );
+        }
+      } else {
+        this.originalImage = image;
+      }
     }
   }
   public startProcessing(processingType: string): void {
@@ -76,6 +94,7 @@ export class ImageViewerComponent {
           }
           this.processedImage.image =
             'data:image/png;base64,' + this.processedImage.image;
+          this.getImagesForPatient(Number(this.selectedPatientId));
         },
         error: (error) => {
           this.snackbar.open('Error processing image!', 'Close');

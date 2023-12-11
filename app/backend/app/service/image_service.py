@@ -36,8 +36,13 @@ def get_image(image_id):
 
 def delete_image(image_id):
     image_upload = ImageUpload.query.get(image_id)
-    if (image_upload.diagnostic is not None) or (
-        len(image_upload.proceseed_images) > 0
+
+    if image_upload is None:
+        image_upload = ProcessedImage.query.get(image_id)
+
+    if (type(image_upload) is ImageUpload) and (
+        (image_upload.diagnostic is not None)
+        or (len(image_upload.processed_images) > 0)
     ):
         return {"message": "This image is already being used by your doctor!"}, 403
     if image_upload:
@@ -70,7 +75,7 @@ def process_image(image_id, processing_type):
             patient_id=image_upload.patient_id,
             image=processed_image_binary,
             file_name=processed_file_name,
-            original_image_id=image_upload.id,
+            original_upload_id=image_upload.id,
         )
         db.session.add(processed_image_upload)
         db.session.commit()

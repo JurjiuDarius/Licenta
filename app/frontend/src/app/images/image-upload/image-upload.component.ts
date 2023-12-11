@@ -57,20 +57,11 @@ export class ImageUploadComponent implements OnInit {
   }
 
   public deleteImage(id: number) {
-    this.dialog
-      .open(ConfirmationDialogComponent, {
-        data: { message: 'Are you sure you want to delete this image?' },
-      })
-      .afterClosed()
-      .subscribe((result) => {
-        if (result == true) {
-          this.imageService.deleteImage(id).subscribe((response) => {
-            this.snackbar.open('Image deleted successfully!', 'Close', {
-              duration: 3000,
-            });
-            this.getImages();
-          });
-        }
+    this.imageService.deleteImage(id).subscribe((response) => {
+      this.snackbar.open('Image deleted successfully!', 'Close', {
+        duration: 3000,
       });
+      this.getImages();
+    });
   }
 }
