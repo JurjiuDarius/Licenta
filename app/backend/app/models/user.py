@@ -51,6 +51,8 @@ class Patient(User):
 
     images = relationship("ImageUpload", back_populates="patient")
 
+    processed_images = relationship("ProcessedImage", back_populates="patient")
+
     appointments = relationship("Appointment", back_populates="patient")
 
     diagnostics = relationship("Diagnostic", back_populates="patient")

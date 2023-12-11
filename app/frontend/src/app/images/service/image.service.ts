@@ -31,7 +31,10 @@ export class ImageService {
     );
   }
 
-  public getImagesForUser(userId: number): Observable<any> {
+  public getOriginalImagesForPatient(userId: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/images/user-images-all/${userId}`);
+  }
+  public getAllImagesForUser(userId: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/images/user-images/${userId}`);
   }
   public deleteImage(id: number): Observable<any> {

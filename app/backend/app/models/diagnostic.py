@@ -5,51 +5,6 @@ import datetime
 import base64
 
 
-class ImageUpload(db.Model):
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-
-    patient_id = db.Column(db.Integer, db.ForeignKey("patient.id"))
-
-    patient = db.relationship("Patient", back_populates="images")
-
-    date_created = db.Column(DateTime, default=datetime.datetime.utcnow)
-
-    diagnostics = db.relationship("Diagnostic", back_populates="image")
-
-    file_name = db.Column(db.String(1000))
-
-    is_processed = db.Column(db.Boolean, default=False)
-
-    image = db.Column(db.LargeBinary)
-
-    def __init__(
-        self,
-        image=None,
-        patient_id=None,
-        date_created=None,
-        is_processed=None,
-        file_name=None,
-    ):
-        self.image = image
-        self.patient_id = patient_id
-        self.date_created = date_created
-        self.is_processed = is_processed
-        self.file_name = file_name
-
-    def serialize(self):
-        image_base64 = (
-            base64.b64encode(self.image).decode("utf-8") if self.image else None
-        )
-        return {
-            "id": self.id,
-            "patientId": self.patient_id,
-            "dateCreated": json_serial_date(self.date_created),
-            "isProcessed": self.is_processed,
-            "fileName": self.file_name,
-            "image": image_base64,
-        }
-
-
 class Appointment(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 
@@ -119,10 +74,6 @@ class Diagnostic(db.Model):
     doctor_id = db.Column(db.Integer, db.ForeignKey("doctor.id"))
 
     doctor = db.relationship("Doctor", back_populates="diagnostics")
-
-    image = db.relationship("ImageUpload", back_populates="diagnostics")
-
-    image_id = db.Column(db.Integer, db.ForeignKey("image_upload.id"))
 
     date_created = db.Column(DateTime, default=datetime.datetime.utcnow)
 

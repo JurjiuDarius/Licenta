@@ -45,13 +45,15 @@ export class ImageUploadComponent implements OnInit {
     if (!currentUserId) {
       return;
     }
-    this.imageService.getImagesForUser(currentUserId).subscribe((response) => {
-      this.images = response;
-      this.images.map((image) => {
-        image.image = 'data:image/png;base64,' + image.image;
+    this.imageService
+      .getOriginalImagesForPatient(currentUserId)
+      .subscribe((response) => {
+        this.images = response;
+        this.images.map((image) => {
+          image.image = 'data:image/png;base64,' + image.image;
+        });
+        this.imagesLoaded = true;
       });
-      this.imagesLoaded = true;
-    });
   }
 
   public deleteImage(id: number) {

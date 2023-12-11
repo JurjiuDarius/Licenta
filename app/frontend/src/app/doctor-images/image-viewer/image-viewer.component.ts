@@ -33,18 +33,20 @@ export class ImageViewerComponent {
   }
 
   public getImagesForPatient(patientId: number): void {
-    this.imageService.getImagesForUser(patientId).subscribe((response) => {
-      this.images = response;
-      this.images.map((image) => {
-        image.image = 'data:image/png;base64,' + image.image;
+    this.imageService
+      .getOriginalImagesForPatient(patientId)
+      .subscribe((response) => {
+        this.images = response;
+        this.images.map((image) => {
+          image.image = 'data:image/png;base64,' + image.image;
+        });
       });
-    });
   }
 
   public deleteImage(id: number): void {
     this.imageService.deleteImage(id).subscribe({
       next: (response) => {
-        this.getImagesForPatient(Number(this.selectedPatientId));
+        this.imageService.getAllImagesForUser(Number(this.selectedPatientId));
         this.snackbar.open('Image deleted successfully!', 'Close', {
           duration: 3000,
         });
