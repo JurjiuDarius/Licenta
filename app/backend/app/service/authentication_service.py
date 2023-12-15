@@ -4,7 +4,10 @@ from app.utils.jwt import create_token
 from database import db
 
 
-def login(email, password, role):
+def login(data):
+    email = data.get("email")
+    password = data.get("password")
+    role = data.get("role")
     if role == "patient":
         query_class = Patient
     elif role == "doctor":
@@ -22,17 +25,17 @@ def login(email, password, role):
     return {"token": token, "user": user.serialize()}, 200
 
 
-def sign_up(
-    email,
-    first_name,
-    last_name,
-    password,
-    phone_number,
-    city,
-    birth_date,
-    education,
-    role,
-):
+def sign_up(data):
+    user = data.get("user")
+    role = data.get("role")
+    password = user.get("password")
+    first_name = user.get("firstName")
+    last_name = user.get("lastName")
+    email = user.get("email")
+    phone_number = user.get("phone")
+    city = user.get("city")
+    birth_date = user.get("birthDate")
+    education = user.get("education")
     hashed_password = hashlib.sha256(password.encode()).hexdigest()
     if role == "patient":
         query_class = Patient

@@ -60,3 +60,11 @@ def create_token(user_id, user_role):
     payload = {"userId": user_id, "role": user_role}
     token = jwt.encode(payload, SECRET_KEY, algorithm="HS256")
     return token
+
+def get_user_id_from_token(token):
+    data = jwt.decode(token, SECRET_KEY, algorithms=["HS256"])
+    if "userId" not in data:
+        return None
+    else:
+        return data["userId"]
+

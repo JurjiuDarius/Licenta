@@ -25,6 +25,9 @@ const routes: Routes = [
         (m) => m.DoctorImagesModule
       ),
   },
+  {
+    path: 'profile',
+  },
 ];
 
 @NgModule({

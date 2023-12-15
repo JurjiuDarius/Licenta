@@ -26,3 +26,11 @@ def add_patient(doctor_id):
 def get_user_name(user_id):
     name, status_code = user_service.get_name_for_user(user_id)
     return make_response(jsonify(name), status_code)
+
+@user_bp.route("/modify/<int:user_id>", methods=["PUT"])
+@check_authorization(role=["patient", "doctor"])
+def get_user_name(user_id):
+    data = request.json
+    
+    name, status_code = user_service.modify_user(user_id)
+    return make_response(jsonify(name), status_code)

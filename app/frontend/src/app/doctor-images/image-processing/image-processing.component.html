@@ -9,11 +9,21 @@
         {{ type.viewValue }}
       </mat-option>
     </mat-select>
-    <button mat-raised-button color="primary" (click)="startProcessing()">
+    <button
+      class="panel-button"
+      mat-raised-button
+      color="primary"
+      (click)="startProcessing()"
+    >
       Start Processing
       <span class="hover-text">Images will be saved automatically.</span>
     </button>
-    <button mat-raised-button color="primary" (click)="openDiagnostic()">
+    <button
+      class="panel-button"
+      mat-raised-button
+      color="primary"
+      (click)="openDiagnostic()"
+    >
       Open diagnostic
     </button>
   </mat-card>

@@ -28,4 +28,8 @@ export class UserService {
       email: patientEmail,
     });
   }
+
+  public modifyUser(user: User): Observable<any> {
+    return this.http.put(`${this.apiUrl}/users`, user);
+  }
 }
