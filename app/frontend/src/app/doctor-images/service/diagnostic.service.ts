@@ -13,7 +13,7 @@ export class DiagnosticService {
   constructor(private http: HttpClient) {}
 
   public saveDiagnostic(diagnostic: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/diagnostic`, diagnostic);
+    return this.http.put(`${this.apiUrl}/diagnostic`, diagnostic);
   }
 
   public getDiagnosticForImage(imageId: number): Observable<any> {

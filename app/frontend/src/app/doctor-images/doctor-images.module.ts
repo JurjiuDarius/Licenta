@@ -9,9 +9,14 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ImageProcessingComponent } from './image-processing/image-processing.component';
 import { MatButtonModule } from '@angular/material/button';
 import { DiagnosticDialogComponent } from './diagnostic-dialog/diagnostic-dialog.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [ImageViewerComponent, ImageProcessingComponent, DiagnosticDialogComponent],
+  declarations: [
+    ImageViewerComponent,
+    ImageProcessingComponent,
+    DiagnosticDialogComponent,
+  ],
   imports: [
     CommonModule,
     DoctorImagesRoutingModule,
@@ -20,6 +25,7 @@ import { DiagnosticDialogComponent } from './diagnostic-dialog/diagnostic-dialog
     MatCardModule,
     MatSnackBarModule,
     MatButtonModule,
+    FormsModule,
   ],
 })
 export class DoctorImagesModule {}

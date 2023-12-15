@@ -114,7 +114,8 @@ export class ImageViewerComponent {
       .getDiagnosticForImage(this.originalImage?.id)
       .subscribe({
         next: (response) => {
-          this.openDialog(response.text);
+          console.log(response);
+          this.openDialog(response);
         },
         error: (error) => {
           this.snackbar.open('Error getting diagnostic!', 'Close');
@@ -122,20 +123,24 @@ export class ImageViewerComponent {
       });
   }
 
-  private openDialog(dialogText: string) {
+  private openDialog(dialogContent: any) {
     this.dialog
       .open(DiagnosticDialogComponent, {
         width: '500px',
         height: '500px',
         data: {
-          text: 'Are you sure you want to delete this image?',
-          title: 'Diagnostic',
+          text: dialogContent.text,
+          id: dialogContent.id,
         },
       })
       .afterClosed()
       .subscribe((result) => {
+        if (!result) {
+          return;
+        }
         const diagnostic = {
-          text: result,
+          id: result.id,
+          text: result.text,
           imageUploadId: this.originalImage?.id,
           doctorId: Number(localStorage.getItem('currentUserId')),
           dateCreated: new Date(),
@@ -143,12 +148,16 @@ export class ImageViewerComponent {
         if (!this.originalImage) {
           return;
         }
-        this.diagnosticService.saveDiagnostic(diagnostic);
-        if (result == true) {
-          this.snackbar.open('Diagnostic saved successfully!', 'Close', {
-            duration: 3000,
-          });
-        }
+        this.diagnosticService.saveDiagnostic(diagnostic).subscribe({
+          next: (response) => {
+            this.snackbar.open('Diagnostic saved successfully!', 'Close', {
+              duration: 3000,
+            });
+          },
+          error: (error) => {
+            this.snackbar.open('Error saving diagnostic!', 'Close');
+          },
+        });
       });
   }
 }

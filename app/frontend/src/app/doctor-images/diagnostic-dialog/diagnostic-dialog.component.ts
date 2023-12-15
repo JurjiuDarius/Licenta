@@ -8,14 +8,14 @@ import { AddPatientDialogComponent } from 'src/app/patients/add-patient-dialog/a
   styleUrls: ['./diagnostic-dialog.component.sass'],
 })
 export class DiagnosticDialogComponent {
-  @Input() public title: string = '';
+  @Input() public id: string = '';
   @Input() public text: string = '';
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<AddPatientDialogComponent>
   ) {
-    this.title = data.title;
+    this.id = data.id;
     this.text = data.text;
   }
 
@@ -28,6 +28,6 @@ export class DiagnosticDialogComponent {
   }
 
   onSave() {
-    this.dialogRef.close(this.text);
+    this.dialogRef.close({ text: this.text, id: this.id });
   }
 }

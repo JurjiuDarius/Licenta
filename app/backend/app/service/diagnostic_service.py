@@ -27,11 +27,23 @@ def get_diagnostic_for_image(image_id):
     return diagnostic.serialize(), 200
 
 
-def update_diagnostic(diagnostic_id, updated_data):
-    diagnostic = Diagnostic.query.get(diagnostic_id).first()
-    diagnostic.text = updated_data["text"]
-    diagnostic.save()
-    return diagnostic.serialize(), 200
+def update_diagnostic(updated_data):
+    if "id" in updated_data:
+        diagnostic_id = updated_data["id"]
+        diagnostic = Diagnostic.query.get(diagnostic_id)
+        if diagnostic:
+            diagnostic.text = updated_data["text"]
+            db.session.commit()
+            return diagnostic.serialize(), 200
+        return {"message": "Diagnostic not found"}, 404
+
+    doctor_id = updated_data["doctorId"]
+    image_id = updated_data["imageUploadId"]
+    text = updated_data["text"]
+    diagnostic = Diagnostic(doctor_id=doctor_id, image_id=image_id, text=text)
+    db.session.add(diagnostic)
+    db.session.commit()
+    return diagnostic.serialize(), 201
 
 
 def delete_diagnostic(diagnostic_id):

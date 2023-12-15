@@ -94,6 +94,7 @@ class Diagnostic(db.Model):
     def serialize(self):
         return {
             "id": self.id,
+            "text": self.text,
             "doctorId": self.doctor_id,
             "dateCreated": json_serial_date(self.date_created),
             "imageId": self.image_id,

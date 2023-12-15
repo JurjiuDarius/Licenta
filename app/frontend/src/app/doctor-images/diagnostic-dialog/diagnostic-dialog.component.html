@@ -1,6 +1,6 @@
 <div class="dialog-container">
-  <h2>{{ title }}</h2>
-  <textarea class="text-box" ng-model="text"></textarea>
+  <h1 class="title">Diagnostic</h1>
+  <textarea class="text-box" [(ngModel)]="text"></textarea>
   <div class="button-container">
     <button mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
     <button mat-raised-button color="primary" (click)="onSave()">Save</button>

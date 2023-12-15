@@ -23,10 +23,10 @@ def get_diagnostic_by_id(diagnostic_id):
     return make_response(jsonify(response), status)
 
 
-@diagnostic_bp.route("/diagnostic/<diagnostic_id>", methods=["PUT"])
-def update_diagnostic(diagnostic_id):
+@diagnostic_bp.route("/diagnostic", methods=["PUT"])
+def update_diagnostic():
     data = request.json
-    response, status = diagnostic_service.update_diagnostic(diagnostic_id, data)
+    response, status = diagnostic_service.update_diagnostic(data)
     return make_response(jsonify(response), status)
 
 
