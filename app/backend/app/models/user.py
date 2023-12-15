@@ -88,9 +88,9 @@ class Patient(User):
             "firstName": self.first_name,
             "lastName": self.last_name,
             "city": self.city,
-            "birthNate": self.birth_date.strftime("%Y-%m-%d %H:%M:%S"),
+            "birthNate": self.birth_date.strftime("%Y-%m-%d"),
             "email": self.email,
-            "phoneNumber": self.phone_number,
+            "phone": self.phone_number,
             "dateCreated": self.date_created.strftime("%Y-%m-%d %H:%M:%S"),
         }
 
@@ -155,10 +155,10 @@ class Doctor(User):
             "firstName": self.first_name,
             "lastName": self.last_name,
             "city": self.city,
-            "birthDate": self.birth_date.strftime("%Y-%m-%d %H:%M:%S"),
+            "birthDate": self.birth_date.strftime("%Y-%m-%d"),
             "education": self.education,
             "email": self.email,
-            "password": self.password,
+            "phone": self.phone_number,
             "dateCreated": self.date_created.strftime("%Y-%m-%d %H:%M:%S"),
         }
 

@@ -21,8 +21,14 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { TokenInterceptor } from './utils/token.interceptor';
 import { ProfileComponent } from './profile/profile.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 @NgModule({
-  declarations: [AppComponent, LoginComponent, SignUpComponent, ProfileComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    SignUpComponent,
+    ProfileComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -40,6 +46,7 @@ import { ProfileComponent } from './profile/profile.component';
     HttpClientModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatSnackBarModule,
   ],
   providers: [
     MatDatepickerModule,

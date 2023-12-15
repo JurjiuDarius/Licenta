@@ -27,10 +27,19 @@ def get_user_name(user_id):
     name, status_code = user_service.get_name_for_user(user_id)
     return make_response(jsonify(name), status_code)
 
-@user_bp.route("/modify/<int:user_id>", methods=["PUT"])
+
+@user_bp.route("/modify", methods=["PUT"])
 @check_authorization(role=["patient", "doctor"])
-def get_user_name(user_id):
+def modify_user():
     data = request.json
-    
-    name, status_code = user_service.modify_user(user_id)
+    authorization = request.headers.get("Authorization")
+    name, status_code = user_service.modify_user(data, authorization)
+    return make_response(jsonify(name), status_code)
+
+
+@user_bp.route("/<int:user_id>", methods=["GET"])
+@check_authorization(role={"patient", "doctor"})
+def get_user_by_id(user_id):
+    authorization = request.headers.get("Authorization")
+    name, status_code = user_service.get_user_by_id(user_id, authorization)
     return make_response(jsonify(name), status_code)

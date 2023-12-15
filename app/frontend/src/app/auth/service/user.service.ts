@@ -30,6 +30,9 @@ export class UserService {
   }
 
   public modifyUser(user: User): Observable<any> {
-    return this.http.put(`${this.apiUrl}/users`, user);
+    return this.http.put(`${this.apiUrl}/users/modify`, user);
+  }
+  public getUserById(id: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/users/${id}`);
   }
 }
