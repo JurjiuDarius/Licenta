@@ -22,12 +22,14 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { TokenInterceptor } from './utils/token.interceptor';
 import { ProfileComponent } from './profile/profile.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { SpinnerComponent } from './utils/loader/spinner/spinner.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     SignUpComponent,
     ProfileComponent,
+    SpinnerComponent,
   ],
   imports: [
     BrowserModule,
