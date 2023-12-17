@@ -88,7 +88,7 @@ class Patient(User):
             "firstName": self.first_name,
             "lastName": self.last_name,
             "city": self.city,
-            "birthNate": self.birth_date.strftime("%Y-%m-%d"),
+            "birthDate": self.birth_date.strftime("%Y-%m-%d"),
             "email": self.email,
             "phone": self.phone_number,
             "dateCreated": self.date_created.strftime("%Y-%m-%d %H:%M:%S"),

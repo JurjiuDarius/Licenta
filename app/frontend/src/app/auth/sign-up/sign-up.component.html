@@ -3,6 +3,7 @@
     <mat-card-title>Sign Up</mat-card-title>
     <mat-card-content>
       <form [formGroup]="currentForm" (ngSubmit)="onSubmit()">
+        <mat-label> What kind of account will you be using? </mat-label>
         <mat-radio-group (change)="updateRole($event.value)">
           <mat-radio-button value="patient">Patient</mat-radio-button>
           <mat-radio-button value="doctor">Doctor</mat-radio-button>
@@ -60,7 +61,10 @@
         </mat-form-field>
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
+
         <mat-form-field appearance="outline">
+          <mat-label>Birth date</mat-label>
+
           <input
             matInput
             [matDatepicker]="picker"

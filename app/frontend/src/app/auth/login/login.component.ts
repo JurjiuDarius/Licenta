@@ -34,15 +34,18 @@ export class LoginComponent {
           this.loginForm.get('password')?.value,
           this.loginForm.get('role')?.value
         )
-        .subscribe(
-          () => {
+        .subscribe({
+          next: () => {
             this.router.navigate(['/appointments']);
           },
-          (error) => {
+          error: (error) => {
             this.errorCode = error.status;
             this.errorMessage = error.error.message;
-          }
-        );
+          },
+        });
     }
+  }
+  goToSignup() {
+    this.router.navigate(['/signup']);
   }
 }

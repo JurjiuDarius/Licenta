@@ -46,6 +46,14 @@
         >
           Login
         </button>
+        <button
+          mat-raised-button
+          class="sign-up-button"
+          color="primary"
+          (click)="goToSignup()"
+        >
+          Sign Up
+        </button>
       </form>
       <mat-error *ngIf="this.errorMessage">
         {{ this.errorMessage }}

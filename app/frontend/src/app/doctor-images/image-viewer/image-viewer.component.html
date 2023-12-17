@@ -10,10 +10,18 @@
     </mat-option>
   </mat-select>
 </mat-card>
-<mat-card class="initial-message" *ngIf="!originalImage">
+<mat-card
+  class="initial-message"
+  *ngIf="!originalImage && selectedPatientId == ''"
+>
   The image processing tool will appear as soon as you select a patient and an
   image you want to work with.
 </mat-card>
+<mat-card
+  class="initial-message"
+  *ngIf="selectedPatientId != '' && !originalImage"
+  >This patient has not uploaded any images yet.</mat-card
+>
 <app-image-processing
   *ngIf="originalImage"
   [originalImage]="originalImage"
