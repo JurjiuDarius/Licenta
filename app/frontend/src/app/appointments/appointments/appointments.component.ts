@@ -12,7 +12,7 @@ import { UserService } from 'src/app/auth/service/user.service';
 export class AppointmentsComponent {
   public currentRole: string | null = null;
   public currentUserId: number | null = null;
-  public appointments: Appointment[] = [];
+  public appointments: Appointment[] | null = [];
 
   constructor(
     private appointmentsService: AppointmentsService,

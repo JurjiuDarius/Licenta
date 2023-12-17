@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { ProfileComponent } from './profile/profile.component';
+import { PatientImagesComponent } from './patient-images/patient-images.component';
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -30,6 +31,7 @@ const routes: Routes = [
     path: 'profile',
     component: ProfileComponent,
   },
+  { path: 'patient-images', component: PatientImagesComponent },
 ];
 
 @NgModule({

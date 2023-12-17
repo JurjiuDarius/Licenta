@@ -16,9 +16,7 @@ export class ConfirmationDialogComponent {
     this.message = data.message;
   }
 
-  ngOnInit(): void {
-    console.log(this.message);
-  }
+  ngOnInit(): void {}
 
   public cancel(): void {
     this.dialogRef.close(false);

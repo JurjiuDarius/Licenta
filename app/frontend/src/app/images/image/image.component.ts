@@ -11,8 +11,8 @@ import { MatDialog } from '@angular/material/dialog';
 export class ImageComponent {
   @Input() images: Image[] = [];
   @Input() requiresOpenButton: boolean = false;
-  @Output() deleteImageEmitter = new EventEmitter<number>();
-  @Output() openImageEmitter = new EventEmitter<number>();
+  @Output() deleteImageEmitter = new EventEmitter<string>();
+  @Output() openImageEmitter = new EventEmitter<string>();
 
   constructor(private dialog: MatDialog) {}
 
@@ -22,7 +22,7 @@ export class ImageComponent {
     a.download = name;
     a.click();
   }
-  deleteImage(id: number) {
+  deleteImage(id: string) {
     this.dialog
       .open(ConfirmationDialogComponent, {
         data: { message: 'Are you sure you want to delete this image?' },
@@ -34,7 +34,7 @@ export class ImageComponent {
         }
       });
   }
-  public editEvent(id: number) {
+  public editEvent(id: string) {
     this.openImageEmitter.emit(id);
   }
 }

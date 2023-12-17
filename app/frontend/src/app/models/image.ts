@@ -1,8 +1,8 @@
 export interface Image {
-  id: number;
+  id: string;
   fileName: string;
   patientId: number;
   isProcessed: boolean;
   image: string;
-  originalImageId: number;
+  originalImageId: string;
 }

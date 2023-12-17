@@ -55,9 +55,7 @@ export class ProfileComponent {
       return;
     }
     this.userService.getUserById(currentId).subscribe((user) => {
-      console.log(user);
       const birthDate = new Date(user.birthDate);
-      console.log(birthDate);
       this.currentForm.patchValue({
         firstName: user.firstName,
         lastName: user.lastName,

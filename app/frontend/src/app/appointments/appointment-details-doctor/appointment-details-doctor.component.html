@@ -4,10 +4,7 @@
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <mat-form-field appearance="outline">
           <mat-label>Requirements</mat-label>
-          <input matInput type="text" formControlName="requirements" required />
-          <mat-error *ngIf="form.controls['requirements'].hasError('required')">
-            Requirements are required
-          </mat-error>
+          <input matInput type="text" formControlName="requirements" />
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -63,7 +60,7 @@
         <mat-checkbox formControlName="requiresUpload"
           >Requires Upload</mat-checkbox
         >
-        <div></div>
+
         <mat-error
           *ngIf="
 form.errors?.['timeError'] &&

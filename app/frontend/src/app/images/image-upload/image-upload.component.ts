@@ -41,7 +41,7 @@ export class ImageUploadComponent implements OnInit {
     }
   }
   private getImages() {
-    const currentUserId = Number(localStorage.getItem('currentUserId'));
+    const currentUserId = localStorage.getItem('currentUserId');
     if (!currentUserId) {
       return;
     }
@@ -56,7 +56,7 @@ export class ImageUploadComponent implements OnInit {
       });
   }
 
-  public deleteImage(id: number) {
+  public deleteImage(id: string) {
     this.imageService.deleteImage(id).subscribe((response) => {
       this.snackbar.open('Image deleted successfully!', 'Close', {
         duration: 3000,

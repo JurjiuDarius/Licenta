@@ -23,7 +23,7 @@ export class ImageService {
   }
 
   public processImage(
-    imageId: number,
+    imageId: string,
     processingType: string
   ): Observable<any> {
     return this.http.get(
@@ -31,13 +31,13 @@ export class ImageService {
     );
   }
 
-  public getOriginalImagesForPatient(userId: number): Observable<any> {
+  public getOriginalImagesForPatient(userId: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/images/user-images/${userId}`);
   }
-  public getAllImagesForPatient(userId: number): Observable<any> {
+  public getAllImagesForPatient(userId: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/images/user-images-all/${userId}`);
   }
-  public deleteImage(id: number): Observable<any> {
+  public deleteImage(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/images/${id}`);
   }
 }

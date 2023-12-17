@@ -37,22 +37,21 @@ export class ImageViewerComponent {
     });
   }
 
-  public getImagesForPatient(patientId: number): void {
+  public getImagesForPatient(patientId: string): void {
     this.imageService
       .getAllImagesForPatient(patientId)
       .subscribe((response) => {
         this.images = response;
-        console.log(response);
         this.images.map((image) => {
           image.image = 'data:image/png;base64,' + image.image;
         });
       });
   }
 
-  public deleteImage(id: number): void {
+  public deleteImage(id: string): void {
     this.imageService.deleteImage(id).subscribe({
       next: (response) => {
-        this.getImagesForPatient(Number(this.selectedPatientId));
+        this.getImagesForPatient(this.selectedPatientId);
         this.snackbar.open('Image deleted successfully!', 'Close', {
           duration: 3000,
         });
@@ -62,11 +61,10 @@ export class ImageViewerComponent {
       },
     });
   }
-  public openImage(id: number): void {
+  public openImage(id: string): void {
     const image = this.images.find((image) => image.id === id);
     if (image) {
       if (image.originalImageId != null) {
-        console.log(image);
         const originalImage = this.images.find(
           (searchImage) => searchImage.id === image.originalImageId
         );
@@ -99,7 +97,7 @@ export class ImageViewerComponent {
           }
           this.processedImage.image =
             'data:image/png;base64,' + this.processedImage.image;
-          this.getImagesForPatient(Number(this.selectedPatientId));
+          this.getImagesForPatient(this.selectedPatientId);
         },
         error: (error) => {
           this.snackbar.open('Error processing image!', 'Close');
@@ -114,7 +112,6 @@ export class ImageViewerComponent {
       .getDiagnosticForImage(this.originalImage?.id)
       .subscribe({
         next: (response) => {
-          console.log(response);
           this.openDialog(response);
         },
         error: (error) => {

@@ -1,7 +1,12 @@
 <div class="dialog-container">
   <h1 class="title">Diagnostic</h1>
-  <textarea class="text-box" [(ngModel)]="text"></textarea>
-
-  <button mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
-  <button mat-raised-button color="primary" (click)="onSave()">Save</button>
+  <textarea
+    class="text-box"
+    [(ngModel)]="text"
+    [readOnly]="readonly"
+  ></textarea>
+  <div class="button-container">
+    <button mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
+    <button mat-raised-button color="primary" (click)="onSave()">Save</button>
+  </div>
 </div>

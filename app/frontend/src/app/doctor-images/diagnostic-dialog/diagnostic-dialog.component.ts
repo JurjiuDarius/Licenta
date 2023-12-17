@@ -10,6 +10,7 @@ import { AddPatientDialogComponent } from 'src/app/patients/add-patient-dialog/a
 export class DiagnosticDialogComponent {
   @Input() public id: string = '';
   @Input() public text: string = '';
+  @Input() readonly: boolean = false;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -17,6 +18,7 @@ export class DiagnosticDialogComponent {
   ) {
     this.id = data.id;
     this.text = data.text;
+    this.readonly = data.readonly;
   }
 
   fetchTextFromBackend() {

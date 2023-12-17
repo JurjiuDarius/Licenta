@@ -16,12 +16,13 @@ export class AppComponent {
     patient: [
       { label: 'Appointments', path: '/appointments' },
       { label: 'My Profile', path: '/profile' },
-      { label: 'My Doctors', path: '/doctors' },
+      { label: 'My Images', path: '/patient-images' },
     ],
     doctor: [
       { label: 'Appointments', path: '/appointments' },
       { label: 'My Profile', path: '/profile' },
       { label: 'Images', path: '/doctor-images' },
+      { label: 'Diagnostics', path: '/doctor-images/diagnostics' },
     ],
     admin: [],
   };

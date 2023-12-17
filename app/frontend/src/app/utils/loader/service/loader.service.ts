@@ -12,7 +12,6 @@ export class LoaderService {
   constructor() {}
 
   showLoader() {
-    console.log('show loader');
     if (this.apiCount === 0) {
       this.isLoadingSubject.next(true);
     }

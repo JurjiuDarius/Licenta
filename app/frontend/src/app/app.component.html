@@ -14,7 +14,6 @@
     Log out
   </button>
 </mat-toolbar>
-<app-spinner></app-spinner>
 <link
   href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
   rel="stylesheet"
@@ -24,3 +23,5 @@
   rel="stylesheet"
 />
 <router-outlet></router-outlet>
+<!-- This will be left out for now due to some weird behaviour in the login request. It doesn't reach finalize in the interceptor and the loader remains displayed. -->
+<!-- <app-spinner></app-spinner> -->

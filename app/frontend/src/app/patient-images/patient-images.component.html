@@ -1,0 +1,12 @@
+<mat-card-title
+  >Here you can view your images and read the diagnostics your doctor has
+  given.</mat-card-title
+>
+<mat-card *ngIf="!images"> Loading images</mat-card>
+<mat-card *ngIf="images?.length == 0">You currently have no images</mat-card>
+<app-image
+  *ngIf="images"
+  [images]="images"
+  [requiresOpenButton]="true"
+  (openImageEmitter)="openDiagnosticDialog($event)"
+></app-image>

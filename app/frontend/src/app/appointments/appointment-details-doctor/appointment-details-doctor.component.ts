@@ -34,7 +34,7 @@ export class AppointmentDetailsDoctorComponent {
     this.getAppointmentById();
     this.form = this.fb.group(
       {
-        requirements: ['', Validators.required],
+        requirements: ['', Validators.nullValidator],
         address: ['', Validators.required],
         date: [null, Validators.required],
         patientId: [null, Validators.required],

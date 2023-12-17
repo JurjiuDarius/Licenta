@@ -23,6 +23,8 @@ import { TokenInterceptor } from './utils/token.interceptor';
 import { ProfileComponent } from './profile/profile.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SpinnerComponent } from './utils/loader/spinner/spinner.component';
+import { PatientImagesComponent } from './patient-images/patient-images.component';
+import { ImagesModule } from './images/images.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,6 +32,7 @@ import { SpinnerComponent } from './utils/loader/spinner/spinner.component';
     SignUpComponent,
     ProfileComponent,
     SpinnerComponent,
+    PatientImagesComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,6 +52,7 @@ import { SpinnerComponent } from './utils/loader/spinner/spinner.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSnackBarModule,
+    ImagesModule,
   ],
   providers: [
     MatDatepickerModule,

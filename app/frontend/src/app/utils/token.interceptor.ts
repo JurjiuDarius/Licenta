@@ -5,7 +5,7 @@ import {
   HttpEvent,
   HttpInterceptor,
 } from '@angular/common/http';
-import { Observable, finalize } from 'rxjs';
+import { Observable, catchError, finalize, take, throwError } from 'rxjs';
 import { LoaderService } from './loader/service/loader.service';
 
 @Injectable()
@@ -16,7 +16,6 @@ export class TokenInterceptor implements HttpInterceptor {
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    this.loaderService.showLoader();
     const token = localStorage.getItem('jwtToken');
     if (!token) {
       return next.handle(request);

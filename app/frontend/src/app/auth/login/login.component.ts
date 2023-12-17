@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../service/authentication.service';
 import { catchError } from 'rxjs';
+import { LoaderService } from 'src/app/utils/loader/service/loader.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,8 @@ export class LoginComponent {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthenticationService,
-    private router: Router
+    private router: Router,
+    private loader: LoaderService
   ) {
     this.authService.logOut();
     this.loginForm = this.formBuilder.group({
@@ -35,7 +37,7 @@ export class LoginComponent {
           this.loginForm.get('role')?.value
         )
         .subscribe({
-          next: () => {
+          next: (response) => {
             this.router.navigate(['/appointments']);
           },
           error: (error) => {

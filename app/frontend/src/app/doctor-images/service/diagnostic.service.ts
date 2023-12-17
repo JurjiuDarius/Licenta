@@ -16,7 +16,7 @@ export class DiagnosticService {
     return this.http.put(`${this.apiUrl}/diagnostic`, diagnostic);
   }
 
-  public getDiagnosticForImage(imageId: number): Observable<any> {
+  public getDiagnosticForImage(imageId: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/diagnostic/${imageId}`);
   }
 }

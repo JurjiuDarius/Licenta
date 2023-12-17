@@ -9,7 +9,7 @@
 <div>
   <i class="material-icons">info</i> Click on an appointment to view details
 </div>
-<div *ngIf="appointments.length === 0">
+<div *ngIf="appointments && appointments.length === 0">
   <mat-card class="no-appointments-card">No appointments found</mat-card>
 </div>
 

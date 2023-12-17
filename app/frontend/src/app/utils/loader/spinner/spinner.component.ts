@@ -8,9 +8,5 @@ import { LoaderService } from '../service/loader.service';
   encapsulation: ViewEncapsulation.ShadowDom,
 })
 export class SpinnerComponent {
-  constructor(public loader: LoaderService) {
-    loader.isLoading$.subscribe((isLoading) => {
-      console.log(isLoading);
-    });
-  }
+  constructor(public loaderService: LoaderService) {}
 }
