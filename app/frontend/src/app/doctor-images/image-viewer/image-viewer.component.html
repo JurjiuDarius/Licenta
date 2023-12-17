@@ -1,6 +1,6 @@
 <mat-card class="patient-selector">
   <mat-select
-    (selectionChange)="getImagesForPatient($event.value)"
+    (selectionChange)="fetchFunction($event.value)"
     placeholder="Select a patient"
     [(value)]="selectedPatientId"
   >
@@ -10,6 +10,13 @@
     </mat-option>
   </mat-select>
 </mat-card>
+<mat-label class="checkbox">
+  Show only diagnosed images<input
+    mat-checkbox
+    type="checkbox"
+    (change)="onCheckboxChange($event)"
+/></mat-label>
+
 <mat-card class="initial-message" *ngIf="selectedPatientId == ''">
   The image processing tool will appear as soon as you select a patient and an
   image you want to work with.

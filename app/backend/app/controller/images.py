@@ -24,6 +24,13 @@ def get_original_images(patient_id):
     return make_response(jsonify(response), status_code)
 
 
+@images_bp.route("/images/user-images-diagnosed/<int:patient_id>", methods=["GET"])
+@check_authorization(role="doctor")
+def get_diagnosed_images(patient_id):
+    response, status_code = image_service.get_diagnosed_images(patient_id)
+    return make_response(jsonify(response), status_code)
+
+
 @images_bp.route("/images/user-images-all/<int:patient_id>", methods=["GET"])
 @check_authorization(role="doctor")
 def get_all_images(patient_id):

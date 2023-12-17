@@ -19,6 +19,7 @@ export class ImageViewerComponent {
   public selectedPatientId: string = '';
   public originalImage: Image | null = null;
   public processedImage: Image | null = null;
+  public fetchFunction: Function = this.getAllImagesForPatient;
 
   constructor(
     private imageService: ImageService,
@@ -37,7 +38,29 @@ export class ImageViewerComponent {
     });
   }
 
-  public getImagesForPatient(patientId: string): void {
+  public onCheckboxChange(event: any): void {
+    const isChecked = event.target.checked;
+    if (isChecked) {
+      this.fetchFunction = this.getDiagnosedImages;
+    } else {
+      this.fetchFunction = this.getAllImagesForPatient;
+    }
+    if (this.selectedPatientId != '') {
+      this.fetchFunction(this.selectedPatientId);
+    }
+  }
+
+  private getDiagnosedImages(patientId: string): void {
+    this.imageService
+      .getDiagnosedImagesForPatient(patientId)
+      .subscribe((response) => {
+        this.images = response;
+        this.images.map((image) => {
+          image.image = 'data:image/png;base64,' + image.image;
+        });
+      });
+  }
+  public getAllImagesForPatient(patientId: string): void {
     this.imageService
       .getAllImagesForPatient(patientId)
       .subscribe((response) => {
@@ -51,7 +74,7 @@ export class ImageViewerComponent {
   public deleteImage(id: string): void {
     this.imageService.deleteImage(id).subscribe({
       next: (response) => {
-        this.getImagesForPatient(this.selectedPatientId);
+        this.fetchFunction(this.selectedPatientId);
         this.snackbar.open('Image deleted successfully!', 'Close', {
           duration: 3000,
         });
@@ -97,7 +120,7 @@ export class ImageViewerComponent {
           }
           this.processedImage.image =
             'data:image/png;base64,' + this.processedImage.image;
-          this.getImagesForPatient(this.selectedPatientId);
+          this.fetchFunction(this.selectedPatientId);
         },
         error: (error) => {
           this.snackbar.open('Error processing image!', 'Close');

@@ -1,5 +1,7 @@
 from app.models.image import ImageUpload, ProcessedImage, db
+from app.models.diagnostic import Diagnostic
 from app.service import image_processing_service
+from sqlalchemy import not_
 from PIL import Image
 import cv2
 import numpy as np
@@ -22,6 +24,19 @@ def get_original_images_for_patient(patient_id):
         image.serialize()
         for image in ImageUpload.query.filter_by(patient_id=patient_id).all()
     ], 200
+
+
+def get_diagnosed_images(patient_id):
+    images_with_diagnostic = (
+        db.session.query(ImageUpload)
+        .join(Diagnostic, ImageUpload.id == Diagnostic.image_id)
+        .filter(
+            ImageUpload.patient_id == patient_id, not_(Diagnostic.image_id.is_(None))
+        )
+        .all()
+    )
+
+    return [image.serialize() for image in images_with_diagnostic], 200
 
 
 def get_all_images_for_patient(patient_id):
