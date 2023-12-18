@@ -52,4 +52,4 @@ def delete_diagnostic(diagnostic_id):
         return {"message": "Diagnostic not found"}, 404
     db.session.delete(diagnostic)
     db.session.commit()
-    return {"message": "Diagnostic deleted successfully"}, 203
+    return {"message": "Diagnostic deleted successfully"}, 200
