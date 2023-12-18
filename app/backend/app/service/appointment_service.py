@@ -29,9 +29,10 @@ def get_appointment_by_id(appointment_id):
 
 
 def create_appointment(data):
-    if data["endTime"] < data["startTime"]:
-        return {"message": "End time must be after start time"}, 400
     try:
+        if data["endTime"] < data["startTime"]:
+            return {"message": "End time must be after start time"}, 400
+
         if "requirements" not in data:
             data["requirements"] = ""
         appointment = Appointment(
@@ -58,14 +59,19 @@ def delete_appointment(appointment_id):
 
 
 def update_appointment(id, data):
-    appointment = Appointment.query.get(id)
-    appointment.requirements = data["requirements"]
-    appointment.address = data["address"]
-    appointment.date = data["date"]
-    appointment.start_time = data["startTime"]
-    appointment.end_time = data["endTime"]
-    appointment.patient_id = data["patientId"]
-    appointment.doctor_id = data["doctorId"]
-    appointment.requires_upload = data["requiresUpload"]
-    db.session.commit()
-    return appointment.serialize(), 201
+    try:
+        if data["endTime"] < data["startTime"]:
+            return {"message": "End time must be after start time"}, 400
+        appointment = Appointment.query.get(id)
+        appointment.requirements = data["requirements"]
+        appointment.address = data["address"]
+        appointment.date = data["date"]
+        appointment.start_time = data["startTime"]
+        appointment.end_time = data["endTime"]
+        appointment.patient_id = data["patientId"]
+        appointment.doctor_id = data["doctorId"]
+        appointment.requires_upload = data["requiresUpload"]
+        db.session.commit()
+    except Exception:
+        return {"message": "Invalid data"}, 400
+    return appointment.serialize(), 200
