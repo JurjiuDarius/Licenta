@@ -15,7 +15,7 @@ def add_patient_for_doctor(doctor_id, patient_email):
         return {"message": "Patient not found!"}, 404
     doctor.patients.append(patient)
     db.session.commit()
-    return patient.name, 201
+    return patient.email, 201
 
 
 def get_name_for_user(user_id):
@@ -53,7 +53,7 @@ def modify_user(data, authorization):
     except Exception:
         return {"message": "Invalid data"}, 400
     db.session.commit()
-    return user.serialize(), 203
+    return user.serialize(), 201
 
 
 def get_user_by_id(user_id, authorization):
