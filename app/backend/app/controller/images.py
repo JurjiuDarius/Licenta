@@ -38,12 +38,6 @@ def get_all_images(patient_id):
     return make_response(jsonify(response), status_code)
 
 
-@images_bp.route("/<image_id>", methods=["GET"])
-@check_authorization(role=["patient", "doctor"])
-def get_image(image_id):
-    pass
-
-
 @images_bp.route("/<image_id>", methods=["DELETE"])
 @check_authorization(role=["patient", "doctor"])
 def delete_image(image_id):

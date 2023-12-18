@@ -63,12 +63,14 @@ def delete_image(image_id):
     if image_upload:
         db.session.delete(image_upload)
         db.session.commit()
-        return {"message": "Image deleted successfully"}, 203
+        return {"message": "Image deleted successfully"}, 200
     return {"message": "Image not found"}, 404
 
 
 def process_image(image_id, processing_type):
     image_upload = ImageUpload.query.get(image_id)
+    if not image_upload:
+        return {"message": "Image not found"}, 404
     if image_upload:
         image_data = io.BytesIO(image_upload.image)
         image_bytes = np.asarray(bytearray(image_data.read()), dtype=np.uint8)
