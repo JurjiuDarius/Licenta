@@ -11,10 +11,10 @@ import app.models as models
 import os
 
 
-def create_app():
+def create_app(config="config.DevelopmentConfig"):
     app = Flask(__name__)
 
-    env_config = os.getenv("APP_SETTINGS", "config.DevelopmentConfig")
+    env_config = os.getenv("APP_SETTINGS", config)
     app.config.from_object(env_config)
     db.init_app(app)
     for bp in blueprints:

@@ -20,8 +20,9 @@ class ProductionConfig(Config):
     pass
 
 
-class StagingConfig(Config):
+class TestConfig(Config):
     DEBUG = True
+    TESTING = True
 
 
 class DevelopmentConfig(Config):

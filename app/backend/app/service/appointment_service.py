@@ -31,19 +31,23 @@ def get_appointment_by_id(appointment_id):
 def create_appointment(data):
     if data["endTime"] < data["startTime"]:
         return {"message": "End time must be after start time"}, 400
-
-    appointment = Appointment(
-        requirements=data["requirements"],
-        address=data["address"],
-        date=data["date"],
-        start_time=data["startTime"],
-        end_time=data["endTime"],
-        patient_id=data["patientId"],
-        doctor_id=data["doctorId"],
-        requires_upload=data["requiresUpload"],
-    )
-    db.session.add(appointment)
-    db.session.commit()
+    try:
+        if "requirements" not in data:
+            data["requirements"] = ""
+        appointment = Appointment(
+            requirements=data["requirements"],
+            address=data["address"],
+            date=data["date"],
+            start_time=data["startTime"],
+            end_time=data["endTime"],
+            patient_id=data["patientId"],
+            doctor_id=data["doctorId"],
+            requires_upload=data["requiresUpload"],
+        )
+        db.session.add(appointment)
+        db.session.commit()
+    except Exception:
+        return {"message": "Invalid data"}, 400
     return appointment.serialize(), 201
 
 
