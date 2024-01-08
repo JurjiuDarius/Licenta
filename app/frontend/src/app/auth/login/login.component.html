@@ -5,7 +5,13 @@
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <mat-form-field appearance="outline">
           <mat-label>Email</mat-label>
-          <input matInput type="email" formControlName="email" required />
+          <input
+            name="email"
+            matInput
+            type="email"
+            formControlName="email"
+            required
+          />
           <mat-error *ngIf="loginForm.controls['email'].hasError('required')">
             Email is required
           </mat-error>
@@ -16,6 +22,7 @@
         <mat-form-field appearance="outline">
           <mat-label>Password</mat-label>
           <input
+            name="password"
             matInput
             type="password"
             formControlName="password"
@@ -35,10 +42,15 @@
         </mat-form-field>
         <mat-radio-group formControlName="role">
           How will you be using the app?
-          <mat-radio-button value="patient">Patient</mat-radio-button>
-          <mat-radio-button value="doctor">Doctor</mat-radio-button>
+          <mat-radio-button name="patientButton" value="patient"
+            >Patient</mat-radio-button
+          >
+          <mat-radio-button name="doctorButton" value="doctor"
+            >Doctor</mat-radio-button
+          >
         </mat-radio-group>
         <button
+          name="loginButton"
           mat-raised-button
           color="primary"
           type="submit"
@@ -47,6 +59,7 @@
           Login
         </button>
         <button
+          name="signupButton"
           mat-raised-button
           class="sign-up-button"
           color="primary"
