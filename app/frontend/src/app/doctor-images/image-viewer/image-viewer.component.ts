@@ -87,6 +87,7 @@ export class ImageViewerComponent {
   public openImage(id: string): void {
     const image = this.images.find((image) => image.id === id);
     if (image) {
+      console.log(this.images, id);
       if (image.originalImageId != null) {
         const originalImage = this.images.find(
           (searchImage) => searchImage.id === image.originalImageId

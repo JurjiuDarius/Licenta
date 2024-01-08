@@ -20,6 +20,7 @@ export class AppComponent {
     ],
     doctor: [
       { label: 'Appointments', path: '/appointments' },
+      { label: 'My Patients', path: '/patients' },
       { label: 'My Profile', path: '/profile' },
       { label: 'Images', path: '/doctor-images' },
       { label: 'Diagnostics', path: '/doctor-images/diagnostics' },

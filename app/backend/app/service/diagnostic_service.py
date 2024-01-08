@@ -28,7 +28,7 @@ def get_diagnostic_for_image(image_id):
 
 
 def update_diagnostic(updated_data):
-    if "id" in updated_data:
+    if "id" in updated_data and updated_data["id"] is not None:
         diagnostic_id = updated_data["id"]
         diagnostic = Diagnostic.query.get(diagnostic_id)
         if diagnostic:

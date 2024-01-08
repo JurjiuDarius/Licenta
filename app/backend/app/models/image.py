@@ -1,32 +1,28 @@
 from database import db
 from app.utils.json import json_serial_date
-from sqlalchemy import DateTime
+from sqlalchemy import DateTime, ForeignKey
+from sqlalchemy.orm import Mapped, mapped_column
 import datetime
 import base64
 
 
-class ImageUpload(db.Model):
-    __tablename__ = "image_upload"
+class GenericImage(db.Model):
+    __tablename__ = "generic_image"
 
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-
-    patient_id = db.Column(db.Integer, db.ForeignKey("patient.id"))
-
-    patient = db.relationship("Patient", back_populates="images")
+    id = mapped_column(db.Integer, primary_key=True, autoincrement=True)
 
     date_created = db.Column(DateTime, default=datetime.datetime.utcnow)
-
-    diagnostic = db.relationship(
-        "Diagnostic", back_populates="image_upload", uselist=False
-    )
 
     file_name = db.Column(db.String(1000))
 
     image = db.Column(db.LargeBinary)
 
-    processed_images = db.relationship(
-        "ProcessedImage", back_populates="original_upload"
-    )
+    type: Mapped[str]
+
+    __mapper_args__ = {
+        "polymorphic_identity": "generic_image",
+        "polymorphic_on": "type",
+    }
 
     def __init__(
         self,
@@ -39,6 +35,36 @@ class ImageUpload(db.Model):
         self.patient_id = patient_id
         self.date_created = date_created
         self.file_name = file_name
+
+
+class ImageUpload(GenericImage):
+    id = mapped_column(ForeignKey("generic_image.id"), primary_key=True)
+
+    patient_id = db.Column(db.Integer, db.ForeignKey("patient.id"))
+
+    patient = db.relationship("Patient", back_populates="images")
+
+    diagnostic = db.relationship(
+        "Diagnostic", back_populates="image_upload", uselist=False
+    )
+
+    processed_images = db.relationship(
+        "ProcessedImage",
+        back_populates="original_upload",
+        foreign_keys="ProcessedImage.original_upload_id",
+    )
+    __mapper_args__ = {
+        "polymorphic_identity": "image_upload",
+    }
+
+    def __init__(
+        self,
+        image=None,
+        patient_id=None,
+        date_created=None,
+        file_name=None,
+    ):
+        super().__init__(image, patient_id, date_created, file_name)
 
     def serialize(self):
         image_base64 = (
@@ -53,24 +79,22 @@ class ImageUpload(db.Model):
         }
 
 
-class ProcessedImage(db.Model):
+class ProcessedImage(GenericImage):
     __tablename__ = "processed_image"
 
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    id = mapped_column(ForeignKey("generic_image.id"), primary_key=True)
 
     patient_id = db.Column(db.Integer, db.ForeignKey("patient.id"))
 
     patient = db.relationship("Patient", back_populates="processed_images")
 
-    date_created = db.Column(DateTime, default=datetime.datetime.utcnow)
-
-    file_name = db.Column(db.String(1000))
-
-    image = db.Column(db.LargeBinary)
-
     original_upload_id = db.Column(db.Integer, db.ForeignKey("image_upload.id"))
 
-    original_upload = db.relationship("ImageUpload")
+    original_upload = db.relationship("ImageUpload", foreign_keys=[original_upload_id])
+
+    __mapper_args__ = {
+        "polymorphic_identity": "processed_image",
+    }
 
     def __init__(
         self,
@@ -80,10 +104,7 @@ class ProcessedImage(db.Model):
         file_name=None,
         original_upload_id=None,
     ):
-        self.image = image
-        self.patient_id = patient_id
-        self.date_created = date_created
-        self.file_name = file_name
+        super().__init__(image, patient_id, date_created, file_name)
         self.original_upload_id = original_upload_id
 
     def serialize(self):
