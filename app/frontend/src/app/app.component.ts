@@ -23,7 +23,6 @@ export class AppComponent {
       { label: 'My Patients', path: '/patients' },
       { label: 'My Profile', path: '/profile' },
       { label: 'Images', path: '/doctor-images' },
-      { label: 'Diagnostics', path: '/doctor-images/diagnostics' },
     ],
     admin: [],
   };

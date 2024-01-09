@@ -65,7 +65,6 @@ export class ImageViewerComponent {
       .getAllImagesForPatient(patientId)
       .subscribe((response) => {
         this.images = response;
-        console.log(response);
         this.images.map((image) => {
           image.image = 'data:image/png;base64,' + image.image;
         });
@@ -88,7 +87,6 @@ export class ImageViewerComponent {
   public openImage(id: string): void {
     const image = this.images.find((image) => image.id === id);
     if (image) {
-      console.log(this.images, id);
       if (image.originalImageId != null) {
         const originalImage = this.images.find(
           (searchImage) => searchImage.id === image.originalImageId
@@ -112,7 +110,6 @@ export class ImageViewerComponent {
     if (!this.originalImage) {
       return;
     }
-    console.log(this.originalImage?.id, processingType);
     this.imageService
       .processImage(this.originalImage?.id, processingType)
       .subscribe({
@@ -139,6 +136,7 @@ export class ImageViewerComponent {
       .getDiagnosticForImage(this.originalImage?.id)
       .subscribe({
         next: (response) => {
+          console.log('Opening dialog', response);
           this.openDialog(response);
         },
         error: (error) => {
