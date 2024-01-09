@@ -1,5 +1,3 @@
-// cypress/e2e/authentication.spec.ts
-
 describe('Authentication', () => {
   context('Login', () => {
     beforeEach(() => {

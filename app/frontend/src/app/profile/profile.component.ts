@@ -94,14 +94,4 @@ export class ProfileComponent {
       console.log('Invalid form');
     }
   }
-  public updateRole(role: string) {
-    if (role === 'doctor') {
-      this.role = 'doctor';
-      this.currentForm = this.doctorForm;
-    }
-    if (role === 'patient') {
-      this.role = 'patient';
-      this.currentForm = this.patientForm;
-    }
-  }
 }
