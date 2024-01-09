@@ -65,6 +65,7 @@ export class ImageViewerComponent {
       .getAllImagesForPatient(patientId)
       .subscribe((response) => {
         this.images = response;
+        console.log(response);
         this.images.map((image) => {
           image.image = 'data:image/png;base64,' + image.image;
         });
@@ -111,6 +112,7 @@ export class ImageViewerComponent {
     if (!this.originalImage) {
       return;
     }
+    console.log(this.originalImage?.id, processingType);
     this.imageService
       .processImage(this.originalImage?.id, processingType)
       .subscribe({
@@ -124,6 +126,7 @@ export class ImageViewerComponent {
           this.fetchFunction(this.selectedPatientId);
         },
         error: (error) => {
+          console.log(error);
           this.snackbar.open('Error processing image!', 'Close');
         },
       });
