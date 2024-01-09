@@ -1,0 +1,13 @@
+[
+  {
+    "id": 1,
+    "requirements": "None",
+    "address": "123 Fake Street",
+    "date": "2021-04-01T00:00:00",
+    "startTime": "2021-04-01T09:00:00",
+    "endTime": "2021-04-01T10:00:00",
+    "doctorId": 1,
+    "patientId": null,
+    "requiresUpload": true
+  }
+]

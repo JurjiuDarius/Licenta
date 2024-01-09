@@ -12,7 +12,7 @@ describe('Authentication', () => {
 
     it('logs in successfully', () => {
       cy.intercept('POST', 'http://localhost:5000/auth/login', {
-        fixture: 'login-response.json',
+        fixture: 'login-response-doctor.json',
       }).as('login');
       cy.get('input[name="email"]').type('testuser@email.com');
       cy.get('input[name="password"]').type('testpassword');
@@ -24,7 +24,7 @@ describe('Authentication', () => {
 
     it('Disallows login', () => {
       cy.intercept('POST', 'http://localhost:5000/auth/login', {
-        fixture: 'login-response.json',
+        fixture: 'login-response-doctor.json',
       }).as('login');
       cy.get('input[name="email"]').type('invalid');
       cy.get('input[name="password"]').type('testpassword');
