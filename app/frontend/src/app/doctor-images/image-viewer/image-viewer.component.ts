@@ -136,7 +136,6 @@ export class ImageViewerComponent {
       .getDiagnosticForImage(this.originalImage?.id)
       .subscribe({
         next: (response) => {
-          console.log('Opening dialog', response);
           this.openDialog(response);
         },
         error: (error) => {
