@@ -1,6 +1,6 @@
 from app.models.image import ImageUpload, ProcessedImage, db
 from app.models.diagnostic import Diagnostic
-from app.service import image_processing_service
+from app.image_processing import image_processing
 from sqlalchemy import not_
 from PIL import Image
 import cv2
@@ -76,10 +76,8 @@ def process_image(image_id, processing_type):
         image_bytes = np.asarray(bytearray(image_data.read()), dtype=np.uint8)
         image = cv2.imdecode(image_bytes, cv2.IMREAD_COLOR)
         try:
-            processed_image = image_processing_service.process_image(
-                image, processing_type
-            )
-        except Exception:
+            processed_image = image_processing.process_image(image, processing_type)
+        except Exception as e:
             return {"message": "Image processing failed"}, 500
         processed_file_name = (
             image_upload.file_name.split(".")[0] + processing_type + ".png"

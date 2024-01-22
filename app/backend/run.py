@@ -23,7 +23,7 @@ def create_app(config="config.DevelopmentConfig"):
     login_manager.init_app(app)
     admin = Admin(
         app,
-        name="Daashboard",
+        name="Dashboard",
         template_mode="bootstrap3",
         url="/dashboard",
         index_view=SecureIndexView(name="Home", url="/dashboard"),
