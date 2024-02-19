@@ -39,7 +39,7 @@ def transform_dataset():
             image = cv2.imread(os.path.join(IMAGES_LOCATION, f"{i}.png"))
             for d in data:
                 yolo_data = to_yolo(d, image.shape[0], image.shape[1])
-                f.write(f"1 {' '.join([str(a) for a in yolo_data])}\n")
+                f.write(f"0 {' '.join([str(a) for a in yolo_data])}\n")
 
 
 if __name__ == "__main__":
