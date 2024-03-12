@@ -18,7 +18,7 @@ export class PatientsComponent {
     private router: Router,
     private dialog: MatDialog,
     private userService: UserService,
-    private snackbar: MatSnackBar
+    private snackbar: MatSnackBar,
   ) {
     this.getPatients();
   }

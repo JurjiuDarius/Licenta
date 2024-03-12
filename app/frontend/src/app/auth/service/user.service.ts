@@ -22,7 +22,7 @@ export class UserService {
 
   public addPatientForDoctor(
     patientEmail: any,
-    doctorId: string
+    doctorId: string,
   ): Observable<any> {
     return this.http.post(`${this.apiUrl}/users/add-patient/${doctorId}`, {
       email: patientEmail,

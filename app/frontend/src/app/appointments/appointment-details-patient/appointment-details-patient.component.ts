@@ -18,7 +18,7 @@ export class AppointmentDetailsPatientComponent {
   constructor(
     private appointmentsService: AppointmentsService,
     private userService: UserService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {
     this.getAppointmentById();
   }

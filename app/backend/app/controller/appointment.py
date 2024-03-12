@@ -1,10 +1,9 @@
-from flask import Blueprint, jsonify, request, make_response
-from app.utils.jwt import check_authorization
-from ..models import Appointment
-from database import db
-from flask import Blueprint, jsonify, request
-from app.utils.jwt import check_authorization
 from app.service import appointment_service
+from app.utils.jwt import check_authorization
+from database import db
+from flask import Blueprint, jsonify, make_response, request
+
+from ..models import Appointment
 
 appointment_bp = Blueprint("appointment", __name__, url_prefix="/appointments")
 

@@ -16,7 +16,7 @@ export class ImageUploadComponent implements OnInit {
   constructor(
     private imageService: ImageService,
     private snackbar: MatSnackBar,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {}
   ngOnInit(): void {
     this.getImages();

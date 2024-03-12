@@ -1,7 +1,7 @@
-from flask import Blueprint, request, jsonify, make_response
-from app.models import User, Doctor, db
+from app.models import Doctor, User, db
 from app.service import user_service
 from app.utils.jwt import check_authorization
+from flask import Blueprint, jsonify, make_response, request
 
 user_bp = Blueprint("user", __name__, url_prefix="/users")
 

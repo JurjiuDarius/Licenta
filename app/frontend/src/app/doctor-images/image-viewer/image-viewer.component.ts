@@ -26,7 +26,7 @@ export class ImageViewerComponent {
     private userService: UserService,
     private diagnosticService: DiagnosticService,
     private dialog: MatDialog,
-    private snackbar: MatSnackBar
+    private snackbar: MatSnackBar,
   ) {
     this.getPatients();
   }
@@ -89,7 +89,7 @@ export class ImageViewerComponent {
     if (image) {
       if (image.originalImageId != null) {
         const originalImage = this.images.find(
-          (searchImage) => searchImage.id === image.originalImageId
+          (searchImage) => searchImage.id === image.originalImageId,
         );
 
         if (originalImage) {
@@ -98,7 +98,7 @@ export class ImageViewerComponent {
         } else {
           this.snackbar.open(
             'Error getting the original image. You can still download the processed image',
-            'Close'
+            'Close',
           );
         }
       } else {

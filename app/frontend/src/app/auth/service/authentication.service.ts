@@ -22,7 +22,7 @@ export class AuthenticationService {
         tap((response: any) => {
           this.setLocalStorage(response.token);
           this.authChanges.next(true);
-        })
+        }),
       );
   }
 

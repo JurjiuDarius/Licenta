@@ -24,12 +24,12 @@ describe('User details', () => {
       cy.get("input[formControlName='lastName']").should('have.value', 'Doe');
       cy.get("input[formControlName='phone']").should(
         'have.value',
-        '1234567890'
+        '1234567890',
       );
       cy.get("input[formControlName='city']").should('have.value', 'New York');
       cy.get("input[formControlName='email']").should(
         'have.value',
-        'test@mail.com'
+        'test@mail.com',
       );
     });
   });

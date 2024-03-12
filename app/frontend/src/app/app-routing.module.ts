@@ -12,7 +12,7 @@ const routes: Routes = [
     path: 'appointments',
     loadChildren: () =>
       import('./appointments/appointments.module').then(
-        (m) => m.AppointmentsModule
+        (m) => m.AppointmentsModule,
       ),
   },
   {
@@ -24,7 +24,7 @@ const routes: Routes = [
     path: 'doctor-images',
     loadChildren: () =>
       import('./doctor-images/doctor-images.module').then(
-        (m) => m.DoctorImagesModule
+        (m) => m.DoctorImagesModule,
       ),
   },
   {

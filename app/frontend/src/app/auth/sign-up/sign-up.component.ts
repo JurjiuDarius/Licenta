@@ -16,7 +16,7 @@ export class SignUpComponent {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthenticationService,
-    private router: Router
+    private router: Router,
   ) {
     this.authService.logOut();
     this.doctorForm = this.formBuilder.group(
@@ -33,7 +33,7 @@ export class SignUpComponent {
       },
       {
         validators: this.passwordMatchValidator,
-      }
+      },
     );
     this.patientForm = this.formBuilder.group(
       {
@@ -48,7 +48,7 @@ export class SignUpComponent {
       },
       {
         validators: this.passwordMatchValidator,
-      }
+      },
     );
     this.currentForm = this.patientForm;
   }

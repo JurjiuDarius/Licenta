@@ -30,7 +30,7 @@ export class AppComponent {
 
   constructor(
     private authService: AuthenticationService,
-    private router: Router
+    private router: Router,
   ) {
     this.setRole();
     this.authService.getAuthChanges().subscribe((isAuthenticated) => {

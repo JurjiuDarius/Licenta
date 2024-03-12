@@ -18,16 +18,16 @@ export class ImageService {
 
     return this.http.post(
       `${this.apiUrl}/images/user-upload/${userId}`,
-      formData
+      formData,
     );
   }
 
   public processImage(
     imageId: string,
-    processingType: string
+    processingType: string,
   ): Observable<any> {
     return this.http.get(
-      `${this.apiUrl}/images/process-image/${imageId}/${processingType}`
+      `${this.apiUrl}/images/process-image/${imageId}/${processingType}`,
     );
   }
 
@@ -39,7 +39,7 @@ export class ImageService {
   }
   public getDiagnosedImagesForPatient(userId: string): Observable<any> {
     return this.http.get(
-      `${this.apiUrl}/images/user-images-diagnosed/${userId}`
+      `${this.apiUrl}/images/user-images-diagnosed/${userId}`,
     );
   }
   public deleteImage(id: string): Observable<any> {

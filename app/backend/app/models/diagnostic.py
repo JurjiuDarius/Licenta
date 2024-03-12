@@ -1,8 +1,9 @@
-from database import db
-from app.utils.json import json_serial_date
-from sqlalchemy import DateTime, Date, Time
-import datetime
 import base64
+import datetime
+
+from app.utils.json import json_serial_date
+from database import db
+from sqlalchemy import Date, DateTime, Time
 
 
 class Appointment(db.Model):

@@ -18,7 +18,7 @@ export class LoginComponent {
     private formBuilder: FormBuilder,
     private authService: AuthenticationService,
     private router: Router,
-    private loader: LoaderService
+    private loader: LoaderService,
   ) {
     this.authService.logOut();
     this.loginForm = this.formBuilder.group({
@@ -34,7 +34,7 @@ export class LoginComponent {
         .logIn(
           this.loginForm.get('email')?.value,
           this.loginForm.get('password')?.value,
-          this.loginForm.get('role')?.value
+          this.loginForm.get('role')?.value,
         )
         .subscribe({
           next: (response) => {

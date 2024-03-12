@@ -62,10 +62,7 @@
         >
 
         <mat-error
-          *ngIf="
-form.errors?.['timeError'] &&
-(form.touched || form.dirty)
-"
+          *ngIf="form.errors?.['timeError'] && (form.touched || form.dirty)"
         >
           Start and end time need to be chronologically ordered.
         </mat-error>

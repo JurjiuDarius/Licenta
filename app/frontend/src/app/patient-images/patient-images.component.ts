@@ -16,7 +16,7 @@ export class PatientImagesComponent {
   constructor(
     private imageService: ImageService,
     private diagnosticService: DiagnosticService,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
   ) {
     if (this.patientId == null) {
       this.patientId = localStorage.getItem('currentUserId');

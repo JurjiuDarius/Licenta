@@ -14,7 +14,7 @@ export class AppointmentsService {
 
   getAllAppointmentsForPatient(currentUserId: number): Observable<any> {
     return this.http.get(
-      this.apiUrl + `/appointments/patient/${currentUserId}`
+      this.apiUrl + `/appointments/patient/${currentUserId}`,
     );
   }
   getAllAppointmentsForDoctor(currentUserId: number): Observable<any> {

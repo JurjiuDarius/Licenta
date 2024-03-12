@@ -17,7 +17,7 @@ export class AppointmentsComponent {
   constructor(
     private appointmentsService: AppointmentsService,
     private authService: AuthenticationService,
-    private router: Router
+    private router: Router,
   ) {
     this.getLocalStorage();
     this.getAllAppointments();

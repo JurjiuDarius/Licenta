@@ -28,7 +28,7 @@ export class AppointmentDetailsDoctorComponent {
     private userService: UserService,
     private route: ActivatedRoute,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
   ) {
     this.getPatients();
     this.getAppointmentById();
@@ -42,7 +42,7 @@ export class AppointmentDetailsDoctorComponent {
         endTime: [null, Validators.required],
         requiresUpload: [false],
       },
-      { validators: timeSlotValidator }
+      { validators: timeSlotValidator },
     );
   }
 

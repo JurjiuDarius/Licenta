@@ -19,7 +19,7 @@ export class ProfileComponent {
     private formBuilder: FormBuilder,
     private userService: UserService,
     private snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
   ) {
     this.doctorForm = this.formBuilder.group({
       firstName: ['', [Validators.required]],

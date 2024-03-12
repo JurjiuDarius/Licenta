@@ -11,7 +11,7 @@ export class ConfirmationDialogComponent {
   public message: string = '';
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<ConfirmationDialogComponent>
+    public dialogRef: MatDialogRef<ConfirmationDialogComponent>,
   ) {
     this.message = data.message;
   }

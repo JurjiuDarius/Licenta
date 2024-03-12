@@ -14,7 +14,7 @@ export class DiagnosticDialogComponent {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<AddPatientDialogComponent>
+    public dialogRef: MatDialogRef<AddPatientDialogComponent>,
   ) {
     this.id = data.id;
     this.text = data.text;
