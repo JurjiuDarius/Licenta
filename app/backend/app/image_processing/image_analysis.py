@@ -55,8 +55,7 @@ def CCA_Analysis(orig_image, predict_image, erode_iteration, open_iteration):
 
         (tltrX, tltrY) = midpoint(tl, tr)
         (blbrX, blbrY) = midpoint(bl, br)
-        # compute the midpoint between the top-left and top-right points,
-        # followed by the midpoint between the top-righ and bottom-right
+
         (tlblX, tlblY) = midpoint(tl, bl)
         (trbrX, trbrY) = midpoint(tr, br)
         # draw the midpoints on the image
@@ -101,3 +100,57 @@ def CCA_Analysis(orig_image, predict_image, erode_iteration, open_iteration):
         )
     teeth_count = count2
     return image2, teeth_count
+
+
+def draw_bboxes(image, bboxes):
+    for box in bboxes:
+        draw_box(image, box)
+
+    return image
+
+
+def draw_box(image, box):
+
+    box = perspective.order_points(box)
+    color1 = list(np.random.choice(range(150), size=3))
+    color = [int(color1[0]), int(color1[1]), int(color1[2])]
+    cv2.drawContours(image, [box.astype("int")], 0, color, 2)
+    (tl, tr, br, bl) = box
+
+    (tltrX, tltrY) = midpoint(tl, tr)
+    (blbrX, blbrY) = midpoint(bl, br)
+
+    (tlblX, tlblY) = midpoint(tl, bl)
+    (trbrX, trbrY) = midpoint(tr, br)
+    # draw the midpoints on the image
+    cv2.circle(image, (int(tltrX), int(tltrY)), 5, (255, 0, 0), -1)
+    cv2.circle(image, (int(blbrX), int(blbrY)), 5, (255, 0, 0), -1)
+    cv2.circle(image, (int(tlblX), int(tlblY)), 5, (255, 0, 0), -1)
+    cv2.circle(image, (int(trbrX), int(trbrY)), 5, (255, 0, 0), -1)
+    cv2.line(image, (int(tltrX), int(tltrY)), (int(blbrX), int(blbrY)), color, 2)
+    cv2.line(image, (int(tlblX), int(tlblY)), (int(trbrX), int(trbrY)), color, 2)
+    dA = dist.euclidean((tltrX, tltrY), (blbrX, blbrY))
+    dB = dist.euclidean((tlblX, tlblY), (trbrX, trbrY))
+
+    pixelsPerMetric = 1
+    dimA = dA * pixelsPerMetric
+    dimB = dB * pixelsPerMetric
+    cv2.putText(
+        image,
+        "{:.1f}pixel".format(dimA),
+        (int(tltrX - 15), int(tltrY - 10)),
+        cv2.FONT_HERSHEY_SIMPLEX,
+        0.65,
+        color,
+        2,
+    )
+    cv2.putText(
+        image,
+        "{:.1f}pixel".format(dimB),
+        (int(trbrX + 10), int(trbrY)),
+        cv2.FONT_HERSHEY_SIMPLEX,
+        0.65,
+        color,
+        2,
+    )
+    return image
