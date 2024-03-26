@@ -120,10 +120,6 @@ class Doctor(User):
         "Patient", secondary="patient_doctor", back_populates="doctors"
     )
 
-    clinics = relationship(
-        "Clinic", secondary="clinic_doctor", back_populates="doctors"
-    )
-
     __mapper_args__ = {
         "polymorphic_identity": "doctor",
     }
