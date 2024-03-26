@@ -14,7 +14,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
   intercept(
     request: HttpRequest<unknown>,
-    next: HttpHandler,
+    next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
     const token = localStorage.getItem('jwtToken');
     if (!token) {
@@ -26,7 +26,7 @@ export class TokenInterceptor implements HttpInterceptor {
     return next.handle(authorizedRequest).pipe(
       finalize(() => {
         this.loaderService.hideLoader();
-      }),
+      })
     );
   }
 }
