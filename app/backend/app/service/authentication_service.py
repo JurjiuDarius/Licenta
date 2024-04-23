@@ -37,6 +37,13 @@ def sign_up(data):
     birth_date = user.get("birthDate")
     education = user.get("education")
     hashed_password = hashlib.sha256(password.encode()).hexdigest()
+
+    if birth_date > "2003-01-01":
+        return {"message": "You must be at least 18 years old to register!"}, 400
+    if birth_date < "1900-01-01":
+        return {"message": "Invalid birth date!"}, 400
+    if ("@" not in email) or ("." not in email):
+        return {"message": "Invalid email!"}, 400
     if role == "patient":
         query_class = Patient
     elif role == "doctor":

@@ -22,7 +22,7 @@ export class AuthenticationService {
         tap((response: any) => {
           this.setLocalStorage(response.token);
           this.authChanges.next(true);
-        }),
+        })
       );
   }
 
@@ -31,8 +31,8 @@ export class AuthenticationService {
     this.authChanges.next(false);
   }
 
-  public signUp(user: any, role: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/auth/signup`, { user, role });
+  public signUp(user: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/auth/signup`, { user });
   }
 
   private setLocalStorage(token: string): void {

@@ -32,6 +32,8 @@ def create_appointment(data):
     try:
         if data["endTime"] < data["startTime"]:
             return {"message": "End time must be after start time"}, 400
+        if data["endTime"] > "24:00:00" or data["startTime"] > "24:00:00":
+            return {"message": "Time must be less than 24 hours"}, 400
 
         if "requirements" not in data:
             data["requirements"] = ""
@@ -62,6 +64,9 @@ def update_appointment(id, data):
     try:
         if data["endTime"] < data["startTime"]:
             return {"message": "End time must be after start time"}, 400
+        # Check that none of the times are above 24 hours
+        if data["endTime"] > "24:00:00" or data["startTime"] > "24:00:00":
+            return {"message": "Time must be less than 24 hours"}, 400
         appointment = Appointment.query.get(id)
         appointment.requirements = data["requirements"]
         appointment.address = data["address"]

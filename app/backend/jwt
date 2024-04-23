@@ -1,0 +1,20 @@
+digraph clusterjson_serial_date {
+	graph [label=json_serial_date]
+	1 [label="from datetime import date, datetime, time
+def json_serial_date(obj):...
+"]
+	subgraph clusterjson_serial_date {
+		graph [label=json_serial_date]
+		3 [label="if obj is None:
+"]
+		4 [label="return None
+"]
+		3 -> 4 [label="obj is None"]
+		5 [label="if isinstance(obj, (datetime, date, time)):
+"]
+		7 [label="return obj.isoformat()
+"]
+		5 -> 7 [label="isinstance(obj, (datetime, date, time))"]
+		3 -> 5 [label="(obj is not None)"]
+	}
+}

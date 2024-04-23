@@ -1,7 +1,7 @@
 import unittest
 from flask import json
-from run import create_app, db
 from app.models import Appointment, Patient, Doctor
+from run import create_app, db
 
 
 class TestAppointmentRoutes(unittest.TestCase):
@@ -85,24 +85,7 @@ class TestAppointmentRoutes(unittest.TestCase):
             )
             self.assertEqual(response.status_code, 400)
 
-    def test_create_appointment_wrong_time(self):
-        with self.app.app_context():
-            data = {
-                "patientId": self.patient_id,
-                "doctorId": self.doctor_id,
-                "requirements": "test requirements",
-                "address": "test address",
-                "date": "2022-01-02",
-                "startTime": "12:00:00",
-                "endTime": "11:00:00",
-                "requiresUpload": False,
-            }
-            response = self.client.post(
-                "/appointments", data=json.dumps(data), content_type="application/json"
-            )
-            self.assertEqual(response.status_code, 400)
-
-    def test_update_appointment(self):
+    def test_update_appointment_ecp(self):
         with self.app.app_context():
             data = {
                 "patientId": self.patient_id,
@@ -121,7 +104,7 @@ class TestAppointmentRoutes(unittest.TestCase):
             )
             self.assertEqual(response.status_code, 200)
 
-    def test_update_appointment_wrong_time(self):
+    def test_update_appointment_wrong_time_ecp(self):
         with self.app.app_context():
             data = {
                 "patientId": self.patient_id,
@@ -131,6 +114,44 @@ class TestAppointmentRoutes(unittest.TestCase):
                 "date": "2022-01-02",
                 "startTime": "12:00:00",
                 "endTime": "11:00:00",
+                "requiresUpload": False,
+            }
+            response = self.client.put(
+                f"/appointments/{self.appointment_id}",
+                data=json.dumps(data),
+                content_type="application/json",
+            )
+            self.assertEqual(response.status_code, 400)
+
+    def test_update_appointment_correcct_time_bva(self):
+        with self.app.app_context():
+            data = {
+                "patientId": self.patient_id,
+                "doctorId": self.doctor_id,
+                "requirements": "test requirements update",
+                "address": "test address",
+                "date": "2022-01-02",
+                "startTime": "00:00:00",
+                "endTime": "13:00:00",
+                "requiresUpload": False,
+            }
+            response = self.client.put(
+                f"/appointments/{self.appointment_id}",
+                data=json.dumps(data),
+                content_type="application/json",
+            )
+            self.assertEqual(response.status_code, 200)
+
+    def test_update_appointment_wrong_time_bva(self):
+        with self.app.app_context():
+            data = {
+                "patientId": self.patient_id,
+                "doctorId": self.doctor_id,
+                "requirements": "test requirements update",
+                "address": "test address",
+                "date": "2022-01-02",
+                "startTime": "12:00:00",
+                "endTime": "25:00:00",
                 "requiresUpload": False,
             }
             response = self.client.put(
