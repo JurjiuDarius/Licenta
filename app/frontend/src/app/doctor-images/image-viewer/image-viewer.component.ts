@@ -4,7 +4,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserService } from 'src/app/auth/service/user.service';
 import { ImageService } from 'src/app/images/service/image.service';
 import { Image } from 'src/app/models/image';
-import { User } from 'src/app/models/user';
 import { DiagnosticDialogComponent } from '../diagnostic-dialog/diagnostic-dialog.component';
 import { DiagnosticService } from '../service/diagnostic.service';
 
@@ -15,7 +14,7 @@ import { DiagnosticService } from '../service/diagnostic.service';
 })
 export class ImageViewerComponent {
   public images: Image[] = [];
-  public patients: User[] = [];
+  public patients: any[] = [];
   public selectedPatientId: string = '';
   public originalImage: Image | null = null;
   public processedImage: Image | null = null;
@@ -26,7 +25,7 @@ export class ImageViewerComponent {
     private userService: UserService,
     private diagnosticService: DiagnosticService,
     private dialog: MatDialog,
-    private snackbar: MatSnackBar,
+    private snackbar: MatSnackBar
   ) {
     this.getPatients();
   }
@@ -89,7 +88,7 @@ export class ImageViewerComponent {
     if (image) {
       if (image.originalImageId != null) {
         const originalImage = this.images.find(
-          (searchImage) => searchImage.id === image.originalImageId,
+          (searchImage) => searchImage.id === image.originalImageId
         );
 
         if (originalImage) {
@@ -98,7 +97,7 @@ export class ImageViewerComponent {
         } else {
           this.snackbar.open(
             'Error getting the original image. You can still download the processed image',
-            'Close',
+            'Close'
           );
         }
       } else {

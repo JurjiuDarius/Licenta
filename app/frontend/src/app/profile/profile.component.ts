@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { AuthenticationService } from '../auth/service/authentication.service';
-import { UserService } from '../auth/service/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { UserService } from '../auth/service/user.service';
 @Component({
   selector: 'app-signup',
   templateUrl: './profile.component.html',
@@ -19,7 +18,7 @@ export class ProfileComponent {
     private formBuilder: FormBuilder,
     private userService: UserService,
     private snackBar: MatSnackBar,
-    private router: Router,
+    private router: Router
   ) {
     this.doctorForm = this.formBuilder.group({
       firstName: ['', [Validators.required]],
